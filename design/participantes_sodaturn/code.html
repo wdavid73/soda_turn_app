@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Participantes - SodaTurn</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c5c5d4",
+                    "error": "#ba1a1a",
+                    "surface-container": "#f0edf2",
+                    "on-primary-fixed": "#00105c",
+                    "on-error-container": "#93000a",
+                    "primary": "#24389c",
+                    "surface-variant": "#e4e1e7",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1b1b1f",
+                    "tertiary": "#004a57",
+                    "secondary-container": "#5cfd80",
+                    "on-surface-variant": "#454652",
+                    "outline": "#757684",
+                    "surface-dim": "#dcd9de",
+                    "primary-fixed": "#dee0ff",
+                    "surface-container-highest": "#e4e1e7",
+                    "on-tertiary-fixed-variant": "#004e5b",
+                    "inverse-primary": "#bac3ff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "primary-container": "#3f51b5",
+                    "background": "#fbf8fe",
+                    "tertiary-fixed-dim": "#49d7f4",
+                    "on-secondary-container": "#00732c",
+                    "on-tertiary-container": "#63e3ff",
+                    "on-tertiary-fixed": "#001f26",
+                    "surface-container-low": "#f6f2f8",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "on-primary-container": "#cacfff",
+                    "surface-container-high": "#eae7ed",
+                    "primary-fixed-dim": "#bac3ff",
+                    "tertiary-fixed": "#a8edff",
+                    "surface-tint": "#4355b9",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#69ff87",
+                    "on-secondary-fixed": "#002108",
+                    "secondary": "#006e2a",
+                    "tertiary-container": "#006474",
+                    "surface": "#fbf8fe",
+                    "inverse-on-surface": "#f3f0f5",
+                    "surface-bright": "#fbf8fe",
+                    "inverse-surface": "#303034",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1b1b1f",
+                    "on-primary-fixed-variant": "#293ca0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "margin-tablet": "24px",
+                    "lg": "24px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "title-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bubbly-pattern {
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 10%),
+                              radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 15%),
+                              radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 8%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-background flex justify-between items-center px-margin-mobile py-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">bubble_chart</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SodaTurn</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</button>
+</header>
+<main class="px-margin-mobile space-y-lg">
+<!-- Page Title & Search -->
+<section class="space-y-md">
+<h2 class="font-title-lg text-title-lg text-on-surface">Participantes</h2>
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline">search</span>
+</div>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary-container transition-all placeholder:text-outline-variant font-body-md" placeholder="Buscar por nombre..." type="text"/>
+</div>
+</section>
+<!-- Stats Overview (Asymmetric Bento Lite) -->
+<section class="grid grid-cols-2 gap-md">
+<div class="bg-primary-container p-md rounded-2xl bubbly-pattern shadow-sm">
+<p class="text-on-primary-container font-label-md opacity-80">Total Activos</p>
+<h3 class="text-on-primary-container font-headline-lg text-headline-lg mt-1">12</h3>
+</div>
+<div class="bg-secondary-container p-md rounded-2xl shadow-sm flex flex-col justify-between">
+<p class="text-on-secondary-container font-label-md opacity-80">Promedio Equidad</p>
+<div class="flex items-center gap-2">
+<h3 class="text-on-secondary-container font-headline-lg text-headline-lg">92%</h3>
+<span class="material-symbols-outlined text-on-secondary-container text-sm">trending_up</span>
+</div>
+</div>
+</section>
+<!-- Participants List -->
+<section class="space-y-sm">
+<h3 class="font-label-lg text-outline-variant px-1">Activos</h3>
+<!-- List Item 1 -->
+<div class="bg-surface-container-lowest p-md rounded-2xl flex items-center justify-between shadow-sm border border-surface-container transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant ring-2 ring-secondary-container">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot of a smiling young woman with glasses, minimalist business casual attire, soft natural window lighting, clean corporate aesthetic, soft blue background tones to match the SodaTurn brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCh8jGS_FMu5XJTYMs45h8W0tcCjXkKUYptd2ExzexifyHZR89VPItbf33eZJn14OaGXSbIvLoqGy97SBFRzyYvr6ADgeRr_lfowkB984j957aDzoIkEOAuKT_OUW2UHs14yb1p3jf-3kTBzB5CkrJUQnuGMZOPwK11xbJI-UkH7m13twGUrMrE5oGC7jmJhUl70XurJCufVW_LQt3MzRh9ADnWxA56jn30cdDr7t0xe-xj2D4C-SBU1qo9StYW4yRFm8kfcdgcTBk"/>
+</div>
+<div>
+<h4 class="font-body-lg text-on-surface font-semibold">Ana García</h4>
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full text-[10px] font-bold">98% FAIR</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="bg-surface-container-lowest p-md rounded-2xl flex items-center justify-between shadow-sm border border-surface-container transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A portrait of a cheerful man in a green polo shirt, standing in a modern brightly lit office with lush indoor plants. The photo uses high-key lighting and a shallow depth of field, embodying the effervescent and friendly corporate spirit of the SodaTurn brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcBigNvIeQLm1t4VbJdFsff6Z7RrLX_NiAWsY9Hg4l-IPoHlFYd_3mRqUSzLQyT1nkPuINLsEEXNCogd2KLJ4xHDPJZtD0j0COhSLW-_6dnFxlsvGoX_yF_6O0FnHwh7RdoseHAEpzaR9DKgD7qE6FkGjQgy2YKmhDo3wlP36NUHa_w0HaNnxNiKoO-sjHZUQv-SlkC-EjHhe5lsxRg43mQ-jwHp4gYpMT6t35meTxyBo_TdFuyuzN_tNnYt50fanpVXfOqft0T-8"/>
+</div>
+<div>
+<h4 class="font-body-lg text-on-surface font-semibold">Marcos Ruiz</h4>
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full text-[10px] font-bold">95% FAIR</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="bg-surface-container-lowest p-md rounded-2xl flex items-center justify-between shadow-sm border border-surface-container transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A creative headshot of a woman with curly hair wearing a vibrant blue blouse, against a clean white studio background. The lighting is crisp and refreshing, similar to a high-end modern tech company profile, emphasizing reliability and professional sparkle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtN3agJbUvliLKL_H-Of8-ka4lsB1fMEXE6fE3MhMAh6HPtm_tQnVbnb547uwMBF99HnyZsifl8IxR7eI_ogNtgc8zTD6UJRu5IZONF9Rf4lcOz2kdKaBP8Z8yV-e-VGcvRMhwSexqEl7rmXadRciIXd60zndVZK0yyOlBY603OW1N8SLRY7MHL6D3Nd-h-_Bpd_X3fSFAIUgc4iUvPRGYnMlbyp4FBkJEU3G68bB9fHQA-0Nl9WkGVeGJCJ7-yaps27IXhpjTBLY"/>
+</div>
+<div>
+<h4 class="font-body-lg text-on-surface font-semibold">Elena Soler</h4>
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full text-[10px] font-bold">89% FAIR</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Inactive Section -->
+<h3 class="font-label-lg text-outline-variant px-1 pt-lg">Inactivos</h3>
+<div class="bg-surface-dim/40 opacity-70 p-md rounded-2xl flex items-center justify-between border border-dashed border-outline-variant transition-opacity grayscale">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A minimalist avatar placeholder showing a male silhouette in muted grey tones, representing a deactivated user profile within a clean, modern dashboard interface. The design is systematic and follows professional UI accessibility standards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjtntEYl6PXpQ7j_40FZ17DO0jAgX9ktykJVMF6ynKKdd_C2bCxKBoYneXp3f-gVmRCtoXzkpWC1ouV5zDoyRDBnPyYIG7PnS0pkIqzXsUgJw8I9HURZpyjeQBICqS9FKjkBL-em6J2TLWUcMN7pBTf6OmniXiFf5Ft-PGo-czbUR6jtU2oNsBhgedjoTTXF4ctPvPcKwsjuEe9gKC9KDIHz0q4z3BTzz32yeo4IWjCjx71tMjuIruIWnwqC_rtHWPRvmgLgGY2p4"/>
+</div>
+<div>
+<h4 class="font-body-lg text-on-surface font-semibold">Roberto Díaz</h4>
+<p class="text-label-md text-outline">Ausente hasta el 15/10</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-outline">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-90 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface-container shadow-[0_-4px_12px_rgba(36,56,156,0.08)] flex justify-around items-center pt-2 pb-safe px-2 rounded-t-xl z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_view_week</span>
+<span class="font-label-md text-label-md">Weekly</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">People</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-md text-label-md">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Ripple effect or subtle interaction for list items
+        document.querySelectorAll('.active\\:scale-\\[0\\.98\\]').forEach(item => {
+            item.addEventListener('touchstart', () => {
+                item.style.backgroundColor = 'var(--tw-surface-container-low)';
+            });
+            item.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    item.style.backgroundColor = '';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

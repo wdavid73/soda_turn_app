@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SodaTurn - Esta Semana</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Plus Jakarta Sans for Typography -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#c5c5d4",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0edf2",
+                        "on-primary-fixed": "#00105c",
+                        "on-error-container": "#93000a",
+                        "primary": "#24389c",
+                        "surface-variant": "#e4e1e7",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1b1b1f",
+                        "tertiary": "#004a57",
+                        "secondary-container": "#5cfd80",
+                        "on-surface-variant": "#454652",
+                        "outline": "#757684",
+                        "surface-dim": "#dcd9de",
+                        "primary-fixed": "#dee0ff",
+                        "surface-container-highest": "#e4e1e7",
+                        "on-tertiary-fixed-variant": "#004e5b",
+                        "inverse-primary": "#bac3ff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00531e",
+                        "primary-container": "#3f51b5",
+                        "background": "#fbf8fe",
+                        "tertiary-fixed-dim": "#49d7f4",
+                        "on-secondary-container": "#00732c",
+                        "on-tertiary-container": "#63e3ff",
+                        "on-tertiary-fixed": "#001f26",
+                        "surface-container-low": "#f6f2f8",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#3ce36a",
+                        "on-primary-container": "#cacfff",
+                        "surface-container-high": "#eae7ed",
+                        "primary-fixed-dim": "#bac3ff",
+                        "tertiary-fixed": "#a8edff",
+                        "surface-tint": "#4355b9",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#69ff87",
+                        "on-secondary-fixed": "#002108",
+                        "secondary": "#006e2a",
+                        "tertiary-container": "#006474",
+                        "surface": "#fbf8fe",
+                        "inverse-on-surface": "#f3f0f5",
+                        "surface-bright": "#fbf8fe",
+                        "inverse-surface": "#303034",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1b1b1f",
+                        "on-primary-fixed-variant": "#293ca0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "base": "4px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "margin-tablet": "24px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "title-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .swipe-container {
+            touch-action: pan-y;
+            position: relative;
+            overflow: hidden;
+        }
+        .swipe-action {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 0;
+        }
+        .swipe-content {
+            position: relative;
+            z-index: 10;
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(251, 248, 254, 0.7);
+        }
+        .bubble-pattern {
+            background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-background dark:bg-background flex justify-between items-center px-margin-mobile py-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">bubble_chart</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed tracking-tight">SodaTurn</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</div>
+</header>
+<main class="px-margin-mobile pt-4 max-w-2xl mx-auto">
+<!-- Title & Hero Section -->
+<div class="mb-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">Esta Semana</h2>
+<p class="text-on-surface-variant font-body-md">Gestión de turnos y presencia del equipo.</p>
+</div>
+<!-- Weekly List -->
+<div class="space-y-4">
+<!-- Monday Item -->
+<div class="swipe-container rounded-xl bg-surface-container-low shadow-sm border border-outline-variant/20 group">
+<div class="swipe-action bg-error text-on-error rounded-r-xl">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined">person_off</span>
+<span class="text-label-md font-label-md">Ausente</span>
+</div>
+</div>
+<div class="swipe-content bg-surface-container-lowest p-5 rounded-xl border border-transparent hover:border-primary/20 transition-all flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-secondary-container">
+<img class="w-full h-full object-cover" data-alt="A portrait of a cheerful young professional woman with glasses and dark hair, smiling warmly in a bright, modern office setting. The style is soft-focus photography with clean, high-key lighting, matching a professional and friendly corporate modernism aesthetic with subtle indigo and mint color tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1fZKjyOw9bKrl2PsR6my69goIEht7Vzlf4xNHIcMqAynK91war6SpOqkofKyvKO0122oVfVP-nnXdojbSraf-RcVrmV-rsTHN-VQz0uDMVvxuxKNgT1e_ByQm4L9d8mLhrN6v20upBNmW1TnBMlQ-38oiDEO19Oxan7MEiiB-JZrqGE0KlkxyOqX__cjZf-ADsTkWWMnajfZNP-aK0qRV6mOgV2ufAb-HNVHksSiifLLz4xLGfY6fYutLGtI4mTT_75fHnTQvRy4"/>
+</div>
+<div>
+<span class="block text-primary font-label-lg text-label-lg">Lunes</span>
+<span class="block font-title-lg text-title-lg text-on-surface">Ana García</span>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]" title="Asignado Manual">lock</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Presentes</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30 active:scale-95 transition-transform">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Luis</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30 active:scale-95 transition-transform">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Marta</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30 active:scale-95 transition-transform">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Pedro</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tuesday Item (Winner Card Style) -->
+<div class="swipe-container rounded-xl shadow-lg border border-secondary-container/30 relative overflow-hidden">
+<!-- Background decoration -->
+<div class="absolute inset-0 bubble-pattern text-on-secondary-container/5 pointer-events-none"></div>
+<div class="swipe-action bg-error text-on-error rounded-r-xl">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined">person_off</span>
+<span class="text-label-md font-label-md">Ausente</span>
+</div>
+</div>
+<div class="swipe-content bg-secondary-container p-5 rounded-xl flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-on-secondary-container/20">
+<img class="w-full h-full object-cover" data-alt="A portrait of a confident middle-aged man with a short beard and stylish glasses, wearing a smart casual polo shirt. The background is a clean, minimalist workspace with soft bokeh and sparkling mint accents. The overall look is professional, reliable, and approachable, aligned with a modern UI design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB53n84rWdR6uxE7BRkO86DS0uScvswMhK6Wxt09iFfgzUh0OdnQQf-WTs8pGy77SDt51Uv3OA0Xs2Bd769dEhQIRdtbncV7qKZm_O-43XbphvRuy9keXmtYEpB4yhuE7wf5Z-gXEaysj4F42ncQw6fKUxN8udj5T8Go9q2GBrHODRyArmv4p7yPmUhpk-E-t-hnYBenKhmQqvJUxIL9wqBFVfypLlzPQtVl1kk0CmXnjReQ1a94OZfhHfgSI5yWDXYgLz0dyJ2fuI"/>
+</div>
+<div>
+<div class="flex items-center gap-1">
+<span class="block text-on-secondary-container font-label-lg text-label-lg">Martes</span>
+<span class="material-symbols-outlined text-on-secondary-container text-[14px]">stars</span>
+</div>
+<span class="block font-title-lg text-title-lg text-on-secondary-fixed-variant">Carlos Ruiz</span>
+</div>
+</div>
+<div class="px-2 py-0.5 rounded bg-on-secondary-container/10">
+<span class="text-label-md font-label-md text-on-secondary-container">TURNO</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-label-md font-label-md text-on-secondary-fixed-variant/70 uppercase tracking-wider">Presentes</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-white/40 rounded-full border border-white/50">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md text-on-secondary-fixed-variant">Santi</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-white/40 rounded-full border border-white/50">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md text-on-secondary-fixed-variant">Julia</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Wednesday Item (Warning State) -->
+<div class="swipe-container rounded-xl bg-surface-container-low shadow-sm border border-outline-variant/20">
+<div class="swipe-action bg-error text-on-error rounded-r-xl">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined">person_off</span>
+<span class="text-label-md font-label-md">Ausente</span>
+</div>
+</div>
+<div class="swipe-content bg-surface-container-lowest p-5 rounded-xl border border-transparent flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="A portrait of a creative young man with curly hair and a friendly expression, wearing a designer t-shirt. The background features artistic architectural elements in a bright, airy studio space. The visual style is crisp and modern with vibrant blue and green tones that evoke a sense of clarity and professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9nigge7e-ikRTqMHWZoqGX2vFLTr-6j2TIg7mrS5EokSQ3DmVqS5abuEOHUifGwIYvUmQLiL8daRlbsp0vJqgy7JwhpkqMZSba5QcxV7kAg1UaIizAmea_WAjrzBHO2HeyqPj7VyfY_CU0uJR1Sr3bJiDc4HyDG3LvyJkPfYdlktkKb_od3PlEk3zW9ORS2ykswrk1R-QMmcQcVWWAl_8lDfYcC0GBJ2iKghFOkjwZPOph_IF-vmiJxf3qthmUv41m_B1cs64zOQ"/>
+</div>
+<div>
+<span class="block text-primary font-label-lg text-label-lg">Miércoles</span>
+<span class="block font-title-lg text-title-lg text-on-surface">David Soler</span>
+</div>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-error text-[20px]" title="Regla Rota">warning</span>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Presentes</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Marta</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Ana</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Thursday Item -->
+<div class="swipe-container rounded-xl bg-surface-container-low shadow-sm border border-outline-variant/20">
+<div class="swipe-action bg-error text-on-error rounded-r-xl">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined">person_off</span>
+<span class="text-label-md font-label-md">Ausente</span>
+</div>
+</div>
+<div class="swipe-content bg-surface-container-lowest p-5 rounded-xl border border-transparent flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="A portrait of a professional woman with a bright smile, blonde hair tied back, wearing a minimalist blouse. She is standing in a brightly lit, glass-walled office with natural sunlight streaming through. The color palette is composed of soft lavenders and deep indigos, creating an effervescent and reliable atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpnv5xxu9Nw6uTVNSOiPsETEPGMTsx7I0B7n3vZqSsefk-JxWHebBywQ2so2buH5AcbbazOJQXEcplpwL07xXLowuEzC8uPhejSqwDNImOAQArfcbEF01kCwUVkGoPt6UJJm-XeKSSPIxTqHsd94ZxRDgLXj_kdFFBcfQFzZwauxCc3Gx0ee1ExNqgVfzK4d-Ya9EUvzaw5X_eUZh612ndVj4tzGdPs9-5GmjfAPaVNh29RNw8jhPRI7l4Ks0Kl19xFimJAIC2vek"/>
+</div>
+<div>
+<span class="block text-primary font-label-lg text-label-lg">Jueves</span>
+<span class="block font-title-lg text-title-lg text-on-surface">Laura Montes</span>
+</div>
+</div>
+<div class="flex gap-2">
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Presentes</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">David</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Pedro</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Friday Item -->
+<div class="swipe-container rounded-xl bg-surface-container-low shadow-sm border border-outline-variant/20">
+<div class="swipe-action bg-error text-on-error rounded-r-xl">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined">person_off</span>
+<span class="text-label-md font-label-md">Ausente</span>
+</div>
+</div>
+<div class="swipe-content bg-surface-container-lowest p-5 rounded-xl border border-transparent flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="A headshot of a friendly man with short dark hair and a neat beard, wearing a high-quality cotton t-shirt in deep blue. The background is a crisp, white-walled office with a hint of green from a nearby plant. The lighting is balanced and modern, emphasizing a clean and efficient workspace environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm7BD0nBXzef7yB6igcbQlou5jy5qfP9UzM39yIjajmhqPaGB9KWRTNilp4N6E_xzxOPD5bo89mW0Yl2yASyaYuvM71RjkJ9VVw_xYCCPCKx-xj9bYSYnsepk0dHfNKNqltb0T0ZbR1mLLuTYBbkPXvPzRzfADUwPcMdh5uzOMReoY8woiB23RXqbYBmn123CNaYl8KnQLiIZVXTZj-bkzFABfELhKXqXLrWCc5QP5ciXp8r6sOVsna6Tla_T-t59kfkHvaZ5tuY0"/>
+</div>
+<div>
+<span class="block text-primary font-label-lg text-label-lg">Viernes</span>
+<span class="block font-title-lg text-title-lg text-on-surface">Santi Pérez</span>
+</div>
+</div>
+<div class="flex gap-2">
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Presentes</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Carlos</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Laura</span>
+</div>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant/30">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-label-md font-label-md">Marta</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Generate Next Week FAB -->
+<button class="fixed bottom-24 right-6 w-14 h-14 rounded-full bg-secondary-container shadow-lg flex items-center justify-center text-on-secondary-container z-40 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-[32px]">refresh</span>
+</button>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-2 pb-safe px-2 bg-surface-container dark:bg-surface-container shadow-lg z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_view_week</span>
+<span class="font-label-md text-label-md">Weekly</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">People</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-md text-label-md">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+</nav>
+<script>
+        // Simple Swipe Logic for Interaction demo
+        document.querySelectorAll('.swipe-container').forEach(container => {
+            let startX = 0;
+            let currentX = 0;
+            const content = container.querySelector('.swipe-content');
+            
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                content.style.transition = 'none';
+            });
+
+            container.addEventListener('touchmove', (e) => {
+                currentX = e.touches[0].clientX;
+                const diff = currentX - startX;
+                if (diff < 0) { // Only swipe left
+                    content.style.transform = `translateX(${Math.max(diff, -100)}px)`;
+                }
+            });
+
+            container.addEventListener('touchend', (e) => {
+                content.style.transition = 'transform 0.3s cubic-bezier(0.2, 0, 0, 1)';
+                const diff = currentX - startX;
+                if (diff < -50) {
+                    content.style.transform = 'translateX(-100px)';
+                    // In a real app, this might trigger a snackbar or state change
+                } else {
+                    content.style.transform = 'translateX(0)';
+                }
+            });
+
+            // Mouse events for desktop testing
+            container.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                content.style.transition = 'none';
+                
+                const moveHandler = (moveEvent) => {
+                    currentX = moveEvent.clientX;
+                    const diff = currentX - startX;
+                    if (diff < 0) {
+                        content.style.transform = `translateX(${Math.max(diff, -100)}px)`;
+                    }
+                };
+
+                const upHandler = () => {
+                    content.style.transition = 'transform 0.3s cubic-bezier(0.2, 0, 0, 1)';
+                    const diff = currentX - startX;
+                    if (diff < -50) {
+                        content.style.transform = 'translateX(-100px)';
+                    } else {
+                        content.style.transform = 'translateX(0)';
+                    }
+                    window.removeEventListener('mousemove', moveHandler);
+                    window.removeEventListener('mouseup', upHandler);
+                };
+
+                window.addEventListener('mousemove', moveHandler);
+                window.addEventListener('mouseup', upHandler);
+            });
+        });
+    </script>
+</body></html>

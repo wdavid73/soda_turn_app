@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SodaTurn - ¡Hola, Equipo!</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c5c5d4",
+                    "error": "#ba1a1a",
+                    "surface-container": "#f0edf2",
+                    "on-primary-fixed": "#00105c",
+                    "on-error-container": "#93000a",
+                    "primary": "#24389c",
+                    "surface-variant": "#e4e1e7",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1b1b1f",
+                    "tertiary": "#004a57",
+                    "secondary-container": "#5cfd80",
+                    "on-surface-variant": "#454652",
+                    "outline": "#757684",
+                    "surface-dim": "#dcd9de",
+                    "primary-fixed": "#dee0ff",
+                    "surface-container-highest": "#e4e1e7",
+                    "on-tertiary-fixed-variant": "#004e5b",
+                    "inverse-primary": "#bac3ff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "primary-container": "#3f51b5",
+                    "background": "#fbf8fe",
+                    "tertiary-fixed-dim": "#49d7f4",
+                    "on-secondary-container": "#00732c",
+                    "on-tertiary-container": "#63e3ff",
+                    "on-tertiary-fixed": "#001f26",
+                    "surface-container-low": "#f6f2f8",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "on-primary-container": "#cacfff",
+                    "surface-container-high": "#eae7ed",
+                    "primary-fixed-dim": "#bac3ff",
+                    "tertiary-fixed": "#a8edff",
+                    "surface-tint": "#4355b9",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#69ff87",
+                    "on-secondary-fixed": "#002108",
+                    "secondary": "#006e2a",
+                    "tertiary-container": "#006474",
+                    "surface": "#fbf8fe",
+                    "inverse-on-surface": "#f3f0f5",
+                    "surface-bright": "#fbf8fe",
+                    "inverse-surface": "#303034",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1b1b1f",
+                    "on-primary-fixed-variant": "#293ca0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "xs": "4px",
+                    "margin-tablet": "24px",
+                    "lg": "24px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "title-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .bubble-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-background dark:bg-background flex justify-between items-center px-margin-mobile py-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed text-3xl" data-icon="bubble_chart">bubble_chart</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed tracking-tight">SodaTurn</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-low transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-lg">
+<!-- Greeting -->
+<div class="mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">¡Hola, Equipo!</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-base">¿Listos para la rotación de hoy?</p>
+</div>
+<!-- Main Card: Daily Winner -->
+<div class="relative overflow-hidden rounded-[24px] bg-primary-container text-on-primary-container p-6 shadow-lg mb-gutter group transition-all duration-300 hover:shadow-xl">
+<!-- Bubble pattern overlay -->
+<div class="absolute inset-0 bubble-pattern opacity-10 pointer-events-none"></div>
+<div class="flex flex-col relative z-10">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-label-md mb-2">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+                            Hoy le toca a...
+                        </span>
+<h3 class="font-headline-lg text-headline-lg text-white mt-1">Martín</h3>
+</div>
+<div class="bg-white/20 backdrop-blur-md rounded-full p-4 animate-float">
+<span class="material-symbols-outlined text-4xl text-white" data-icon="bottled_water">battery_saver</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative w-20 h-20 rounded-full border-4 border-white/30 p-1">
+<img class="w-full h-full object-cover rounded-full" data-alt="A professional close-up portrait of a friendly office worker named Martín, featuring a clean, modern aesthetic with soft lighting. The background is a blurred office environment with cool indigo and mint green tones consistent with the SodaTurn brand. High-end digital photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlCuUdc7EVfVO-z2TWbY-gf1Fk_RB-G4_1vdFrr4FTUQOEQxwK798GMXlm4Cv4eon_PpalFwBycxjnjuLk5yObqayfBYPtBGuDzHllf4c9DJ47JFkI--qPoqFxYQU1iDIyCAV8unr9-DzUo5kokGs8tN8BoTpIPNhvBnDUgqsqXbhgeR_5PrmApnt4NM2VP1c0roxcjZOj4hvpvQudpgsoD2ag9SaodG9Pl7nn5OOZFTQaxPxIBqy5nXUtqu7w72OQJTObN2ozQm4"/>
+</div>
+<div class="flex-1">
+<span class="bg-secondary-fixed text-on-secondary-fixed px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm">Gaseosa</span>
+<p class="font-body-md text-white/80 mt-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+                            Entrega estimada: 11:30 AM
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Card: Cups of the Week -->
+<div class="glass-card border border-outline-variant rounded-[20px] p-5 shadow-sm mb-gutter flex items-center justify-between group cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-quality profile photo of a smiling female employee named Sofía, centered in a bright, minimalist studio setting. The color palette reflects professionalism with accents of soft mint and indigo. The image has a crisp, modern feel suitable for a corporate mobile application UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs_2WuzMhKM0EQuZ185akbQroPOQulVeELHLkueRFf4LVAwlLXvEfS3nQhUq-xC8cVPIAaKtALt4NRjF5zZCWXMug7JosUKBr18iLHO8_kEGj7-vrH_0IDur5iNoAe34ujheZ2tSZdL-qk_MnH0oMZor1lDuZ7Mpgdk8st_BTghLRNXhXqRN-lDpW4scOioGqromG_YTJvCZXVMkKDeGGlgiPm2uBH257X_M3ru0Z3MaU4pxlcIRk-VrlnoG837Zs2a_tme4_azE8"/>
+</div>
+<div>
+<h4 class="font-title-lg text-title-lg text-on-surface">Sofía</h4>
+<p class="font-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="local_drink">local_drink</span>
+                        Vasos de la semana
+                    </p>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="stacked_line_chart">stacked_line_chart</span>
+<span class="font-label-lg text-label-lg text-primary mt-1">Nivel 4</span>
+</div>
+</div>
+<!-- Section: Próximos días (Bento-style layout) -->
+<div class="mt-xl">
+<div class="flex justify-between items-center mb-md px-1">
+<h3 class="font-title-lg text-title-lg text-on-surface">Próximos días</h3>
+<button class="text-primary font-label-lg text-label-lg flex items-center gap-1">
+                    Ver todo
+                    <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="flex justify-between items-center bg-surface-container-low p-4 rounded-3xl">
+<!-- Monday -->
+<div class="flex flex-col items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Lun</span>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed p-0.5">
+<img class="w-full h-full object-cover rounded-full" data-alt="Close up avatar of a young professional man with glasses, neutral expression, high-end office lighting, soft bokeh background with indigo tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbf64hZ-iU8UwYxHtZb-T__dbtpCfEaJUSW-o-VL26uRdxGDGs1ndSXwga8tORR-84iYn1L_PDlMRyZThhutKvlqMbHDDqS94l8kRyzL0nCl-1OvN-EE1M5kkA1jJC1SCwR7HI6PPw-DSTpKl1lmS1YhpEnhKpD02i45wd65oMKE-mKJMl-e70K8wdh6uP_bYIjU_-Zo0NROSWSol7aI1yR7NqAbxfTtspSbMHqA1KkP5297xS-46bSPKauPvRdC6Jlk5K4bbuEJs"/>
+</div>
+</div>
+<!-- Tuesday -->
+<div class="flex flex-col items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Mar</span>
+<div class="w-12 h-12 rounded-full border-2 border-transparent p-0.5">
+<img class="w-full h-full object-cover rounded-full" data-alt="Close up avatar of a professional woman with wavy hair, smiling warmly, corporate portrait style, bright lighting, cool office colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM9v3VDozM_i9PT-AU68BV68xgG6vFcIPxojhHFpdi9PQNgSgskKsT8VJ0rDty_oO1-sgthiVkTI0Io8js8ceCShR3ePoFcgKMrGzKE3GDZqLHYQo60thBM2sYtePXjqO1W3WeeKhsImOarwBrzji4KF9N3LnfXZtDUJzwKlzhuRIZgx45aGR08FNNjAfKtyJ1hRwb-PQ9Ly7UGr_i5v_AxEHRqVvAPEZTjlsofHWTSo-N78dGa86ezeePledx17z9CU8Y3hyzzmY"/>
+</div>
+</div>
+<!-- Wednesday -->
+<div class="flex flex-col items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Mié</span>
+<div class="w-12 h-12 rounded-full border-2 border-transparent p-0.5">
+<img class="w-full h-full object-cover rounded-full" data-alt="Avatar of a creative professional male with a short beard, minimalist gray background, sharp focus, clean digital aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3gmARHm2RsBr3ngAThy5VPEU-1NkupeSBvgEJnOngEdzrIWWFGKBS3ruGQqPCJqDELt48AWdjDn3g9kfznZKp8J0ZiUcBSucVURfihGTw_oT6qJD3ca29hGsOZE_iVtju8nDtjL5xZVLy1VwE79UhnKSegMv441Fx-yE2ADUuRXShICvYAccVvw98qBgtgwyJwgoXo7npAdQauL4M35Ho_4ZZwPKK8Vceerm5Ko5TWUL70Lh_q6wryjpY_GmIFw3CIvTYr5iGsyo"/>
+</div>
+</div>
+<!-- Thursday -->
+<div class="flex flex-col items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Jue</span>
+<div class="w-12 h-12 rounded-full border-2 border-transparent p-0.5 opacity-50 grayscale">
+<div class="w-full h-full bg-surface-variant flex items-center justify-center rounded-full">
+<span class="material-symbols-outlined text-xl text-on-surface-variant" data-icon="person_search">person_search</span>
+</div>
+</div>
+</div>
+<!-- Friday -->
+<div class="flex flex-col items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Vie</span>
+<div class="w-12 h-12 rounded-full border-2 border-transparent p-0.5">
+<img class="w-full h-full object-cover rounded-full" data-alt="Portrait of a diverse male professional in a modern workspace, natural morning light, vibrant office plants in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFBFAccRXA1G1pQzbilkDkxdhU-nAbJ5w7HSkYe7gyx326GjIQlW8DuwPRRya48Kxmdif6RqXEsNi-qK7cAAfF486OvSEGywM1Oo70MO4V6CwTUbsnH5B6A0yMk_t5mmn29FPMQYVWftJ63Or2YTdpHN8CEcYbmCkE8DHeCFUWcpvoxyuxQmPrdNeD2jAt9qtWGL_DTa6S4WH8BARCBYADg8fK3etiYDSPFqcOhzApIcujfZoQa_0nrRehQILIc9X9hDxhrf4khL0"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Weekly Progress Mini-Flourish -->
+<div class="mt-gutter p-5 rounded-[24px] bg-white border border-surface-variant">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-lg text-label-lg text-on-surface">Progreso semanal</span>
+<span class="font-label-lg text-label-lg text-secondary">60%</span>
+</div>
+<div class="relative h-3 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="absolute h-full bg-secondary-fixed-dim rounded-full transition-all duration-1000 ease-out flex items-center" style="width: 60%">
+<!-- Animated Bubbly Flourish -->
+<div class="absolute inset-0 overflow-hidden">
+<div class="bubble-animate w-full h-full relative">
+<div class="absolute top-1 left-2 w-1.5 h-1.5 bg-white/40 rounded-full animate-bubble-1"></div>
+<div class="absolute top-0.5 left-8 w-1 h-1 bg-white/40 rounded-full animate-bubble-2"></div>
+<div class="absolute top-1 left-16 w-1 h-1 bg-white/40 rounded-full animate-bubble-3"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-margin-mobile flex items-center gap-2 bg-secondary-container text-on-secondary-container px-6 py-4 rounded-full shadow-lg z-40 active:scale-90 transition-all duration-200 hover:shadow-xl hover:-translate-y-1">
+<span class="material-symbols-outlined text-2xl" data-icon="magic_button">magic_button</span>
+<span class="font-label-lg text-label-lg">Generar Semana</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 rounded-t-xl bg-surface-container dark:bg-surface-container shadow-[0_-4px_12px_rgba(36,56,156,0.08)] flex justify-around items-center pt-2 pb-safe px-2">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<!-- Weekly -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_view_week">calendar_view_week</span>
+<span class="font-label-md text-label-md">Weekly</span>
+</a>
+<!-- People -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">People</span>
+</a>
+<!-- Stats -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-label-md text-label-md">Stats</span>
+</a>
+<!-- History (Hidden per destination count instruction but included for completeness from JSON) -->
+<a class="hidden md:flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant dark:hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for the bubbles in progress bar
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bubble-move {
+                0% { transform: translateX(0) scale(1); opacity: 0; }
+                20% { opacity: 1; }
+                100% { transform: translateX(200px) scale(0.5); opacity: 0; }
+            }
+            .animate-bubble-1 { animation: bubble-move 3s linear infinite; }
+            .animate-bubble-2 { animation: bubble-move 4s linear infinite 1s; }
+            .animate-bubble-3 { animation: bubble-move 2.5s linear infinite 0.5s; }
+        `;
+        document.head.appendChild(style);
+
+        // Active state click logic for nav
+        const navItems = document.querySelectorAll('nav a');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                navItems.forEach(nav => {
+                    nav.classList.remove('bg-secondary-container', 'dark:bg-on-secondary-fixed-variant', 'text-on-secondary-container', 'dark:text-secondary-fixed');
+                    nav.classList.add('text-on-surface-variant', 'dark:text-on-surface-variant');
+                    const icon = nav.querySelector('.material-symbols-outlined');
+                    if(icon) icon.style.fontVariationSettings = "'FILL' 0";
+                });
+                item.classList.add('bg-secondary-container', 'dark:bg-on-secondary-fixed-variant', 'text-on-secondary-container', 'dark:text-secondary-fixed');
+                item.classList.remove('text-on-surface-variant', 'dark:text-on-surface-variant');
+                const icon = item.querySelector('.material-symbols-outlined');
+                if(icon) icon.style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+    </script>
+</body></html>

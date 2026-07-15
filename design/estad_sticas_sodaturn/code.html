@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SodaTurn - Estadísticas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bubble-bg {
+            background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 20%),
+                              radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.3) 0%, transparent 30%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+        
+        .donut-segment {
+            transition: stroke-dashoffset 1s ease-out;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#c5c5d4",
+                      "error": "#ba1a1a",
+                      "surface-container": "#f0edf2",
+                      "on-primary-fixed": "#00105c",
+                      "on-error-container": "#93000a",
+                      "primary": "#24389c",
+                      "surface-variant": "#e4e1e7",
+                      "on-primary": "#ffffff",
+                      "on-surface": "#1b1b1f",
+                      "tertiary": "#004a57",
+                      "secondary-container": "#5cfd80",
+                      "on-surface-variant": "#454652",
+                      "outline": "#757684",
+                      "surface-dim": "#dcd9de",
+                      "primary-fixed": "#dee0ff",
+                      "surface-container-highest": "#e4e1e7",
+                      "on-tertiary-fixed-variant": "#004e5b",
+                      "inverse-primary": "#bac3ff",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#00531e",
+                      "primary-container": "#3f51b5",
+                      "background": "#fbf8fe",
+                      "tertiary-fixed-dim": "#49d7f4",
+                      "on-secondary-container": "#00732c",
+                      "on-tertiary-container": "#63e3ff",
+                      "on-tertiary-fixed": "#001f26",
+                      "surface-container-low": "#f6f2f8",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#3ce36a",
+                      "on-primary-container": "#cacfff",
+                      "surface-container-high": "#eae7ed",
+                      "primary-fixed-dim": "#bac3ff",
+                      "tertiary-fixed": "#a8edff",
+                      "surface-tint": "#4355b9",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#69ff87",
+                      "on-secondary-fixed": "#002108",
+                      "secondary": "#006e2a",
+                      "tertiary-container": "#006474",
+                      "surface": "#fbf8fe",
+                      "inverse-on-surface": "#f3f0f5",
+                      "surface-bright": "#fbf8fe",
+                      "inverse-surface": "#303034",
+                      "error-container": "#ffdad6",
+                      "on-background": "#1b1b1f",
+                      "on-primary-fixed-variant": "#293ca0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "margin-mobile": "16px",
+                      "base": "4px",
+                      "gutter": "16px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "margin-tablet": "24px",
+                      "lg": "24px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"],
+                      "title-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                      "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                      "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky bg-background z-40 flex justify-between items-center px-margin-mobile py-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">bubble_chart</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SodaTurn</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center bg-surface-container-low hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-md space-y-lg">
+<!-- Main Title -->
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Estadísticas</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Análisis del flujo de burbujas en la oficina.</p>
+</div>
+<!-- Ranking de Fairness (Bento Style) -->
+<section class="space-y-md">
+<div class="flex justify-between items-end">
+<h3 class="font-title-lg text-title-lg text-on-surface">Ranking de Fairness</h3>
+<span class="font-label-md text-label-md text-primary">Ver todos</span>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Winner / 1st Place -->
+<div class="relative overflow-hidden rounded-xl bg-primary text-on-primary p-lg shadow-lg flex items-center justify-between bubble-bg">
+<div class="flex items-center gap-md z-10">
+<div class="relative">
+<div class="w-16 h-16 rounded-full border-4 border-secondary-container overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a smiling young professional man with short dark hair in a bright office environment. High quality, soft studio lighting, corporate modern aesthetic with blue and green accent colors in the blurred background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd4Nexwa2lgZQTFrpLY4nRiQrVMdi1s39G8u_yiZpMCVRP6SQ8Rtzf6F7yR26bApfQc2I0gosZe0-AXzIs_7nDIyVPV67GeImqHHbcGF8DJ1qySzJ0gXUr6iLbKl-mlLjYPYlF-quVYrpr4eCzZUpVMi20If53PFYXaAf8Mho12iARHjd03Vo5VUhByz3R65rIlzMfqKS5F6KblKl1UPqEqr9d6indcZG4rowq92Rd1oLNo3cPe4jKd5ePRHQoOxwez_0HXMnJYUI"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary-container text-on-secondary-container w-8 h-8 rounded-full flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-primary-fixed">#1 El Más Justo</p>
+<h4 class="font-title-lg text-title-lg">Mateo García</h4>
+</div>
+</div>
+<div class="text-right z-10">
+<span class="font-display-lg text-[40px] leading-none font-extrabold text-secondary-container">98</span>
+<p class="font-label-md text-label-md opacity-80">Score</p>
+</div>
+</div>
+<!-- 2nd & 3rd Place Grid -->
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-surface-container-high rounded-xl p-md border border-outline-variant flex flex-col items-center text-center gap-sm">
+<div class="relative">
+<div class="w-12 h-12 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a creative professional woman with curly hair wearing glasses, smiling warmly. Clean white background with soft shadows, minimalist corporate style, vibrant blue and turquoise color accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI2XOUSCgCO7cdSvpL4BAdOBhLahO0wA-AffS2B77gHgd9vi9QcB_yHj0a3q0KAERvkzns226nm-EAEu-NwtvWwAGjCkQnbHMJKrqi1pnwVRql1VzHdYJIn88LSiZohnQKjmNVkvGBRiCXF4Ssh3g012Y0Y4tL89vqVvi301nqfG9piV4gJQkKbJY_uCt74k35Ua1ykWzr7vtA3R0sP4iimxmunmD5bMIX8dG7DPJDimpPgN5HCSlWYuCnTJ9-ssQ1qIQhJrpKxi4"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-surface-variant text-on-surface w-5 h-5 rounded-full flex items-center justify-center text-[10px] border border-outline">2</div>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface line-clamp-1">Lucía Sanz</p>
+<p class="font-title-lg text-title-lg text-primary">92</p>
+</div>
+<div class="bg-surface-container-high rounded-xl p-md border border-outline-variant flex flex-col items-center text-center gap-sm">
+<div class="relative">
+<div class="w-12 h-12 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a friendly male developer with a beard wearing a casual polo shirt. Professional lighting, crisp high-definition image, modern office vibe with soft bokeh and primary indigo color highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7css2MelZfTMFEKrYY9qm-KC_rzhhAxDg9SYhzDpY4XcGwhX1hZiQDf9DxPR3Dt7DHAWKWLyVQ61yzEPePMZUjhNW5DbaLb1m1lIZICfEZGizJzO1GiwoT7C0wYOZn8p5bKuw7dzv54qRNuRr9MHyWfUYqgov6KfY9N7s7STX5L0PtBX7wu_KDxUPMqeCKFBTZI1Zvl4hYAp9LfcYdrrgDAGpxqb67rHnCGU0xM7kPcJDa9rj1EC8_jiUP2NDo6ckEKX_FXTupMs"/>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-surface-variant text-on-surface w-5 h-5 rounded-full flex items-center justify-center text-[10px] border border-outline">3</div>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface line-clamp-1">Diego Ruiz</p>
+<p class="font-title-lg text-title-lg text-primary">89</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Cards Row -->
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-secondary-container/20 rounded-xl p-lg border border-secondary-container/30 flex flex-col gap-xs">
+<span class="material-symbols-outlined text-secondary text-2xl mb-2">liquor</span>
+<h5 class="font-label-md text-label-md text-on-secondary-container">Total Gaseosas</h5>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-on-secondary-container">142</p>
+</div>
+<div class="bg-tertiary-fixed-dim/20 rounded-xl p-lg border border-tertiary-fixed-dim/30 flex flex-col gap-xs">
+<span class="material-symbols-outlined text-tertiary text-2xl mb-2">local_drink</span>
+<h5 class="font-label-md text-label-md text-on-tertiary-container">Total Vasos</h5>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-on-tertiary-container">856</p>
+</div>
+</div>
+<!-- Distribución Chart Section -->
+<section class="bg-surface-container-low rounded-2xl p-lg space-y-lg relative overflow-hidden">
+<h3 class="font-title-lg text-title-lg text-on-surface">Distribución de Gasto</h3>
+<div class="flex flex-col md:flex-row items-center gap-xl">
+<!-- Donut Chart -->
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<circle class="text-surface-variant" cx="18" cy="18" fill="transparent" r="15.915" stroke="currentColor" stroke-width="3"></circle>
+<!-- Cola segment -->
+<circle class="donut-segment" cx="18" cy="18" fill="transparent" r="15.915" stroke="#24389c" stroke-dasharray="45 55" stroke-dashoffset="0" stroke-width="3.5"></circle>
+<!-- Lima segment -->
+<circle class="donut-segment" cx="18" cy="18" fill="transparent" r="15.915" stroke="#00C853" stroke-dasharray="30 70" stroke-dashoffset="-45" stroke-width="3.5"></circle>
+<!-- Agua segment -->
+<circle class="donut-segment" cx="18" cy="18" fill="transparent" r="15.915" stroke="#49d7f4" stroke-dasharray="25 75" stroke-dashoffset="-75" stroke-width="3.5"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">$12k</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Total</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="flex-1 w-full space-y-sm">
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-variant transition-colors">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="font-body-md text-body-md text-on-surface">Cola Classic</span>
+</div>
+<span class="font-label-lg text-label-lg">45%</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-variant transition-colors">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<span class="font-body-md text-body-md text-on-surface">Lima Limón</span>
+</div>
+<span class="font-label-lg text-label-lg">30%</span>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg hover:bg-surface-variant transition-colors">
+<div class="flex items-center gap-sm">
+<div class="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></div>
+<span class="font-body-md text-body-md text-on-surface">Agua Mineral</span>
+</div>
+<span class="font-label-lg text-label-lg">25%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Historial Accordion -->
+<section class="space-y-md pb-12">
+<h3 class="font-title-lg text-title-lg text-on-surface">Historial Mensual</h3>
+<div class="space-y-sm">
+<!-- Item 1 -->
+<div class="group border border-outline-variant rounded-xl overflow-hidden bg-surface">
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-low transition-all" onclick="toggleAccordion(this)">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+<span class="font-label-lg text-label-lg text-on-surface">Octubre 2023</span>
+</div>
+<span class="material-symbols-outlined transition-transform duration-300 group-data-[open=true]:rotate-180">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-md border-t border-transparent group-data-[open=true]:max-h-40 group-data-[open=true]:py-md group-data-[open=true]:border-outline-variant">
+<div class="grid grid-cols-3 gap-md text-center">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Vueltas</p>
+<p class="font-title-lg text-title-lg text-primary">12</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Inversión</p>
+<p class="font-title-lg text-title-lg text-primary">$4.2k</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Fairness</p>
+<p class="font-title-lg text-title-lg text-secondary">94%</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group border border-outline-variant rounded-xl overflow-hidden bg-surface">
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-low transition-all" onclick="toggleAccordion(this)">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+<span class="font-label-lg text-label-lg text-on-surface">Septiembre 2023</span>
+</div>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-md border-t border-transparent">
+<div class="grid grid-cols-3 gap-md text-center">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Vueltas</p>
+<p class="font-title-lg text-title-lg text-primary">14</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Inversión</p>
+<p class="font-title-lg text-title-lg text-primary">$5.1k</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Fairness</p>
+<p class="font-title-lg text-title-lg text-secondary">88%</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group border border-outline-variant rounded-xl overflow-hidden bg-surface">
+<button class="w-full flex items-center justify-between p-md hover:bg-surface-container-low transition-all" onclick="toggleAccordion(this)">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+<span class="font-label-lg text-label-lg text-on-surface">Agosto 2023</span>
+</div>
+<span class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-md border-t border-transparent">
+<div class="grid grid-cols-3 gap-md text-center">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Vueltas</p>
+<p class="font-title-lg text-title-lg text-primary">10</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Inversión</p>
+<p class="font-title-lg text-title-lg text-primary">$3.5k</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Fairness</p>
+<p class="font-title-lg text-title-lg text-secondary">91%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-2 pb-safe px-2 bg-surface-container shadow-[0_-4px_12px_rgba(36,56,156,0.08)] z-50 rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90">
+<span class="material-symbols-outlined">calendar_view_week</span>
+<span class="font-label-md text-label-md">Weekly</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">People</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 transition-all active:scale-90">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+<span class="font-label-md text-label-md">Stats</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md">History</span>
+</button>
+</nav>
+<script>
+        function toggleAccordion(btn) {
+            const container = btn.closest('.group');
+            const isOpen = container.getAttribute('data-open') === 'true';
+            
+            // Close all others
+            document.querySelectorAll('.group[data-open="true"]').forEach(el => {
+                el.removeAttribute('data-open');
+                el.querySelector('.max-h-0').style.borderTopColor = 'transparent';
+            });
+
+            if (!isOpen) {
+                container.setAttribute('data-open', 'true');
+            } else {
+                container.removeAttribute('data-open');
+            }
+        }
+
+        // Simple floating bubble effect in background
+        const createBubble = () => {
+            const bubble = document.createElement('div');
+            const size = Math.random() * 20 + 10 + 'px';
+            bubble.classList.add('fixed', 'bg-primary/5', 'rounded-full', 'pointer-events-none', 'animate-float');
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.left = Math.random() * 100 + 'vw';
+            bubble.style.top = '110vh';
+            bubble.style.transition = 'top 10s linear';
+            
+            document.body.appendChild(bubble);
+            
+            setTimeout(() => {
+                bubble.style.top = '-10vh';
+            }, 10);
+            
+            setTimeout(() => {
+                bubble.remove();
+            }, 10000);
+        };
+
+        setInterval(createBubble, 2000);
+    </script>
+</body></html>
