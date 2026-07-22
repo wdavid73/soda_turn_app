@@ -1,0 +1,154 @@
+{
+  "project_info": {
+    "project_number": "437220053503",
+    "project_id": "mis-apps-c42cc",
+    "storage_bucket": "mis-apps-c42cc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437220053503:android:74586983976c12dddc17ca",
+        "android_client_info": {
+          "package_name": "com.example.turn_soda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsBmWF93WU1J_g-9xG_-Df-SWVs_-U9sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437220053503-0j2l64dirb4vtjots200s47hl3m6d6hn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.finTrackPro"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437220053503:android:716362a354ad7917dc17ca",
+        "android_client_info": {
+          "package_name": "com.example.vacation_tracker_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsBmWF93WU1J_g-9xG_-Df-SWVs_-U9sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437220053503-0j2l64dirb4vtjots200s47hl3m6d6hn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.finTrackPro"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437220053503:android:594d592ede313e37dc17ca",
+        "android_client_info": {
+          "package_name": "com.fintrackpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsBmWF93WU1J_g-9xG_-Df-SWVs_-U9sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437220053503-0j2l64dirb4vtjots200s47hl3m6d6hn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.finTrackPro"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437220053503:android:62979a5a7f4176b9dc17ca",
+        "android_client_info": {
+          "package_name": "com.fintrackpro.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsBmWF93WU1J_g-9xG_-Df-SWVs_-U9sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437220053503-m6rkqf611k5vu84d4hvup1emtaabc6kt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437220053503-0j2l64dirb4vtjots200s47hl3m6d6hn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.finTrackPro"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

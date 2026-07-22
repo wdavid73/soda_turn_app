@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/turnos/presentation/screens/home_screen.dart';
-import '../../features/turnos/presentation/screens/participants_screen.dart';
-import '../../features/turnos/presentation/screens/stats_screen.dart';
-import '../../features/turnos/presentation/screens/week_screen.dart';
+import '../../features/shifts/presentation/screens/home_screen.dart';
+import '../../features/shifts/presentation/screens/participants_screen.dart';
+import '../../features/shifts/presentation/screens/stats_screen.dart';
+import '../../features/shifts/presentation/screens/week_screen.dart';
 import '../../shared/widgets/app_scaffold.dart';
 
 /// Router como provider: cada ProviderScope (app o test) recibe su propia

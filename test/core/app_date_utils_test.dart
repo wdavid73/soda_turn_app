@@ -44,5 +44,17 @@ void main() {
       expect(AppDateUtils.weekRangeLabel('2026-07-13'), '13 – 17 jul 2026');
       expect(AppDateUtils.weekRangeLabel('2026-06-29'), '29 jun – 3 jul 2026');
     });
+
+    test('esDiaGenerable es false en fines de semana y festivos', () {
+      expect(AppDateUtils.esDiaGenerable('2026-07-13'), isTrue); // lunes
+      expect(AppDateUtils.esDiaGenerable('2026-07-18'), isFalse); // sábado
+      expect(AppDateUtils.esDiaGenerable('2026-05-01'), isFalse); // festivo (viernes)
+    });
+
+    test('previousGenerableDay/nextGenerableDay saltan festivos y finde', () {
+      // 2026-05-01 (viernes) es festivo (Día del Trabajo).
+      expect(AppDateUtils.previousGenerableDay('2026-05-04'), '2026-04-30');
+      expect(AppDateUtils.nextGenerableDay('2026-04-30'), '2026-05-04');
+    });
   });
 }

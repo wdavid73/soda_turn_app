@@ -8,3 +8,8 @@ abstract class Failure {
 class CacheFailure extends Failure {
   const CacheFailure(super.message);
 }
+
+/// Error de lectura/escritura contra el backend remoto (Supabase).
+class ServerFailure extends Failure {
+  const ServerFailure(super.message);
+}

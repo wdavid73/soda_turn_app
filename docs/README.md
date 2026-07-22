@@ -1,35 +1,44 @@
-# Documentación — SodaTurn (turn_soda)
+# Documentation — SodaTurn (turn_soda)
 
-App Flutter para decidir, de lunes a viernes, quién compra la **gaseosa**
-del almuerzo (~$7.000 COP) y quién compra los **vasos** (una vez por
-semana), con rotación justa, reglas de negocio y persistencia local.
+Flutter app to decide, Monday through Friday, who buys the lunch **soda**
+(~$7,000 COP) and who buys the **cups** (once a week), with fair rotation,
+business rules, and local persistence.
 
-| Documento | Contenido |
+| Document | Content |
 |---|---|
-| [01-contexto.md](01-contexto.md) | Objetivo, participantes e historia del proyecto (web v1/v2 → Flutter) |
-| [02-reglas-negocio.md](02-reglas-negocio.md) | Las 9 reglas v2, su dureza y el comportamiento de advertencias |
-| [03-arquitectura.md](03-arquitectura.md) | Clean Architecture, estructura de carpetas, Riverpod y flujo Either/Failure |
-| [04-modelo-datos.md](04-modelo-datos.md) | Entidades, esquema JSON persistido (compatible web v2) y clave de storage |
-| [05-design-system.md](05-design-system.md) | Design system SodaTurn y su mapeo a `ThemeData` |
-| [06-roadmap-supabase.md](06-roadmap-supabase.md) | Fase 2: persistencia en la nube con Supabase (diseño propuesto, no implementado) |
+| [01-contexto.md](01-contexto.md) | Goal, participants, and project history (web v1/v2 → Flutter) |
+| [02-business-rules.md](02-business-rules.md) | The 9 v2 rules, their strictness, and warning behavior |
+| [03-architecture.md](03-architecture.md) | Clean Architecture, folder structure, Riverpod, and the Either/Failure flow |
+| [04-data-model.md](04-data-model.md) | Entities, persisted JSON schema (web v2 compatible), and storage key |
+| [05-design-system.md](05-design-system.md) | SodaTurn design system and its mapping to `ThemeData` |
+| [06-supabase-roadmap.md](06-supabase-roadmap.md) | Phase 2: cloud persistence with Supabase (implemented, still needs your project connected) |
+| [07-colombian-holidays.md](07-colombian-holidays.md) | Local Colombian holiday calculator (Emiliani Law + Easter) |
 
-## Comandos rápidos
+## Quick commands
 
-El proyecto usa FVM (canal `stable`):
+The project uses FVM (`stable` channel):
 
 ```bash
 fvm flutter pub get
 fvm flutter analyze
 fvm flutter test
-fvm flutter run          # dispositivo/emulador Android
+fvm flutter run          # Android device/emulator
 ```
 
-## Alcance del MVP
+## MVP scope
 
-Incluye: generar semana, reglas v2 completas, bloqueos 🔒, edición manual
-con advertencias, gestión de participantes y estadísticas.
+Includes: generating the week, the complete v2 rules, locks 🔒, manual
+editing with warnings, participant management, and statistics.
 
-**Fuera del MVP** (pendiente para fases siguientes): pantalla de Ajustes
-(exportar/importar respaldo, reiniciar datos, modo oscuro), tab History
-del mockup, y la sincronización en la nube (ver
-[06-roadmap-supabase.md](06-roadmap-supabase.md)).
+## Phase 2 (this state of the repo)
+
+Generic product model (v3 rules, see
+[02-business-rules.md](02-business-rules.md)), Colombian holidays,
+generation strictly for the current day (never whole weeks ahead of time),
+and Supabase backend — see
+[06-supabase-roadmap.md](06-supabase-roadmap.md) to connect your own
+project.
+
+**Pending** (next phases): Settings screen (export/import backup, reset
+data, dark mode), the mockup's History tab, Realtime, and offline-first
+sync.

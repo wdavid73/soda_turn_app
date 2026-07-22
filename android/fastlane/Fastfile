@@ -1,0 +1,15 @@
+default_platform(:android)
+
+platform :android do
+  desc "Distribute the release APK built by CI to Firebase App Distribution"
+  lane :distribute_firebase do
+    firebase_app_distribution(
+      app: ENV["FIREBASE_ANDROID_APP_ID"],
+      testers: ENV["FIREBASE_TESTERS"],
+      release_notes: ENV["RELEASE_NOTES"] || "Build automático desde master (#{ENV['GITHUB_SHA']&.slice(0, 7)})",
+      android_artifact_type: "APK",
+      android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      service_credentials_file: ENV["FIREBASE_SERVICE_ACCOUNT_FILE"]
+    )
+  end
+end

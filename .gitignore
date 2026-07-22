@@ -46,3 +46,19 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+node_modules/
+supabase/.temp/
+
+# Kotlin/Gradle incremental compilation cache
+/android/.kotlin/
+
+# Fastlane / Ruby
+/android/vendor/bundle/
+/android/.bundle/
+/android/fastlane/report.xml
+/android/firebase-service-account.json
+
+# Firebase CLI
+.firebase/
+firebase-debug.log
+firestore-debug.log

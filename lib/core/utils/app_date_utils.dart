@@ -1,3 +1,5 @@
+import 'colombian_holidays.dart';
+
 /// Utilidades de fecha para semanas hábiles (lunes a viernes).
 ///
 /// Todas las fechas viajan como String ISO `yyyy-MM-dd`, igual que las claves
@@ -110,4 +112,27 @@ class AppDateUtils {
 
   /// `true` si [iso] es la fecha de hoy.
   static bool isToday(String iso) => iso == toIso(DateTime.now());
+
+  /// `true` si [iso] es un día en el que se puede generar/asignar algo:
+  /// día hábil (lunes-viernes) **y** no festivo en Colombia.
+  static bool esDiaGenerable(String iso) =>
+      weekdayIndex(iso) != -1 && !ColombianHolidays.esFestivo(parseIso(iso));
+
+  /// Día generable anterior a [iso] (salta fines de semana y festivos).
+  static String previousGenerableDay(String iso) {
+    var d = parseIso(iso).subtract(const Duration(days: 1));
+    while (!esDiaGenerable(toIso(d))) {
+      d = d.subtract(const Duration(days: 1));
+    }
+    return toIso(d);
+  }
+
+  /// Día generable siguiente a [iso] (salta fines de semana y festivos).
+  static String nextGenerableDay(String iso) {
+    var d = parseIso(iso).add(const Duration(days: 1));
+    while (!esDiaGenerable(toIso(d))) {
+      d = d.add(const Duration(days: 1));
+    }
+    return toIso(d);
+  }
 }

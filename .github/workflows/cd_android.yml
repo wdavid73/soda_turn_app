@@ -1,0 +1,86 @@
+name: CD Android
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: cd-android-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build_and_distribute:
+    name: Build & Distribute to Firebase App Distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup FVM + Flutter
+        uses: kuhnroyal/flutter-fvm-config-action@v2
+        id: fvm-config
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.fvm-config.outputs.FLUTTER_VERSION }}
+          channel: ${{ steps.fvm-config.outputs.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Restore pub cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - run: flutter pub get
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Cache Fastlane gems
+        uses: actions/cache@v4
+        with:
+          path: android/vendor/bundle
+          key: gems-${{ runner.os }}-${{ hashFiles('android/Gemfile.lock') }}
+          restore-keys: gems-${{ runner.os }}-
+
+      - name: Install Fastlane dependencies
+        working-directory: android
+        run: |
+          bundle config set --local path 'vendor/bundle'
+          bundle install
+
+      - name: Decode Firebase service account
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}" | base64 -d > android/firebase-service-account.json
+
+      - name: Distribute via Fastlane
+        working-directory: android
+        run: bundle exec fastlane android distribute_firebase
+        env:
+          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          FIREBASE_SERVICE_ACCOUNT_FILE: firebase-service-account.json
+          FIREBASE_TESTERS: guichodevs@gmail.com
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: Clean up service account
+        if: always()
+        run: rm -f android/firebase-service-account.json
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-android-${{ github.sha }}
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7

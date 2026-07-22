@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:turn_soda/features/turnos/presentation/providers/turnos_providers.dart';
+import 'package:turn_soda/features/shifts/presentation/providers/shifts_providers.dart';
 import 'package:turn_soda/main.dart';
 
 void main() {
@@ -40,7 +40,9 @@ void main() {
     expect(find.textContaining('Aún no hay historial'), findsOneWidget);
   });
 
-  testWidgets('generar semana asigna gaseosa y vasos', (tester) async {
+  testWidgets('generar turno de hoy no falla y navega a Semana', (
+    tester,
+  ) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
 
@@ -52,12 +54,17 @@ void main() {
     );
     await tester.pumpAndSettle();
 
+    // "Generar Semana" ahora solo calcula los periodos pendientes hasta hoy
+    // (nunca una semana completa por adelantado, ver docs/02-reglas-negocio.md).
+    // Este smoke test solo verifica que el flujo no falle y la pantalla
+    // "Semana" siga funcionando; el comportamiento exacto de qué se asigna
+    // está cubierto por test/features/shifts/domain/shifts_engine_test.dart.
     await tester.tap(find.text('Generar Semana'));
     await tester.pumpAndSettle();
 
-    // En Semana deben quedar los 5 días asignados (nadie "Sin asignar").
     await tester.tap(find.text('Semana'));
     await tester.pumpAndSettle();
-    expect(find.text('Sin asignar'), findsNothing);
+    expect(find.text('Esta Semana'), findsOneWidget);
+    expect(find.text('Vasos de la semana'), findsOneWidget);
   });
 }
