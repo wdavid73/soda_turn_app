@@ -1,7 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/config/supabase_config.dart';
 import '../../../shifts/presentation/providers/shifts_providers.dart';
+import '../../data/push_token_service.dart';
 
 /// Quién es la persona dueña de este teléfono, para poder mandarle push
 /// notifications ("hoy te toca"). No es autenticación: es una preferencia
@@ -29,3 +32,10 @@ final myParticipantIdProvider =
     StateNotifierProvider<MyParticipantIdNotifier, String?>(
       (ref) => MyParticipantIdNotifier(ref.read(sharedPreferencesProvider)),
     );
+
+/// `null` si Supabase no está configurado (no hay dónde registrar el token).
+final pushTokenServiceProvider = Provider<PushTokenService?>(
+  (ref) => SupabaseConfig.isConfigured
+      ? PushTokenService(Supabase.instance.client)
+      : null,
+);
