@@ -12,4 +12,9 @@ abstract class ShiftsRepository {
   Future<Either<Failure, ShiftsStateEntity?>> load();
 
   Future<Either<Failure, Unit>> save(ShiftsStateEntity state);
+
+  /// Materializa a `historico` las semanas ya completadas y limpia sus
+  /// filas "vivas". No-op en implementaciones sin tablas separadas para
+  /// histórico (ej. el respaldo local).
+  Future<Either<Failure, Unit>> closeCompletedWeeks(String todayIso);
 }

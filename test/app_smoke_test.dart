@@ -19,7 +19,7 @@ void main() {
 
     // Home
     expect(find.text('¡Hola, Equipo!'), findsOneWidget);
-    expect(find.text('Generar Semana'), findsOneWidget);
+    expect(find.text('Generar hasta hoy'), findsOneWidget);
 
     // Semana
     await tester.tap(find.text('Semana'));
@@ -54,12 +54,12 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // "Generar Semana" ahora solo calcula los periodos pendientes hasta hoy
+    // "Generar hasta hoy" solo calcula los periodos pendientes hasta hoy
     // (nunca una semana completa por adelantado, ver docs/02-reglas-negocio.md).
     // Este smoke test solo verifica que el flujo no falle y la pantalla
     // "Semana" siga funcionando; el comportamiento exacto de qué se asigna
     // está cubierto por test/features/shifts/domain/shifts_engine_test.dart.
-    await tester.tap(find.text('Generar Semana'));
+    await tester.tap(find.text('Generar hasta hoy'));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('Semana'));

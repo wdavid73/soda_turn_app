@@ -31,12 +31,12 @@ class WeekScreen extends ConsumerWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         heroTag: 'fab-week',
-        tooltip: 'Generar semana',
+        tooltip: 'Generar hasta hoy',
         onPressed: () {
           vm.generateToday();
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Semana generada 🥤')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Turnos generados hasta hoy 🥤')),
+          );
         },
         child: const Icon(Icons.refresh),
       ),

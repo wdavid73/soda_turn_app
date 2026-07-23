@@ -32,12 +32,12 @@ class HomeScreen extends ConsumerWidget {
         onPressed: () {
           vm.goCurrentWeek();
           vm.generateToday();
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Semana generada 🥤')));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Turnos generados hasta hoy 🥤')),
+          );
         },
         icon: const Icon(Icons.auto_awesome),
-        label: const Text('Generar Semana'),
+        label: const Text('Generar hasta hoy'),
       ),
       body: SafeArea(
         child: ListView(

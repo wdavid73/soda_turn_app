@@ -14,6 +14,7 @@ import '../../domain/services/shifts_engine.dart';
 import '../../domain/usecases/add_participant_usecase.dart';
 import '../../domain/usecases/add_week_participant_usecase.dart';
 import '../../domain/usecases/auto_assign_product_usecase.dart';
+import '../../domain/usecases/close_completed_weeks_usecase.dart';
 import '../../domain/usecases/compute_stats_usecase.dart';
 import '../../domain/usecases/configure_week_usecase.dart';
 import '../../domain/usecases/generate_today_usecase.dart';
@@ -65,6 +66,7 @@ final turnosUseCasesProvider = Provider<TurnosUseCases>((ref) {
   return TurnosUseCases(
     load: LoadTurnosUseCase(repository),
     save: SaveTurnosUseCase(repository),
+    closeCompletedWeeks: CloseCompletedWeeksUseCase(repository),
     generateToday: GenerateTodayUseCase(engine),
     autoAssignProducto: AutoAssignProductoUseCase(engine),
     manualSetProducto: ManualSetProductoUseCase(engine),

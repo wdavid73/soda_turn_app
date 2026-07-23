@@ -5,6 +5,7 @@ import '../../domain/entities/shifts_state_entity.dart';
 import '../../domain/usecases/add_participant_usecase.dart';
 import '../../domain/usecases/add_week_participant_usecase.dart';
 import '../../domain/usecases/auto_assign_product_usecase.dart';
+import '../../domain/usecases/close_completed_weeks_usecase.dart';
 import '../../domain/usecases/configure_week_usecase.dart';
 import '../../domain/usecases/generate_today_usecase.dart';
 import '../../domain/usecases/load_shifts_usecase.dart';
@@ -21,6 +22,7 @@ import '../../domain/usecases/toggle_participant_active_usecase.dart';
 class TurnosUseCases {
   final LoadTurnosUseCase load;
   final SaveTurnosUseCase save;
+  final CloseCompletedWeeksUseCase closeCompletedWeeks;
   final GenerateTodayUseCase generateToday;
   final AutoAssignProductoUseCase autoAssignProducto;
   final ManualSetProductoUseCase manualSetProducto;
@@ -37,6 +39,7 @@ class TurnosUseCases {
   const TurnosUseCases({
     required this.load,
     required this.save,
+    required this.closeCompletedWeeks,
     required this.generateToday,
     required this.autoAssignProducto,
     required this.manualSetProducto,
@@ -97,6 +100,9 @@ class ShiftsViewModel extends StateNotifier<TurnosUiState> {
   }
 
   Future<void> _init() async {
+    // Best-effort: si falla, no debe bloquear la carga normal (ver
+    // CloseCompletedWeeksUseCase).
+    await usecases.closeCompletedWeeks(AppDateUtils.toIso(DateTime.now()));
     final result = await usecases.load();
     result.fold(
       (failure) =>

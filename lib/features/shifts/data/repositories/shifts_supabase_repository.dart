@@ -54,6 +54,16 @@ class ShiftsSupabaseRepository implements ShiftsRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, Unit>> closeCompletedWeeks(String todayIso) async {
+    try {
+      await remoteDatasource.closeCompletedWeeks(todayIso);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure('No se pudo cerrar semanas completadas: $e'));
+    }
+  }
+
   Future<void> _backupLocally(ShiftsStateEntity state) async {
     try {
       final raw = jsonEncode(ShiftsStateModel.fromEntity(state).toJson());

@@ -1,8 +1,10 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/utils/app_date_utils.dart';
 import '../../domain/entities/assignment_entity.dart';
 import '../../domain/entities/generated_week_entity.dart';
 import '../../domain/entities/shifts_state_entity.dart';
+import '../../domain/services/week_state_service.dart';
 import '../models/product_condition_model.dart';
 import '../models/participant_model.dart';
 import '../models/product_exclusion_model.dart';
@@ -238,6 +240,85 @@ class ShiftsRemoteDatasource {
           'warning': a.warning,
         }, onConflict: 'semana_id,producto_id');
       }
+    }
+  }
+
+  /// Materializa a `historico` toda semana cuyo estado real (calculado con
+  /// [WeekStateService], no la columna cache) sea [EstadoSemana.completada]
+  /// y todavía tenga filas en las tablas "vivas". Idempotente: una semana ya
+  /// materializada no tiene filas vivas, así que una segunda pasada no
+  /// encuentra nada que reprocesar.
+  Future<void> closeCompletedWeeks(String todayIso) async {
+    final semanasRows = await client.from('semana_generada').select();
+
+    for (final row in semanasRows) {
+      final semanaId = row['id'] as String;
+      final mondayIso = row['monday'] as String;
+      final fridayIso = row['friday'] as String;
+      final semana = GeneratedWeekEntity(monday: mondayIso, friday: fridayIso);
+      if (WeekStateService.estadoDe(semana, todayIso) != EstadoSemana.completada) {
+        continue;
+      }
+
+      final diariaRows = await client
+          .from('asignacion_diaria')
+          .select()
+          .eq('semana_id', semanaId);
+      final semanalRows = await client
+          .from('asignacion_semanal')
+          .select()
+          .eq('semana_id', semanaId);
+      if (diariaRows.isEmpty && semanalRows.isEmpty) continue;
+
+      final presenciaRows = await client
+          .from('presencia_dia')
+          .select()
+          .eq('semana_id', semanaId);
+      final presentesPorFecha = <String, List<String>>{};
+      for (final p in presenciaRows) {
+        if (p['presente'] == false) continue;
+        (presentesPorFecha[p['fecha'] as String] ??= []).add(
+          p['participante_id'] as String,
+        );
+      }
+      final presentesUnionSemana = <String>{
+        for (final dayIso in AppDateUtils.weekDays(mondayIso))
+          ...?presentesPorFecha[dayIso],
+      };
+
+      final historicoRows = [
+        for (final r in diariaRows)
+          {
+            'semana_id': semanaId,
+            'fecha': r['fecha'],
+            'producto_id': r['producto_id'],
+            'participante_id': r['participante_id'],
+            'warning': r['warning'],
+            'presentes_snapshot': presentesPorFecha[r['fecha'] as String] ?? const [],
+          },
+        for (final r in semanalRows)
+          {
+            'semana_id': semanaId,
+            'fecha': mondayIso,
+            'producto_id': r['producto_id'],
+            'participante_id': r['participante_id'],
+            'warning': r['warning'],
+            'presentes_snapshot': presentesUnionSemana.toList(),
+          },
+      ];
+
+      if (historicoRows.isNotEmpty) {
+        await client
+            .from('historico')
+            .upsert(historicoRows, onConflict: 'semana_id,fecha,producto_id');
+      }
+
+      await client.from('asignacion_diaria').delete().eq('semana_id', semanaId);
+      await client.from('asignacion_semanal').delete().eq('semana_id', semanaId);
+      await client
+          .from('semana_generada')
+          .update({'estado': 'completada'})
+          .eq('id', semanaId);
     }
   }
 }

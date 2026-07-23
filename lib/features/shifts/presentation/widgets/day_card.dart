@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/app_date_utils.dart';
+import '../../../../core/utils/colombian_holidays.dart';
 import '../../../../shared/widgets/initials_avatar.dart';
 import '../../domain/entities/assignment_entity.dart';
 import '../../domain/entities/shifts_state_entity.dart';
@@ -28,6 +29,7 @@ class DayCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final isToday = AppDateUtils.isToday(dayIso);
+    final isHoliday = ColombianHolidays.esFestivo(AppDateUtils.parseIso(dayIso));
     final day = data.asignacionDe('gaseosa', dayIso) ?? const AssignmentEntity();
     final present = data.presenciaPorDia.containsKey(dayIso)
         ? data.presentesEn(dayIso)
@@ -80,7 +82,9 @@ class DayCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              AppDateUtils.dayLabel(dayIso),
+                              isHoliday
+                                  ? '🎉 ${AppDateUtils.dayLabel(dayIso)}'
+                                  : AppDateUtils.dayLabel(dayIso),
                               style: textTheme.labelLarge?.copyWith(
                                 color: isToday
                                     ? AppTheme.onMint

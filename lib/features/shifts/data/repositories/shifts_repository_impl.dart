@@ -35,4 +35,8 @@ class ShiftsRepositoryImpl implements ShiftsRepository {
       return Left(CacheFailure('No se pudo guardar el estado: $e'));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> closeCompletedWeeks(String todayIso) async =>
+      const Right(unit);
 }
