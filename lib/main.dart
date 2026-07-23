@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config/routes/app_router.dart';
 import 'core/config/supabase_config.dart';
 import 'core/theme/app_theme.dart';
+import 'features/identity/presentation/widgets/identity_gate.dart';
 import 'features/shifts/presentation/providers/shifts_providers.dart';
 
 Future<void> main() async {
@@ -40,6 +41,8 @@ class SodaTurnApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
       routerConfig: ref.watch(appRouterProvider),
+      builder: (context, child) =>
+          IdentityGate(child: child ?? const SizedBox.shrink()),
     );
   }
 }

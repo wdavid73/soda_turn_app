@@ -5,6 +5,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/widgets/initials_avatar.dart';
 import '../../../../shared/widgets/soda_header.dart';
 import '../../../../shared/widgets/stat_tile.dart';
+import '../../../identity/presentation/providers/identity_providers.dart';
 import '../../domain/entities/participant_entity.dart';
 import '../providers/shifts_providers.dart';
 
@@ -164,6 +165,7 @@ class _ParticipantTile extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final vm = ref.read(turnosViewModelProvider.notifier);
     final stats = ref.watch(turnosStatsProvider);
+    final isMe = ref.watch(myParticipantIdProvider) == participant.id;
 
     return Opacity(
       opacity: participant.active ? 1 : 0.55,
@@ -172,7 +174,11 @@ class _ParticipantTile extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(
             children: [
-              InitialsAvatar(name: participant.name, size: 44),
+              InitialsAvatar(
+                name: participant.name,
+                size: 44,
+                ringColor: isMe ? AppTheme.mint : null,
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -192,6 +198,16 @@ class _ParticipantTile extends ConsumerWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+              IconButton(
+                onPressed: () => ref
+                    .read(myParticipantIdProvider.notifier)
+                    .set(participant.id),
+                tooltip: isMe ? 'Sos vos' : 'Marcar como yo',
+                icon: Icon(
+                  isMe ? Icons.person : Icons.person_outline,
+                  color: isMe ? AppTheme.mint : AppTheme.onSurfaceVariant,
                 ),
               ),
               IconButton(

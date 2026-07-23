@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,10 +8,16 @@ import '../../features/shifts/presentation/screens/stats_screen.dart';
 import '../../features/shifts/presentation/screens/week_screen.dart';
 import '../../shared/widgets/app_scaffold.dart';
 
+/// Contexto del Navigator raíz para código fuera del árbol de rutas (ej.
+/// `IdentityGate`, que vive en el `builder` de `MaterialApp.router` y por
+/// lo tanto no tiene un Navigator como ancestro).
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+
 /// Router como provider: cada ProviderScope (app o test) recibe su propia
 /// instancia y no se filtra estado de navegación entre árboles de widgets.
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation: '/home',
     routes: [
       StatefulShellRoute.indexedStack(
