@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/utils/app_date_utils.dart';
@@ -320,5 +322,39 @@ class ShiftsRemoteDatasource {
           .update({'estado': 'completada'})
           .eq('id', semanaId);
     }
+  }
+
+  /// Emite un evento cada vez que cambia algo en las tablas "vivas" de la
+  /// semana activa (INSERT/UPDATE/DELETE). No manda el payload: quien
+  /// escucha reacciona recargando el agregado completo con `load()`, así
+  /// no hay que duplicar la lógica de reconstrucción de estado. Un solo
+  /// canal para las 4 tablas; se cierra al cancelar la suscripción.
+  static const _watchedTables = [
+    'asignacion_diaria',
+    'asignacion_semanal',
+    'presencia_dia',
+    'semana_generada',
+  ];
+
+  Stream<void> watchChanges() {
+    late final StreamController<void> controller;
+    late final RealtimeChannel channel;
+
+    controller = StreamController<void>.broadcast(
+      onCancel: () => client.removeChannel(channel),
+    );
+
+    channel = client.channel('shifts-changes');
+    for (final table in _watchedTables) {
+      channel.onPostgresChanges(
+        event: PostgresChangeEvent.all,
+        schema: 'public',
+        table: table,
+        callback: (payload) => controller.add(null),
+      );
+    }
+    channel.subscribe();
+
+    return controller.stream;
   }
 }

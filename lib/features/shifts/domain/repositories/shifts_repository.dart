@@ -17,4 +17,8 @@ abstract class ShiftsRepository {
   /// filas "vivas". No-op en implementaciones sin tablas separadas para
   /// histórico (ej. el respaldo local).
   Future<Either<Failure, Unit>> closeCompletedWeeks(String todayIso);
+
+  /// Emite un evento cada vez que otro dispositivo cambia la semana activa.
+  /// Stream vacío en implementaciones sin soporte realtime (ej. local).
+  Stream<void> watchChanges();
 }

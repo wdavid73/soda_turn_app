@@ -39,4 +39,7 @@ class ShiftsRepositoryImpl implements ShiftsRepository {
   @override
   Future<Either<Failure, Unit>> closeCompletedWeeks(String todayIso) async =>
       const Right(unit);
+
+  @override
+  Stream<void> watchChanges() => const Stream.empty();
 }

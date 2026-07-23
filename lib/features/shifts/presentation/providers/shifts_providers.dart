@@ -27,6 +27,7 @@ import '../../domain/usecases/save_shifts_usecase.dart';
 import '../../domain/usecases/set_presence_usecase.dart';
 import '../../domain/usecases/toggle_lock_usecase.dart';
 import '../../domain/usecases/toggle_participant_active_usecase.dart';
+import '../../domain/usecases/watch_shifts_changes_usecase.dart';
 import 'shifts_view_model.dart';
 
 /// Se sobreescribe en main() con la instancia real.
@@ -67,6 +68,7 @@ final turnosUseCasesProvider = Provider<TurnosUseCases>((ref) {
     load: LoadTurnosUseCase(repository),
     save: SaveTurnosUseCase(repository),
     closeCompletedWeeks: CloseCompletedWeeksUseCase(repository),
+    watchChanges: WatchShiftsChangesUseCase(repository),
     generateToday: GenerateTodayUseCase(engine),
     autoAssignProducto: AutoAssignProductoUseCase(engine),
     manualSetProducto: ManualSetProductoUseCase(engine),

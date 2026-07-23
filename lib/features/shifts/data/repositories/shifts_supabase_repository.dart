@@ -64,6 +64,9 @@ class ShiftsSupabaseRepository implements ShiftsRepository {
     }
   }
 
+  @override
+  Stream<void> watchChanges() => remoteDatasource.watchChanges();
+
   Future<void> _backupLocally(ShiftsStateEntity state) async {
     try {
       final raw = jsonEncode(ShiftsStateModel.fromEntity(state).toJson());

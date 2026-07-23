@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/utils/app_date_utils.dart';
@@ -17,12 +19,14 @@ import '../../domain/usecases/save_shifts_usecase.dart';
 import '../../domain/usecases/set_presence_usecase.dart';
 import '../../domain/usecases/toggle_lock_usecase.dart';
 import '../../domain/usecases/toggle_participant_active_usecase.dart';
+import '../../domain/usecases/watch_shifts_changes_usecase.dart';
 
 /// Bundle de usecases para no inflar el constructor del ViewModel.
 class TurnosUseCases {
   final LoadTurnosUseCase load;
   final SaveTurnosUseCase save;
   final CloseCompletedWeeksUseCase closeCompletedWeeks;
+  final WatchShiftsChangesUseCase watchChanges;
   final GenerateTodayUseCase generateToday;
   final AutoAssignProductoUseCase autoAssignProducto;
   final ManualSetProductoUseCase manualSetProducto;
@@ -40,6 +44,7 @@ class TurnosUseCases {
     required this.load,
     required this.save,
     required this.closeCompletedWeeks,
+    required this.watchChanges,
     required this.generateToday,
     required this.autoAssignProducto,
     required this.manualSetProducto,
@@ -90,6 +95,11 @@ class TurnosUiState {
 class ShiftsViewModel extends StateNotifier<TurnosUiState> {
   final TurnosUseCases usecases;
 
+  static const _changesDebounce = Duration(milliseconds: 400);
+
+  StreamSubscription<void>? _changesSub;
+  Timer? _debounceTimer;
+
   ShiftsViewModel(this.usecases)
     : super(
         TurnosUiState(
@@ -103,12 +113,34 @@ class ShiftsViewModel extends StateNotifier<TurnosUiState> {
     // Best-effort: si falla, no debe bloquear la carga normal (ver
     // CloseCompletedWeeksUseCase).
     await usecases.closeCompletedWeeks(AppDateUtils.toIso(DateTime.now()));
+    await _reload();
+    _subscribeToChanges();
+  }
+
+  Future<void> _reload() async {
     final result = await usecases.load();
     result.fold(
       (failure) =>
           state = state.copyWith(loading: false, error: failure.message),
       (data) => state = state.copyWith(loading: false, data: data, error: null),
     );
+  }
+
+  /// Recarga el estado cuando otro dispositivo cambia la semana activa
+  /// (ver `WatchShiftsChangesUseCase`), con debounce para no disparar un
+  /// `load()` por cada fila si llegan varios cambios seguidos.
+  void _subscribeToChanges() {
+    _changesSub = usecases.watchChanges().listen((_) {
+      _debounceTimer?.cancel();
+      _debounceTimer = Timer(_changesDebounce, _reload);
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    _changesSub?.cancel();
+    super.dispose();
   }
 
   /// Aplica una mutación pura del estado de dominio y la persiste.
