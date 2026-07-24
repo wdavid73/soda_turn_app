@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/config/supabase_config.dart';
+import '../../../../core/utils/app_date_utils.dart';
 import '../../data/datasources/shifts_local_datasource.dart';
 import '../../data/datasources/shifts_remote_datasource.dart';
 import '../../data/repositories/shifts_repository_impl.dart';
@@ -15,6 +16,7 @@ import '../../domain/usecases/add_participant_usecase.dart';
 import '../../domain/usecases/add_week_participant_usecase.dart';
 import '../../domain/usecases/auto_assign_product_usecase.dart';
 import '../../domain/usecases/close_completed_weeks_usecase.dart';
+import '../../domain/usecases/compute_history_usecase.dart';
 import '../../domain/usecases/compute_stats_usecase.dart';
 import '../../domain/usecases/configure_week_usecase.dart';
 import '../../domain/usecases/generate_today_usecase.dart';
@@ -97,4 +99,18 @@ final computeStatsUseCaseProvider = Provider<ComputeStatsUseCase>(
 final turnosStatsProvider = Provider<ShiftsStats>((ref) {
   final data = ref.watch(turnosViewModelProvider.select((s) => s.data));
   return ref.read(computeStatsUseCaseProvider)(data);
+});
+
+final computeHistoryUseCaseProvider = Provider<ComputeHistoryUseCase>(
+  (ref) => const ComputeHistoryUseCase(),
+);
+
+/// Semanas completadas agrupadas por mes, derivadas del estado actual (las
+/// filas de `historico` ya vienen plegadas en `asignaciones` desde `load()`).
+final turnosHistoryProvider = Provider<List<HistoryMonthGroup>>((ref) {
+  final data = ref.watch(turnosViewModelProvider.select((s) => s.data));
+  return ref.read(computeHistoryUseCaseProvider)(
+    data,
+    AppDateUtils.toIso(DateTime.now()),
+  );
 });

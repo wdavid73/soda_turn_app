@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/shifts/presentation/screens/history_screen.dart';
 import '../../features/shifts/presentation/screens/home_screen.dart';
 import '../../features/shifts/presentation/screens/participants_screen.dart';
 import '../../features/shifts/presentation/screens/stats_screen.dart';
@@ -57,6 +58,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: '/stats',
                 name: 'stats',
                 builder: (context, state) => const StatsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/history',
+                name: 'history',
+                builder: (context, state) => const HistoryScreen(),
               ),
             ],
           ),

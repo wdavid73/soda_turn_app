@@ -1,7 +1,7 @@
 name: turn_soda
 description: "SodaTurn: rotación justa de gaseosa y vasos para el almuerzo."
-publish_to: 'none'
-version: 0.1.0+1
+publish_to: "none"
+version: 0.1.1+2
 
 environment:
   sdk: ^3.12.2

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Shell con la barra de navegación inferior (Home, Semana, Equipo, Stats).
+/// Shell con la barra de navegación inferior (Home, Semana, Equipo, Stats,
+/// Historial).
 class AppScaffold extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
@@ -37,6 +38,11 @@ class AppScaffold extends StatelessWidget {
             icon: Icon(Icons.bar_chart_outlined),
             selectedIcon: Icon(Icons.bar_chart),
             label: 'Stats',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.history_outlined),
+            selectedIcon: Icon(Icons.history),
+            label: 'Historial',
           ),
         ],
       ),

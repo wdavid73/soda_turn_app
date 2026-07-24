@@ -56,5 +56,25 @@ void main() {
       expect(AppDateUtils.previousGenerableDay('2026-05-04'), '2026-04-30');
       expect(AppDateUtils.nextGenerableDay('2026-04-30'), '2026-05-04');
     });
+
+    test('monthYearLabel usa el mes del lunes', () {
+      expect(AppDateUtils.monthYearLabel('2026-07-13'), 'Julio 2026');
+      // Semana que cruza de mes: pertenece al mes del lunes.
+      expect(AppDateUtils.monthYearLabel('2026-06-29'), 'Junio 2026');
+    });
+
+    test('monthKeyOf devuelve la clave yyyy-MM del lunes', () {
+      expect(AppDateUtils.monthKeyOf('2026-07-13'), '2026-07');
+      expect(AppDateUtils.monthKeyOf('2026-06-29'), '2026-06');
+    });
+
+    test('isoWeekNumber sigue la regla ISO-8601 (año del jueves)', () {
+      // La semana del 29-dic-2025 contiene el jueves 1-ene-2026 → semana 1.
+      expect(AppDateUtils.isoWeekNumber('2025-12-29'), 1);
+      expect(AppDateUtils.isoWeekNumber('2026-01-05'), 2);
+      expect(AppDateUtils.isoWeekNumber('2026-07-13'), 29);
+      // 2024-12-30: el jueves es 2-ene-2025 → semana 1 de 2025.
+      expect(AppDateUtils.isoWeekNumber('2024-12-30'), 1);
+    });
   });
 }

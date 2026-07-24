@@ -169,6 +169,11 @@ class ShiftsViewModel extends StateNotifier<TurnosUiState> {
     selectedMonday: AppDateUtils.activeMondayIso(DateTime.now()),
   );
 
+  /// Salta directamente a la semana de [mondayIso] (ej. "Ver semana" desde
+  /// el historial).
+  void selectMonday(String mondayIso) =>
+      state = state.copyWith(selectedMonday: mondayIso);
+
   // ── Generación y asignaciones ───────────────────────────────────────────
 
   /// Genera únicamente los periodos pendientes hasta hoy (nunca semanas ni

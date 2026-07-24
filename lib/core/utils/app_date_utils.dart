@@ -17,6 +17,21 @@ class AppDateUtils {
 
   static const List<String> dayNamesShort = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'];
 
+  static const List<String> monthNames = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
+
   static const List<String> _monthsShort = [
     'ene',
     'feb',
@@ -108,6 +123,27 @@ class AppDateUtils {
     final end =
         '${friday.day} ${_monthsShort[friday.month - 1]} ${friday.year}';
     return '$start – $end';
+  }
+
+  /// Etiqueta de mes y año de la semana, ej. "Octubre 2025". Una semana que
+  /// cruza de mes pertenece al mes de su lunes.
+  static String monthYearLabel(String mondayIso) {
+    final d = parseIso(mondayIso);
+    return '${monthNames[d.month - 1]} ${d.year}';
+  }
+
+  /// Clave de mes para agrupar/filtrar, ej. "2025-10" (mes del lunes).
+  static String monthKeyOf(String mondayIso) => mondayIso.substring(0, 7);
+
+  /// Número de semana ISO-8601 de la semana que empieza en [mondayIso]:
+  /// la semana pertenece al año de su jueves. Se calcula en UTC para que un
+  /// cambio de hora local (DST) no descuadre la resta de días.
+  static int isoWeekNumber(String mondayIso) {
+    final m = parseIso(mondayIso);
+    final thursday = DateTime.utc(m.year, m.month, m.day)
+        .add(const Duration(days: 3));
+    final firstDay = DateTime.utc(thursday.year, 1, 1);
+    return (thursday.difference(firstDay).inDays ~/ 7) + 1;
   }
 
   /// `true` si [iso] es la fecha de hoy.

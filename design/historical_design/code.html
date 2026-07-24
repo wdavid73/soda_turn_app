@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SodaTurn - Historial</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#a8edff",
+                    "primary-container": "#3f51b5",
+                    "inverse-surface": "#303034",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#00105c",
+                    "surface-bright": "#fbf8fe",
+                    "surface-container-highest": "#e4e1e7",
+                    "on-tertiary-fixed": "#001f26",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#004a57",
+                    "surface-tint": "#4355b9",
+                    "tertiary-container": "#006474",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#454652",
+                    "primary": "#24389c",
+                    "surface-variant": "#e4e1e7",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f6f2f8",
+                    "surface-container-high": "#eae7ed",
+                    "on-primary-container": "#cacfff",
+                    "outline-variant": "#c5c5d4",
+                    "tertiary-fixed-dim": "#49d7f4",
+                    "surface": "#fbf8fe",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "on-background": "#1b1b1f",
+                    "primary-fixed-dim": "#bac3ff",
+                    "on-tertiary-fixed-variant": "#004e5b",
+                    "surface-dim": "#dcd9de",
+                    "background": "#fbf8fe",
+                    "on-secondary-fixed": "#002108",
+                    "primary-fixed": "#dee0ff",
+                    "outline": "#757684",
+                    "surface-container": "#f0edf2",
+                    "secondary-container": "#5cfd80",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#00732c",
+                    "on-primary-fixed-variant": "#293ca0",
+                    "secondary-fixed": "#69ff87",
+                    "on-surface": "#1b1b1f",
+                    "on-tertiary-container": "#63e3ff",
+                    "inverse-on-surface": "#f3f0f5",
+                    "on-error-container": "#93000a",
+                    "secondary": "#006e2a",
+                    "inverse-primary": "#bac3ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "margin-tablet": "24px",
+                    "md": "16px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "title-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "600"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bubbly-bg {
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 200, 83, 0.05) 0%, transparent 20%),
+                              radial-gradient(circle at 90% 80%, rgba(63, 81, 181, 0.05) 0%, transparent 20%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24 bubbly-bg">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-background/80 backdrop-blur-md flex justify-between items-center px-margin-mobile py-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-size: 28px;">bubble_chart</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">SodaTurn</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+</header>
+<main class="px-margin-mobile pt-md space-y-md">
+<!-- Title & Subtitle -->
+<section class="space-y-xs">
+<h2 class="font-title-lg text-title-lg text-on-surface">Historial</h2>
+<p class="text-body-md text-on-surface-variant">Revisa los turnos pasados de bebidas y snacks.</p>
+</section>
+<!-- Month Filter / Horizontal Chips -->
+<div class="flex gap-sm overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile py-xs">
+<button class="px-md py-base bg-primary text-on-primary rounded-full font-label-md transition-colors whitespace-nowrap">Todo el tiempo</button>
+<button class="px-md py-base bg-surface-container-high text-on-surface-variant rounded-full font-label-md hover:bg-surface-variant transition-colors whitespace-nowrap">Diciembre 2023</button>
+<button class="px-md py-base bg-surface-container-high text-on-surface-variant rounded-full font-label-md hover:bg-surface-variant transition-colors whitespace-nowrap">Noviembre 2023</button>
+<button class="px-md py-base bg-surface-container-high text-on-surface-variant rounded-full font-label-md hover:bg-surface-variant transition-colors whitespace-nowrap">Octubre 2023</button>
+</div>
+<!-- History Content (Bento Style & Accordions) -->
+<div class="space-y-gutter">
+<!-- Month Group: Octubre 2023 -->
+<div class="space-y-sm">
+<div class="flex items-center justify-between px-xs">
+<h3 class="font-label-lg text-label-lg text-primary uppercase tracking-wider">Octubre 2023</h3>
+<span class="text-label-md text-on-surface-variant">4 semanas registradas</span>
+</div>
+<!-- Accordion Card 1 -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden transition-all duration-300 open:shadow-md" open="">
+<summary class="flex items-center justify-between p-md cursor-pointer list-none select-none active:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">calendar_month</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Semana 42</p>
+<p class="text-label-md text-on-surface-variant">16 Oct - 20 Oct</p>
+</div>
+</div>
+<span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-md pt-0 grid grid-cols-1 gap-sm">
+<!-- Daily Entry -->
+<div class="flex items-center justify-between p-sm bg-white/40 rounded-lg">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-primary">LU</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-secondary-container">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of a friendly office employee with a warm smile, wearing a professional modern outfit in a bright, clean office setting. The style is crisp with natural light-mode tones and vibrant indigo accents from the brand's palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7mRC-4W-GLKD_sYWTC7oOnwB600Hcuf5rD7VQ3ZxCZ0D-b9vigIxsh_RZbh4fxkHisJ_U36GjIvv4vqQ9BARnx6psnXrcmrHXCXv1pR_uOYfJ2CiYNSj6E-lw0AdGwn7UPuxjc43eVGb0ORQZqpnpJOH6PCe2W89_1L-qvAi7Vpr3oNMJF5XX9G9rC381b0qZ8KGrLm7qZynYfyHJD4yojGzYpv-KY_oxPvqsSdvI41lyC7Utcg67uvxgJ00f62lzyxQpQeg6jg8"/>
+</div>
+<span class="font-label-md">Ana M.</span>
+</div>
+<div class="flex gap-xs">
+<span class="material-symbols-outlined text-primary text-[20px]" title="Compró Soda">local_drink</span>
+<span class="material-symbols-outlined text-secondary text-[20px]" title="Trajo Vasos">restaurant</span>
+</div>
+</div>
+<!-- Daily Entry -->
+<div class="flex items-center justify-between p-sm bg-white/40 rounded-lg">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-primary">MA</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-secondary-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a creative team member in a minimalist office background. The lighting is soft and high-key, aligning with a premium modern design aesthetic. The colors include subtle hints of sparkling mint and indigo refresh to match the app's visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-yPoCRFOTdy6pSAGrqhYka7FfTKT1RxPsm17JUPrijSK3GancK1XtAOs3XJRL6XAxllFH4nrVO2UzFJ6yMRcxqAPtHudjzGPz4DEh2ujlfDl5ukG_N6k82d83-GG5Cc5kMsZjC3CF_cUbD6AmitjqKk6hIqyMZbw5fd29srbD2lLphTbtbymUv3X5gGFWjixHDIiYnyfCDt80IIglMHifbp2IQ7VdBwuWTxQT2LbtG3MJDdOe2TPEdIKZbzutKh5iEKDfxtOGpdY"/>
+</div>
+<span class="font-label-md">Carlos R.</span>
+</div>
+<div class="flex gap-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">local_drink</span>
+</div>
+</div>
+<!-- Daily Entry -->
+<div class="flex items-center justify-between p-sm bg-white/40 rounded-lg">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-[10px] font-bold text-primary">MI</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-secondary-container">
+<img class="w-full h-full object-cover" data-alt="Professional studio portrait of a young tech professional with a minimalist aesthetic. High brightness, clean background, and sharp focus. The image uses the brand's core colors of deep indigo and fresh mint green for a cohesive office tool UI look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0UJdAxvKtJs-ZL48AyMUVes-D203a4eAl742DdQu-zqenSBsKAQVtaDP6jGAGu2OwDQg0oKDLdJBDUtia5jRBGywC96IJAF5rDvbdOU6BLPXRCojFT1J5BSzjOF2-Jpqpa0xVcZ9AoM4wd8nr8ZDi1lq-mOv7g1LwmyVArsylYsocS6mMxuxwMrT4-oaVN4xTRoMFn6XLHmT2Z66A-Xj7gqovE46SWek6F_Rxozewb3lLtLy6xpBGZWiNmim5sVYeUZMeBUVC5Xo"/>
+</div>
+<span class="font-label-md">Elena P.</span>
+</div>
+<div class="flex gap-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">local_drink</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">restaurant</span>
+</div>
+</div>
+</div>
+</details>
+<!-- Accordion Card 2 (Closed) -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden transition-all duration-300 open:shadow-md">
+<summary class="flex items-center justify-between p-md cursor-pointer list-none select-none active:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_month</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Semana 41</p>
+<p class="text-label-md text-on-surface-variant">09 Oct - 13 Oct</p>
+</div>
+</div>
+<span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-md pt-0">
+<p class="text-body-md text-center py-sm text-on-surface-variant italic">Cargando detalles...</p>
+</div>
+</details>
+</div>
+<!-- Month Group: Septiembre 2023 -->
+<div class="space-y-sm">
+<div class="flex items-center justify-between px-xs">
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Septiembre 2023</h3>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Summary Stats Bento -->
+<div class="col-span-2 glass-panel p-md rounded-2xl flex items-center justify-around border-secondary-container/30">
+<div class="text-center">
+<p class="font-headline-lg-mobile text-primary">22</p>
+<p class="text-label-md text-on-surface-variant uppercase">Refrescos</p>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant"></div>
+<div class="text-center">
+<p class="font-headline-lg-mobile text-secondary">08</p>
+<p class="text-label-md text-on-surface-variant uppercase">Vasos</p>
+</div>
+<div class="w-[1px] h-10 bg-outline-variant"></div>
+<div class="text-center">
+<p class="font-headline-lg-mobile text-on-surface">$0</p>
+<p class="text-label-md text-on-surface-variant uppercase">Deuda</p>
+</div>
+</div>
+<!-- Compact Week Entry -->
+<div class="bg-surface-container rounded-xl p-md flex flex-col items-center gap-sm">
+<span class="font-label-md text-on-surface-variant">Semana 39</span>
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-primary-fixed-dim flex items-center justify-center text-primary-fixed-dim text-xs">J</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed text-xs">M</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-primary-fixed flex items-center justify-center text-on-primary-fixed text-xs">A</div>
+</div>
+<button class="text-primary font-label-md flex items-center gap-xs">Ver <span class="material-symbols-outlined text-[16px]">arrow_forward</span></button>
+</div>
+<!-- Compact Week Entry -->
+<div class="bg-surface-container rounded-xl p-md flex flex-col items-center gap-sm">
+<span class="font-label-md text-on-surface-variant">Semana 38</span>
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up of a diverse professional woman in a bright workspace, radiating confidence and warmth. The photography is sharp with a clean light background, incorporating soft mint green and blue tones from the UI's color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm9qLgZD1M9jHmgjPWITJvC_x4OzA-usGJ8fVu5gYc5RKkLvSamSMTiC9vWpEOJhE7CumD-RJ0mZpmVnkF09oaXngv6aQWLE8E_2zDzTRIZL-C_GU5NMO4SFkLanSrFAO3WBiVDoWm3R8O5jrreO237cfnOn9ryMwZnHE2xzC8aeDQ7VYs0syFgj6OutUI2qo_LGAddMHBlrZtxqS3-RsulY6o6jpF6p_ZyB7EcWLmMja3nVFC3tmowtWh2icEVmzP66bb2KY7NLc"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a modern male professional with an optimistic expression. High-key studio lighting creates a professional and clean atmosphere suitable for a premium office software interface. Colors lean toward indigo refresh and sparkling mint." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7_Qo5Wv6sP7bcYnEglU7MPxIC8I0d39xcuKNMEtgDmtb2Gd5bw60Hri0gzaukoUs1EZX7bKzvPbKhCYNCb3_O_UDf-mVhNIuI-JXpvIcjukMSAnkFv7TZq2DcBH9mEu8U44pYvQTHlqPBURJdEfQ12Tb1c42N6WLP0eCBuni3yye0Fz3utI0nmZvdPxGgv0OI9qeyHbr09Gp8ei90RvWu1ypsEoOXVQcOY4PZC8rRZNaXlLZznzhXe8d2oPRcGIZq2eDB2qaPvTI"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A portrait of a cheerful person at work, styled with the aesthetics of a modern corporate design system. Soft ambient lighting, shallow depth of field, and a palette featuring light blues and vibrant greens for a crisp, professional look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMdMXUJx4AfnQ-RFJxU1OliskYSzc47DXScD-lQxLTWassApdVeLZoXxCjoY7QSul9zxQQv_I2W_je79YNrl4XaCTIrlVF4yyq-SlK_kzCgLoX4m-gOWG2JKOhs4WCHVC8aZqu-oSirH8aTvS2jxukYLGZ6xDyrwvz-5Vn4hNmsvDn_hZtUUQR4YMw24LCui0-OdmHLMU-3d6a_1RH6cSZonbKtrxKCihEMhAQR_mFRULS-vu9wEhaWbX6kim1M-MqpVFSXDQrKds"/>
+</div>
+</div>
+<button class="text-primary font-label-md flex items-center gap-xs">Ver <span class="material-symbols-outlined text-[16px]">arrow_forward</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Decoration -->
+<div class="py-xl text-center">
+<div class="inline-flex items-center gap-xs opacity-20">
+<span class="material-symbols-outlined">bubble_chart</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bubble_chart</span>
+<span class="material-symbols-outlined">bubble_chart</span>
+</div>
+<p class="text-label-md text-on-surface-variant/40 mt-sm">Fin del historial disponible</p>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-2 pb-safe px-2 bg-surface-container shadow-[0_-4px_12px_rgba(36,56,156,0.08)] z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_view_week</span>
+<span class="font-label-md text-label-md">Weekly</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">People</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant transition-all active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-label-md text-label-md">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+</nav>
+<!-- Micro-interaction script for the list -->
+<script>
+        document.querySelectorAll('details').forEach((el) => {
+            el.addEventListener('toggle', () => {
+                if (el.open) {
+                    // Could add logic to close others if we want exclusive accordion behavior
+                }
+            });
+        });
+
+        // Add small bubble animation for atmospheric effect
+        function createBubble() {
+            const container = document.body;
+            const bubble = document.createElement('div');
+            const size = Math.random() * 20 + 5 + 'px';
+            bubble.style.position = 'fixed';
+            bubble.style.bottom = '-50px';
+            bubble.style.left = Math.random() * 100 + 'vw';
+            bubble.style.width = size;
+            bubble.style.height = size;
+            bubble.style.backgroundColor = 'rgba(63, 81, 181, 0.05)';
+            bubble.style.borderRadius = '50%';
+            bubble.style.pointerEvents = 'none';
+            bubble.style.zIndex = '1';
+            bubble.style.animation = `floatUp ${Math.random() * 5 + 10}s linear forwards`;
+            
+            container.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 15000);
+        }
+
+        setInterval(createBubble, 2000);
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-120vh);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>
