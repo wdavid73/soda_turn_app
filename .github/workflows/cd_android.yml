@@ -69,7 +69,9 @@ jobs:
         working-directory: android
         run: bundle exec fastlane android distribute_firebase
         env:
-          FIREBASE_ANDROID_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          # No es un secreto: es el mobilesdk_app_id que ya está trackeado en
+          # android/app/google-services.json y lib/firebase_options.dart.
+          FIREBASE_ANDROID_APP_ID: '1:437220053503:android:74586983976c12dddc17ca'
           FIREBASE_SERVICE_ACCOUNT_FILE: firebase-service-account.json
           FIREBASE_TESTERS: guichodevs@gmail.com
           GITHUB_SHA: ${{ github.sha }}
