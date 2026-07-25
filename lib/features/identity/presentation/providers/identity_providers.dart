@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -33,9 +34,11 @@ final myParticipantIdProvider =
       (ref) => MyParticipantIdNotifier(ref.read(sharedPreferencesProvider)),
     );
 
-/// `null` si Supabase no está configurado (no hay dónde registrar el token).
+/// `null` si Supabase no está configurado (no hay dónde registrar el token)
+/// o en web, donde el push queda fuera por diseño en esta fase (FCM web
+/// requiere VAPID + service worker; ver plan del port a web).
 final pushTokenServiceProvider = Provider<PushTokenService?>(
-  (ref) => SupabaseConfig.isConfigured
+  (ref) => !kIsWeb && SupabaseConfig.isConfigured
       ? PushTokenService(Supabase.instance.client)
       : null,
 );

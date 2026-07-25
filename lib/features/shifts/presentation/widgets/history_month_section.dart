@@ -6,198 +6,31 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/app_date_utils.dart';
 import '../../../../core/utils/currency_utils.dart';
 import '../../../../shared/widgets/initials_avatar.dart';
-import '../../../../shared/widgets/soda_header.dart';
 import '../../domain/entities/shifts_state_entity.dart';
 import '../../domain/usecases/compute_history_usecase.dart';
 import '../providers/shifts_providers.dart';
 
-/// Historial: semanas completadas agrupadas por mes, con las asignaciones de
-/// cada día y el resumen del mes. La búsqueda del mockup no existe todavía en
-/// el dominio, así que el botón solo avisa "Próximamente...".
-class HistoryScreen extends ConsumerStatefulWidget {
-  const HistoryScreen({super.key});
+enum _Variant { mobile, web }
 
-  @override
-  ConsumerState<HistoryScreen> createState() => _HistoryScreenState();
-}
-
-class _HistoryScreenState extends ConsumerState<HistoryScreen> {
-  /// Mes seleccionado en los chips ("2025-10"); null = "Todo el tiempo".
-  String? _selectedMonthKey;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final ui = ref.watch(turnosViewModelProvider);
-    final groups = ref.watch(turnosHistoryProvider);
-
-    if (ui.loading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-
-    final visibles = _selectedMonthKey == null
-        ? groups
-        : groups.where((g) => g.monthKey == _selectedMonthKey).toList();
-
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-          children: [
-            Row(
-              children: [
-                const SodaHeader(),
-                const Spacer(),
-                IconButton(
-                  icon: const Icon(
-                    Icons.search,
-                    color: AppTheme.onSurfaceVariant,
-                  ),
-                  tooltip: 'Buscar',
-                  onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Próximamente...')),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            Text(
-              'Historial',
-              style: textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Revisa los turnos pasados de bebidas y snacks.',
-              style: textTheme.bodyLarge?.copyWith(
-                color: AppTheme.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: 20),
-            if (groups.isEmpty)
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      const Icon(
-                        Icons.history_rounded,
-                        size: 40,
-                        color: AppTheme.onSurfaceVariant,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Aún no hay semanas completadas. Cuando termine la '
-                        'primera semana aparecerá aquí.',
-                        textAlign: TextAlign.center,
-                        style: textTheme.bodyMedium?.copyWith(
-                          color: AppTheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            else ...[
-              _MonthFilterChips(
-                groups: groups,
-                selectedKey: _selectedMonthKey,
-                onSelected: (key) => setState(() => _selectedMonthKey = key),
-              ),
-              const SizedBox(height: 20),
-              for (final group in visibles) ...[
-                _MonthSection(group: group, data: ui.data),
-                const SizedBox(height: 24),
-              ],
-              const _HistoryFooter(),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Chips horizontales de filtro por mes ("Todo el tiempo" + un chip por mes).
-class _MonthFilterChips extends StatelessWidget {
-  final List<HistoryMonthGroup> groups;
-  final String? selectedKey;
-  final ValueChanged<String?> onSelected;
-
-  const _MonthFilterChips({
-    required this.groups,
-    required this.selectedKey,
-    required this.onSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      clipBehavior: Clip.none,
-      child: Row(
-        children: [
-          _FilterPill(
-            label: 'Todo el tiempo',
-            selected: selectedKey == null,
-            onTap: () => onSelected(null),
-          ),
-          for (final group in groups) ...[
-            const SizedBox(width: 8),
-            _FilterPill(
-              label: group.label,
-              selected: selectedKey == group.monthKey,
-              onTap: () => onSelected(group.monthKey),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _FilterPill extends StatelessWidget {
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _FilterPill({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Material(
-      color: selected ? AppTheme.primary : AppTheme.surfaceContainerHigh,
-      shape: const StadiumBorder(),
-      child: InkWell(
-        onTap: onTap,
-        customBorder: const StadiumBorder(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            label,
-            style: textTheme.labelMedium?.copyWith(
-              color: selected ? Colors.white : AppTheme.onSurfaceVariant,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Sección de un mes: encabezado, panel resumen y acordeones por semana.
-class _MonthSection extends StatelessWidget {
+/// Sección de un mes del historial: encabezado, panel resumen y acordeones
+/// por semana. Default = mobile (filas por día); `.web` = el acordeón
+/// expandido muestra un grid Lun–Vie como el mockup de design/web.
+class HistoryMonthSection extends StatelessWidget {
   final HistoryMonthGroup group;
   final ShiftsStateEntity data;
+  final _Variant _variant;
 
-  const _MonthSection({required this.group, required this.data});
+  const HistoryMonthSection({
+    super.key,
+    required this.group,
+    required this.data,
+  }) : _variant = _Variant.mobile;
+
+  const HistoryMonthSection.web({
+    super.key,
+    required this.group,
+    required this.data,
+  }) : _variant = _Variant.web;
 
   @override
   Widget build(BuildContext context) {
@@ -238,6 +71,7 @@ class _MonthSection extends StatelessWidget {
             week: group.weeks[i],
             data: data,
             highlighted: i == 0,
+            webGrid: _variant == _Variant.web,
           ),
         ],
       ],
@@ -328,7 +162,7 @@ class _SummaryItem extends StatelessWidget {
 }
 
 /// Acordeón de una semana: encabezado con número/rango y, expandido, las
-/// asignaciones diarias, el producto semanal y el botón "Ver semana".
+/// asignaciones (filas en mobile, grid Lun–Vie en web) y "Ver semana".
 class _WeekAccordionCard extends ConsumerWidget {
   final HistoryWeekItem week;
   final ShiftsStateEntity data;
@@ -336,10 +170,14 @@ class _WeekAccordionCard extends ConsumerWidget {
   /// La semana más reciente del mes lleva el tile en mint, como el mockup.
   final bool highlighted;
 
+  /// `true` en la variante web: el contenido expandido es el grid Lun–Vie.
+  final bool webGrid;
+
   const _WeekAccordionCard({
     required this.week,
     required this.data,
     required this.highlighted,
+    required this.webGrid,
   });
 
   @override
@@ -388,13 +226,16 @@ class _WeekAccordionCard extends ConsumerWidget {
                   productoNombre: _productoNombre(entry.key),
                   participantName: data.nameOf(entry.value),
                 ),
-            for (final dia in week.dias)
-              _DayEntryRow(
-                dayIso: dia.dayIso,
-                participantName: dia.participanteId == null
-                    ? null
-                    : data.nameOf(dia.participanteId),
-              ),
+            if (webGrid)
+              _WeekDaysGrid(week: week, data: data)
+            else
+              for (final dia in week.dias)
+                _DayEntryRow(
+                  dayIso: dia.dayIso,
+                  participantName: dia.participanteId == null
+                      ? null
+                      : data.nameOf(dia.participanteId),
+                ),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton.icon(
@@ -419,6 +260,129 @@ class _WeekAccordionCard extends ConsumerWidget {
       if (p.id == productoId) return p.nombre;
     }
     return productoId;
+  }
+}
+
+/// Grid Lun–Vie del acordeón expandido (mockup web): chip del día, avatar,
+/// nombre y chip "GASEOSA".
+class _WeekDaysGrid extends StatelessWidget {
+  final HistoryWeekItem week;
+  final ShiftsStateEntity data;
+
+  const _WeekDaysGrid({required this.week, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(top: 4, bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (var i = 0; i < week.dias.length; i++) ...[
+            if (i > 0) const SizedBox(width: 12),
+            Expanded(
+              child: _WebDayCell(
+                dayIso: week.dias[i].dayIso,
+                participantName: week.dias[i].participanteId == null
+                    ? null
+                    : data.nameOf(week.dias[i].participanteId),
+                textTheme: textTheme,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _WebDayCell extends StatelessWidget {
+  final String dayIso;
+  final String? participantName;
+  final TextTheme textTheme;
+
+  const _WebDayCell({
+    required this.dayIso,
+    required this.participantName,
+    required this.textTheme,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final idx = AppDateUtils.weekdayIndex(dayIso);
+    final dayLabel = idx >= 0
+        ? AppDateUtils.dayNamesShort[idx].toUpperCase()
+        : '??';
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+      decoration: BoxDecoration(
+        color: AppTheme.surfaceContainerLowest,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          Text(
+            dayLabel,
+            style: textTheme.labelSmall?.copyWith(
+              color: AppTheme.onSurfaceVariant,
+              letterSpacing: 1,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (participantName == null)
+            Container(
+              width: 40,
+              height: 40,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppTheme.surfaceContainerHigh,
+              ),
+              child: const Icon(
+                Icons.person_outline,
+                size: 20,
+                color: AppTheme.onSurfaceVariant,
+              ),
+            )
+          else
+            InitialsAvatar(name: participantName!, size: 40),
+          const SizedBox(height: 8),
+          Text(
+            participantName ?? 'Sin asignar',
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: participantName != null
+                  ? AppTheme.onSurface
+                  : AppTheme.onSurfaceVariant,
+            ),
+          ),
+          if (participantName != null) ...[
+            const SizedBox(height: 6),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: AppTheme.mint,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                'GASEOSA',
+                style: textTheme.labelSmall?.copyWith(
+                  color: AppTheme.onMint,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 9,
+                  letterSpacing: 0.8,
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
   }
 }
 
@@ -483,8 +447,8 @@ class _WeeklyProductRow extends StatelessWidget {
   }
 }
 
-/// Fila de un día: chip del día (LU/MA/...), avatar, nombre e icono del
-/// producto diario.
+/// Fila de un día (mobile): chip del día (LU/MA/...), avatar, nombre e icono
+/// del producto diario.
 class _DayEntryRow extends StatelessWidget {
   final String dayIso;
   final String? participantName;
@@ -553,43 +517,6 @@ class _DayEntryRow extends StatelessWidget {
               color: AppTheme.primary,
             ),
           ],
-        ],
-      ),
-    );
-  }
-}
-
-/// Cierre decorativo del historial (burbujas del mockup).
-class _HistoryFooter extends StatelessWidget {
-  const _HistoryFooter();
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        children: [
-          Opacity(
-            opacity: 0.2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.bubble_chart_outlined),
-                SizedBox(width: 4),
-                Icon(Icons.bubble_chart_rounded),
-                SizedBox(width: 4),
-                Icon(Icons.bubble_chart_outlined),
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Fin del historial disponible',
-            style: textTheme.labelMedium?.copyWith(
-              color: AppTheme.onSurfaceVariant.withValues(alpha: 0.5),
-            ),
-          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,6 +31,9 @@ class _IdentityGateState extends ConsumerState<IdentityGate> {
   @override
   void initState() {
     super.initState();
+    // En web no hay push (Firebase ni se inicializa, ver main.dart); el
+    // try/catch solo cubre el error síncrono, así que ni intentamos escuchar.
+    if (kIsWeb) return;
     // Silencioso si Firebase no está configurado en esta plataforma (ver
     // main.dart) o si nadie eligió identidad todavía.
     try {

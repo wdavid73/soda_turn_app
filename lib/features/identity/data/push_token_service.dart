@@ -13,6 +13,7 @@ class PushTokenService {
   const PushTokenService(this.client);
 
   Future<void> registerFor(String participantId) async {
+    if (kIsWeb) return; // Sin push en web (v1); ver identity_providers.dart.
     try {
       final settings = await FirebaseMessaging.instance.requestPermission();
       if (settings.authorizationStatus == AuthorizationStatus.denied) return;
@@ -25,6 +26,7 @@ class PushTokenService {
 
   /// Reasocia el token actual si rota (ver `FirebaseMessaging.onTokenRefresh`).
   Future<void> onTokenRefreshed(String participantId, String token) async {
+    if (kIsWeb) return;
     try {
       await _upsert(participantId, token);
     } catch (_) {}

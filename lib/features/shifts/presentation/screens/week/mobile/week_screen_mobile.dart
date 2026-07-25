@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/theme/app_theme.dart';
-import '../../../../core/utils/app_date_utils.dart';
-import '../../../../shared/widgets/soda_header.dart';
-import '../providers/shifts_providers.dart';
-import '../widgets/day_card.dart';
-import '../widgets/day_edit_sheet.dart';
-import '../widgets/cups_edit_sheet.dart';
-import '../widgets/cups_week_card.dart';
+import '../../../../../../core/theme/app_theme.dart';
+import '../../../../../../core/utils/app_date_utils.dart';
+import '../../../../../../shared/widgets/soda_header.dart';
+import '../../../providers/shifts_providers.dart';
+import '../../../widgets/day_card.dart';
+import '../../../widgets/day_edit_sheet.dart';
+import '../../../widgets/cups_edit_sheet.dart';
+import '../../../widgets/cups_week_card.dart';
+import '../week_nav_label.dart';
 
-/// Semana: navegación entre semanas, vasos semanal y los 5 tickets diarios.
-class WeekScreen extends ConsumerWidget {
-  const WeekScreen({super.key});
+/// Semana mobile: lista vertical de tickets diarios con FAB de generar.
+class WeekScreenMobile extends ConsumerWidget {
+  const WeekScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -67,21 +68,10 @@ class WeekScreen extends ConsumerWidget {
                   icon: const Icon(Icons.chevron_left),
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        AppDateUtils.weekRangeLabel(mondayIso),
-                        textAlign: TextAlign.center,
-                        style: textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      if (!isCurrentWeek)
-                        TextButton(
-                          onPressed: vm.goCurrentWeek,
-                          child: const Text('Volver a la semana actual'),
-                        ),
-                    ],
+                  child: WeekNavLabel(
+                    mondayIso: mondayIso,
+                    isCurrentWeek: isCurrentWeek,
+                    onBackToCurrent: vm.goCurrentWeek,
                   ),
                 ),
                 IconButton(

@@ -3,23 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/widgets/initials_avatar.dart';
+import '../../../../shared/widgets/show_adaptive_modal.dart';
 import '../../../shifts/domain/entities/participant_entity.dart';
 import '../providers/identity_providers.dart';
 
-/// Bottom sheet que pregunta "¿Quién sos?" para poder mandarle push
-/// notifications a la persona correcta. Descartable: si no elige, se
-/// vuelve a preguntar la próxima vez que abra la app (no bloquea el uso).
+/// Pregunta "¿Quién sos?" para poder mandarle push notifications a la
+/// persona correcta. Descartable: si no elige, se vuelve a preguntar la
+/// próxima vez que abra la app (no bloquea el uso). Bottom sheet en mobile,
+/// diálogo centrado en web.
 Future<void> showWhoAreYouSheet(
   BuildContext context,
   List<ParticipantEntity> participants,
 ) {
-  return showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: AppTheme.surface,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-    ),
+  return showAdaptiveModal(
+    context,
     builder: (_) => WhoAreYouSheet(participants: participants),
   );
 }

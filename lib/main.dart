@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -12,6 +14,8 @@ import 'features/shifts/presentation/providers/shifts_providers.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
+  // URLs sin `#` en web (p. ej. /week en vez de /#/week). No-op en Android.
+  usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
 
@@ -27,11 +31,15 @@ Future<void> main() async {
 
   // Solo Android tiene `firebase_options.dart` configurado hoy (ver
   // `lib/firebase_options.dart`, generado con `flutterfire configure`).
-  // En otras plataformas (ej. Chrome en desarrollo) la app sigue andando,
-  // simplemente sin push notifications.
-  try {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  } catch (_) {}
+  // La web queda sin push por decisión explícita (v1 web sin notificaciones);
+  // en otras plataformas nativas la app sigue andando, simplemente sin push.
+  if (!kIsWeb) {
+    try {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    } catch (_) {}
+  }
 
   runApp(
     ProviderScope(

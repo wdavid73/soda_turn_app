@@ -2,11 +2,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/shifts/presentation/screens/history_screen.dart';
-import '../../features/shifts/presentation/screens/home_screen.dart';
-import '../../features/shifts/presentation/screens/participants_screen.dart';
-import '../../features/shifts/presentation/screens/stats_screen.dart';
-import '../../features/shifts/presentation/screens/week_screen.dart';
+import '../../features/shifts/presentation/screens/history/history_screen.dart';
+import '../../features/shifts/presentation/screens/home/home_screen.dart';
+import '../../features/shifts/presentation/screens/participants/participants_screen.dart';
+import '../../features/shifts/presentation/screens/stats/stats_screen.dart';
+import '../../features/shifts/presentation/screens/week/week_screen.dart';
 import '../../shared/widgets/app_scaffold.dart';
 
 /// Contexto del Navigator raíz para código fuera del árbol de rutas (ej.

@@ -3,19 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/app_date_utils.dart';
+import '../../../../shared/widgets/show_adaptive_modal.dart';
 import '../../domain/entities/assignment_entity.dart';
 import '../providers/shifts_providers.dart';
 
-/// Bottom sheet de edición de un día: gaseosa, presentes y bloqueo.
+/// Edición de un día: gaseosa, presentes y bloqueo. Bottom sheet en mobile,
+/// diálogo centrado en web.
 /// Regla 8: todo se puede forzar; las reglas rotas solo advierten.
 Future<void> showDayEditSheet(BuildContext context, String dateIso) {
-  return showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: AppTheme.surface,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-    ),
+  return showAdaptiveModal(
+    context,
     builder: (_) => DayEditSheet(dateIso: dateIso),
   );
 }

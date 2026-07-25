@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/theme/app_theme.dart';
-import '../../../../core/utils/app_date_utils.dart';
-import '../../../../shared/widgets/soda_header.dart';
-import '../providers/shifts_providers.dart';
-import '../widgets/today_hero_card.dart';
-import '../widgets/upcoming_days_strip.dart';
-import '../widgets/cups_week_card.dart';
-import '../widgets/week_progress_card.dart';
+import '../../../../../../core/theme/app_theme.dart';
+import '../../../../../../core/utils/app_date_utils.dart';
+import '../../../../../../shared/widgets/soda_header.dart';
+import '../../../providers/shifts_providers.dart';
+import '../../../widgets/today_hero_card.dart';
+import '../../../widgets/upcoming_days_strip.dart';
+import '../../../widgets/cups_week_card.dart';
+import '../../../widgets/week_progress_card.dart';
 
-/// Home: quién compra hoy, vasos de la semana, próximos días y progreso.
+/// Home mobile: columna única con header de marca y FAB de generar.
 /// Siempre muestra la semana "activa" (la actual, o la entrante en finde).
-class HomeScreen extends ConsumerWidget {
-  const HomeScreen({super.key});
+class HomeScreenMobile extends ConsumerWidget {
+  const HomeScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

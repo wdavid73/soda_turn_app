@@ -1,0 +1,2212 @@
+<!-- Estadísticas - SodaTurn Desktop -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SodaTurn | Statistics Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#69ff87",
+                    "error": "#F44336",
+                    "on-secondary-fixed-variant": "#00531e",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#454652",
+                    "on-secondary-fixed": "#002108",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#8f4700",
+                    "surface-container-high": "#e9e7eb",
+                    "surface-bright": "#faf9fc",
+                    "primary-fixed": "#dee0ff",
+                    "surface-container-lowest": "#ffffff",
+                    "info": "#2196F3",
+                    "on-primary-fixed": "#00105c",
+                    "surface-container": "#efedf1",
+                    "primary-fixed-dim": "#bac3ff",
+                    "surface-container-highest": "#e3e2e6",
+                    "inverse-on-surface": "#f2f0f4",
+                    "surface-variant": "#e3e2e6",
+                    "warning": "#FFC107",
+                    "inactive": "#9E9E9E",
+                    "on-background": "#1b1b1e",
+                    "tertiary": "#6c3400",
+                    "primary-container": "#3f51b5",
+                    "primary": "#24389c",
+                    "background": "#faf9fc",
+                    "inverse-primary": "#bac3ff",
+                    "on-tertiary-fixed": "#301400",
+                    "surface-tint": "#4355b9",
+                    "surface": "#faf9fc",
+                    "secondary-container": "#5cfd80",
+                    "surface-container-low": "#f5f3f7",
+                    "on-tertiary-fixed-variant": "#713700",
+                    "on-error-container": "#93000a",
+                    "inverse-surface": "#303033",
+                    "outline": "#757684",
+                    "secondary-fixed-dim": "#3ce36a",
+                    "tertiary-fixed": "#ffdcc6",
+                    "on-secondary-container": "#00732c",
+                    "success": "#4CAF50",
+                    "on-primary-fixed-variant": "#293ca0",
+                    "on-surface": "#1b1b1e",
+                    "secondary": "#006e2a",
+                    "on-primary-container": "#cacfff",
+                    "on-tertiary-container": "#ffc7a2",
+                    "outline-variant": "#c5c5d4",
+                    "surface-dim": "#dbd9dd",
+                    "tertiary-fixed-dim": "#ffb784",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "stack-gap-lg": "32px",
+                    "nav-rail-width": "80px",
+                    "nav-width": "280px",
+                    "container-max-width": "1440px",
+                    "margin-desktop": "32px",
+                    "stack-gap-sm": "8px",
+                    "stack-gap-md": "16px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"],
+                    "data-table": ["JetBrains Mono"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "data-table": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf9fc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1b1b1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .donut-chart {
+            background: conic-gradient(
+                #24389c 0% 45%, 
+                #69ff87 45% 75%, 
+                #3f51b5 75% 100%
+            );
+            border-radius: 50%;
+            position: relative;
+        }
+        .donut-hole {
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .podium-1 { order: 2; height: 160px; }
+        .podium-2 { order: 1; height: 130px; }
+        .podium-3 { order: 3; height: 110px; }
+        
+        .transition-height {
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="flex">
+<!-- Sidebar Navigation -->
+<aside class="w-[280px] h-screen fixed left-0 top-0 bg-surface-container-low flex flex-col py-6 px-4 z-50">
+<div class="flex items-center gap-3 px-2 mb-10">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined">local_drink</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">SodaTurn</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">Office Rotation</p>
+</div>
+</div>
+<nav class="flex-grow space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-body-md text-body-md">Home</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md text-body-md">Weekly</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">People</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-secondary-container bg-secondary-container rounded-r-full font-bold" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-body-md text-body-md">Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-md text-body-md">History</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<button class="w-full py-4 bg-secondary-container text-on-secondary-container font-bold rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">casino</span>
+                Generate Week
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] w-full min-h-screen p-8 bg-background">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center mb-10">
+<div class="flex items-center gap-4 bg-surface-container-high px-6 py-3 rounded-full w-96">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-body-md text-body-md" placeholder="Search stats..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-outline-variant">
+<img class="w-10 h-10 rounded-full border-2 border-primary-container" data-alt="A high-quality studio portrait of a professional male administrator with a friendly expression. He is wearing a modern charcoal polo shirt against a soft, neutral office background with a slight bokeh effect. The lighting is bright and crisp, fitting a corporate modern dashboard aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3vJ0MDNOU8tIoXW4vhmdkDx56JlDv74-seas2N6HXwDFT5xWuY4GA6lrbrtRJlfTmDY44DrIx7ZErjLv8tQgCTFTJxFpIX4UdmP_m2PLMUNKzxl7XA6goroJWCZbvQdi-bl1JIbcOyoUKdmm2z3q5oLdQL0swQMnlNMTAyiMmmZSm1zL9CkW3018mRAzJjNmnuZgLl7rj2W4BoxAqy1JaWUOEj38XNWY9LG9gMlH-rXVEBiROFzlpxuwVPrkZc0iOJte6jHgPtlo"/>
+<div class="hidden lg:block">
+<p class="font-title-md text-title-md text-primary leading-tight">Admin User</p>
+<p class="font-label-lg text-label-lg text-on-surface-variant">Fleet Manager</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Stats Grid Dashboard -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Column 1: Rankings & Basic Stats -->
+<div class="col-span-12 lg:col-span-7 flex flex-col gap-8">
+<!-- Fairness Ranking (Bento Style) -->
+<section class="bg-white p-8 rounded-lg shadow-sm border border-surface-container-high">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-1">Fairness Ranking</h2>
+<p class="text-on-surface-variant font-body-md">Who's currently leading the hydration game?</p>
+</div>
+<span class="font-label-lg text-label-lg px-3 py-1 bg-primary-fixed text-on-primary-fixed rounded-full uppercase tracking-widest">LIVE DATA</span>
+</div>
+<div class="flex items-end justify-center gap-8 h-64">
+<!-- 2nd Place: Lucía -->
+<div class="podium-2 flex flex-col items-center group cursor-pointer">
+<div class="relative mb-4">
+<img class="w-16 h-16 rounded-full border-4 border-surface-container-high group-hover:scale-110 transition-transform" data-alt="A professional profile photo of a smiling woman named Lucía with warm lighting. She has a vibrant energy, fitting a workplace gamified app. The background is a soft mint green gradient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa5L9S3Y64eOkgd4Fdt16Xs_Ew49dBrm9l9InLgk8KxGX_ouFdVk9YIq5IxAwWRT9RJfAytY_V9UQr_5JZGvjVC3R-TqSEwFm37mHl2swxtHteFSJyvqWlvT7wgSvBfWpziuhOBsMjSgp-g3byuukNJy_bkC8L2SrrRlPtmQHWmYSfrjFDc8jYc8csq5LWxLUaboFZvNba6bkwfJv0JdjcCYAMwPePNqvUHPXzfqpSM-aH5Oa2OaoJmO8XP787IWtZMDyalvgplZU"/>
+<div class="absolute -bottom-2 -right-2 w-8 h-8 bg-surface-container-high text-on-surface rounded-full flex items-center justify-center text-xs font-bold">2</div>
+</div>
+<div class="w-24 bg-surface-container-high rounded-t-xl flex flex-col items-center justify-end p-4 transition-all group-hover:bg-primary-fixed-dim">
+<p class="font-title-md text-title-md">Lucía</p>
+<span class="font-data-table text-data-table text-primary font-bold">94.2</span>
+</div>
+</div>
+<!-- 1st Place: Mateo -->
+<div class="podium-1 flex flex-col items-center group cursor-pointer">
+<div class="relative mb-4">
+<img class="w-20 h-20 rounded-full border-4 border-secondary-fixed group-hover:scale-110 transition-transform" data-alt="A high-end professional avatar of Mateo, a young male professional with glasses, looking confident and happy. Corporate-modern photography style with a crisp indigo background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDUdiI_-hi79R7cAtkzkxyxk_adJh_YiBrQx4MnrcWUpc0IVJ7OIjlLWggJ0grXaXdarV1pfAFLNXIBzpFlv0ifnkiIFhk000huZHfkmIJ-PldMjK8Ub7raLkUwik6GEucMchq1Lgw79G8YFYTwEhu2CC-sFTh3XTDXYnXBx6bQRRdjMlfvSYjpE5E1qwehHtNXZ4ufOla5kUIf4UnCm0Gi-tt3TYmcL8AOHdwwe4rqb5zryrxJXYrJGp3ZpLKQZPtXFyjLbKgqpg"/>
+<div class="absolute -top-3 left-1/2 -translate-x-1/2">
+<span class="material-symbols-outlined text-warning" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+</div>
+<div class="w-32 bg-primary text-white rounded-t-xl flex flex-col items-center justify-end p-6 transition-all group-hover:bg-primary-container">
+<p class="font-title-lg text-title-lg mb-1">Mateo</p>
+<div class="flex items-center gap-1 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full font-data-table text-data-table font-bold">
+                                    98.5
+                                </div>
+</div>
+</div>
+<!-- 3rd Place: Diego -->
+<div class="podium-3 flex flex-col items-center group cursor-pointer">
+<div class="relative mb-4">
+<img class="w-14 h-14 rounded-full border-4 border-surface-variant group-hover:scale-110 transition-transform" data-alt="A clean portrait of Diego, a professional male in his 30s, featuring bright natural lighting. Modern tech office atmosphere. Soft neutral gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvUb4xI8sPgOfeylnyOrdOSsqVLlhqu8wZ_kwmKFtOoXeUCHqB9KQEHih3d17hjP_FDRoMXThnQhUA8NAUW_YThHflYvGPmD7NIcRGVBDGylish7Gw3TRNTSLCWoOlLhi27vRkPy3jST3nqyHgNuJ2WpSdbYwReD4oNV1C-kyBpukaapK449X7L9mu0ECNFsw0xAlNM2zq2LTyLq-mwGqDCCm01mFnEm04w4GMHBcI24rcLocAGLuA6Hn8alVI2uDJkp5P1uSu_Rg"/>
+<div class="absolute -bottom-2 -right-2 w-7 h-7 bg-surface-variant text-on-surface rounded-full flex items-center justify-center text-xs font-bold">3</div>
+</div>
+<div class="w-24 bg-surface-variant rounded-t-xl flex flex-col items-center justify-end p-4 transition-all group-hover:bg-outline-variant">
+<p class="font-title-md text-title-md">Diego</p>
+<span class="font-data-table text-data-table text-on-surface-variant font-bold">89.1</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Stats Grid -->
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-primary-container text-white p-6 rounded-lg relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-label-lg text-label-lg uppercase tracking-wider opacity-80 mb-2">Total Sodas</h3>
+<div class="flex items-baseline gap-2">
+<p class="font-display-lg text-display-lg">1,284</p>
+<span class="text-secondary-fixed font-bold flex items-center text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span> 12%
+                                </span>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-8xl opacity-10 group-hover:rotate-12 transition-transform">bubble_chart</span>
+</div>
+<div class="bg-secondary-container text-on-secondary-container p-6 rounded-lg relative overflow-hidden group">
+<div class="relative z-10">
+<h3 class="font-label-lg text-label-lg uppercase tracking-wider opacity-80 mb-2">Total Cups</h3>
+<div class="flex items-baseline gap-2">
+<p class="font-display-lg text-display-lg">4,520</p>
+<span class="text-primary font-bold flex items-center text-sm">
+<span class="material-symbols-outlined text-sm">check_circle</span> Goal
+                                </span>
+</div>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-8xl opacity-10 group-hover:-rotate-12 transition-transform">coffee</span>
+</div>
+</div>
+</div>
+<!-- Column 2: Expense Distribution & Monthly -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-8">
+<!-- Expense Distribution Chart Card -->
+<section class="bg-white p-8 rounded-lg shadow-sm border border-surface-container-high h-full flex flex-col">
+<h2 class="font-headline-md text-headline-md text-primary mb-8">Expense Distribution</h2>
+<div class="flex-grow flex flex-col items-center justify-center">
+<div class="donut-chart w-64 h-64 shadow-lg mb-8">
+<div class="donut-hole">
+<div class="text-center">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase">Total Spend</p>
+<p class="font-headline-lg text-headline-lg text-primary">$450.00</p>
+</div>
+</div>
+</div>
+<div class="w-full space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-body-md text-body-md">Classic Sodas</span>
+</div>
+<span class="font-data-table text-data-table font-bold">45%</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-secondary-fixed-dim"></span>
+<span class="font-body-md text-body-md">Sparkling Water</span>
+</div>
+<span class="font-data-table text-data-table font-bold">30%</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span>
+<span class="font-body-md text-body-md">Zero Sugar Mix</span>
+</div>
+<span class="font-data-table text-data-table font-bold">25%</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Bottom Section: Monthly History Accordion -->
+<section class="col-span-12 bg-white p-8 rounded-lg shadow-sm border border-surface-container-high">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline-md text-headline-md text-primary">Monthly Rotation History</h2>
+<button class="flex items-center gap-2 text-primary font-bold hover:underline">
+<span class="material-symbols-outlined">file_download</span> Export CSV
+                    </button>
+</div>
+<div class="space-y-4">
+<!-- October Accordion -->
+<div class="border border-surface-container-high rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-5 bg-surface-container-low hover:bg-surface-container transition-colors" onclick="toggleAccordion('oct-hist')">
+<div class="flex items-center gap-6">
+<span class="font-title-md text-title-md w-24">October</span>
+<div class="flex gap-4">
+<span class="px-3 py-1 bg-white rounded-full text-xs font-bold border border-outline-variant">4 Sessions</span>
+<span class="px-3 py-1 bg-white rounded-full text-xs font-bold border border-outline-variant">$112.50 Total</span>
+</div>
+</div>
+<span class="material-symbols-outlined transition-transform" id="icon-oct-hist">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 bg-white" id="oct-hist">
+<div class="p-5 border-t border-surface-container-high">
+<table class="w-full text-left font-data-table text-data-table">
+<thead>
+<tr class="text-on-surface-variant uppercase text-xs tracking-widest border-b border-outline-variant">
+<th class="py-3">Week</th>
+<th class="py-3">Lead Buyer</th>
+<th class="py-3">Items Purchased</th>
+<th class="py-3">Amount</th>
+<th class="py-3">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr>
+<td class="py-4 font-bold">W4 (Oct 21-25)</td>
+<td class="py-4">Mateo G.</td>
+<td class="py-4">Coke Zero, Sprite, Sparkling</td>
+<td class="py-4">$28.40</td>
+<td class="py-4"><span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold">PAID</span></td>
+</tr>
+<tr>
+<td class="py-4 font-bold">W3 (Oct 14-18)</td>
+<td class="py-4">Lucía S.</td>
+<td class="py-4">Ginger Ale, Fanta, Diet Coke</td>
+<td class="py-4">$31.20</td>
+<td class="py-4"><span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold">PAID</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- September Accordion -->
+<div class="border border-surface-container-high rounded-xl overflow-hidden">
+<button class="w-full flex items-center justify-between p-5 bg-surface-container-low hover:bg-surface-container transition-colors" onclick="toggleAccordion('sep-hist')">
+<div class="flex items-center gap-6">
+<span class="font-title-md text-title-md w-24">September</span>
+<div class="flex gap-4">
+<span class="px-3 py-1 bg-white rounded-full text-xs font-bold border border-outline-variant">5 Sessions</span>
+<span class="px-3 py-1 bg-white rounded-full text-xs font-bold border border-outline-variant">$145.80 Total</span>
+</div>
+</div>
+<span class="material-symbols-outlined transition-transform" id="icon-sep-hist">expand_more</span>
+</button>
+<div class="max-h-0 overflow-hidden transition-all duration-300 bg-white" id="sep-hist">
+<div class="p-5 border-t border-surface-container-high">
+<p class="text-on-surface-variant italic">Data loading...</p>
+</div>
+</div>
+</div>
+<!-- August Accordion -->
+<div class="border border-surface-container-high rounded-xl overflow-hidden opacity-60">
+<button class="w-full flex items-center justify-between p-5 bg-surface-container-low cursor-not-allowed">
+<div class="flex items-center gap-6">
+<span class="font-title-md text-title-md w-24">August</span>
+<div class="flex gap-4">
+<span class="px-3 py-1 bg-white rounded-full text-xs font-bold border border-outline-variant">Archived</span>
+</div>
+</div>
+<span class="material-symbols-outlined">lock</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+                content.style.maxHeight = "0px";
+                icon.style.transform = "rotate(0deg)";
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.style.transform = "rotate(180deg)";
+            }
+        }
+    </script>
+</body></html>
+
+<!-- Semana - SodaTurn Desktop -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SodaTurn | Weekly Planning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#69ff87",
+                        "error": "#F44336",
+                        "on-secondary-fixed-variant": "#00531e",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#454652",
+                        "on-secondary-fixed": "#002108",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#8f4700",
+                        "surface-container-high": "#e9e7eb",
+                        "surface-bright": "#faf9fc",
+                        "primary-fixed": "#dee0ff",
+                        "surface-container-lowest": "#ffffff",
+                        "info": "#2196F3",
+                        "on-primary-fixed": "#00105c",
+                        "surface-container": "#efedf1",
+                        "primary-fixed-dim": "#bac3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f5f3f7",
+                        "warning": "#FFC107",
+                        "inactive": "#9E9E9E",
+                        "on-background": "#1b1b1e",
+                        "tertiary": "#6c3400",
+                        "primary-container": "#3f51b5",
+                        "primary": "#24389c",
+                        "background": "#faf9fc",
+                        "inverse-primary": "#bac3ff",
+                        "on-tertiary-fixed": "#301400",
+                        "surface-tint": "#4355b9",
+                        "surface": "#faf9fc",
+                        "secondary-container": "#5cfd80",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#303033",
+                        "outline": "#757684",
+                        "secondary-fixed-dim": "#3ce36a",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-secondary-container": "#00732c",
+                        "success": "#4CAF50",
+                        "on-primary-fixed-variant": "#293ca0",
+                        "on-surface": "#1b1b1e",
+                        "secondary": "#006e2a",
+                        "on-primary-container": "#cacfff",
+                        "on-tertiary-container": "#ffc7a2",
+                        "outline-variant": "#c5c5d4",
+                        "surface-dim": "#dbd9dd",
+                        "tertiary-fixed-dim": "#ffb784",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-gap-lg": "32px",
+                        "nav-rail-width": "80px",
+                        "nav-width": "280px",
+                        "container-max-width": "1440px",
+                        "margin-desktop": "32px",
+                        "stack-gap-sm": "8px",
+                        "stack-gap-md": "16px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "data-table": ["JetBrains Mono"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "data-table": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .day-card:hover .action-overlay {
+            opacity: 1;
+        }
+        .chip-absent {
+            filter: grayscale(1);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased">
+<!-- Navigation Sidebar -->
+<aside class="w-[280px] h-screen fixed left-0 top-0 bg-surface-container-low flex flex-col h-full py-6 px-4 z-50">
+<div class="mb-10 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">SodaTurn</h1>
+<p class="text-on-surface-variant font-body-md opacity-70">Office Rotation</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Home -->
+<a class="flex items-center gap-4 py-3 px-4 transition-colors text-on-surface-variant hover:bg-surface-container-high rounded-lg group" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-title-md text-title-md">Home</span>
+</a>
+<!-- Weekly (ACTIVE) -->
+<a class="flex items-center gap-4 py-3 px-4 transition-all duration-200 ease-in-out text-on-secondary-container bg-secondary-container rounded-r-full font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+<span class="font-title-md text-title-md">Weekly</span>
+</a>
+<!-- People -->
+<a class="flex items-center gap-4 py-3 px-4 transition-colors text-on-surface-variant hover:bg-surface-container-high rounded-lg group" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-title-md text-title-md">People</span>
+</a>
+<!-- Stats -->
+<a class="flex items-center gap-4 py-3 px-4 transition-colors text-on-surface-variant hover:bg-surface-container-high rounded-lg group" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-title-md text-title-md">Stats</span>
+</a>
+<!-- History -->
+<a class="flex items-center gap-4 py-3 px-4 transition-colors text-on-surface-variant hover:bg-surface-container-high rounded-lg group" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-title-md text-title-md">History</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pb-4">
+<button class="w-full bg-secondary-container text-on-secondary-container font-title-md text-title-md py-4 rounded-full flex items-center justify-center gap-2 hover:brightness-95 transition-all">
+<span class="material-symbols-outlined">refresh</span>
+                Generate Week
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full h-16 bg-surface flex justify-between items-center pl-[312px] pr-8 z-40">
+<div class="flex items-center gap-4 bg-surface-container rounded-full px-4 py-2 w-96 focus-within:ring-2 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md" placeholder="Search team members..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container p-0.5">
+<img class="w-full h-full object-cover rounded-full" data-alt="A professional close-up portrait of a tech office administrator, smiling warmly with a modern office backdrop. The lighting is soft and natural, with a shallow depth of field. The image is clean, sharp, and uses the primary indigo and mint accents of the SodaTurn brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZBYZOaRPDtKFq2pqt5JI-hKBrIJdNyCnLvDtSmtDuqsj3mHMi-5Hk6f4CJge1rNddb2RqiQT7mp2IAF8hI50-JjtVWgz-3aMj_GmKTABz9tc7o8yFU7_32Seg7T2-pKUiDbCcaXXPmQeS-pP0dkhcuOtjZyvlPi6r8eE2A_G3PI-X4GhyIOKgo4EiaX5K3z8kRcsrw2UuoX3dxg6tuuLzeOQWB3tgnGggfHGF2C8pkMAHMQ2xboIMnR_1IPfDla5uKhRctvuB-Mc"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] pt-24 px-8 pb-12 min-h-screen">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-1">Weekly Planning</h2>
+<p class="text-on-surface-variant font-body-lg">Assigning coffee and snack duties for the week of Oct 23rd.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-2 border border-outline rounded-full font-title-md text-title-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">download</span>
+                    Export PDF
+                </button>
+<button class="flex items-center gap-2 px-6 py-2 bg-primary text-on-primary rounded-full font-title-md text-title-md hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">save</span>
+                    Save Rotation
+                </button>
+</div>
+</div>
+<!-- Weekly Grid -->
+<div class="grid grid-cols-5 gap-6">
+<!-- Monday (Today) -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<h3 class="font-title-lg text-title-lg">Monday</h3>
+<span class="bg-primary text-on-primary text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full">Today</span>
+</div>
+<div class="day-card group relative bg-white rounded-lg p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:shadow-lg border border-transparent hover:border-secondary-container">
+<div class="relative">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-secondary-container ring-4 ring-secondary-container/20">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a friendly office worker with glasses, smiling warmly against a bright mint green background. Minimalist aesthetic, soft studio lighting, ultra-high definition, vibrant colors consistent with the SodaTurn design language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNxjjn4lCQYQBp3-s02ZFSKjKvFcFOVkh4rXQZvLILrJ-0RTJY5sf1laz6PVywBf-skqo9fpXp5LgZJDbweHKxbd7zAz9jnyTpm3r9wycarnLA5alK3XosHy1mgbvrkfThUERgp3KdVsWXE5MuphNUiFrnCsgdr2P1e-pD500D3RMSUsfmJKKhr5SUC-EZaKDroBhj6Qr_8reOkB3dc9PM3DfSbXIf5oIbVt5aKs6iEzWDK3gIEZ2geNgieRYp0lxbQfF8a6AFaig"/>
+</div>
+<div class="absolute -bottom-2 right-0 bg-secondary-container text-on-secondary-container p-1 rounded-full shadow-md">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+</div>
+<div class="text-center">
+<p class="font-headline-md text-headline-md text-on-surface">Alex Rivera</p>
+<p class="font-data-table text-data-table text-secondary font-bold">FAIRNESS: 98%</p>
+</div>
+<div class="flex gap-2 mt-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-error-container hover:text-on-error-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">lock_open</span>
+</button>
+</div>
+<div class="w-full pt-4 mt-2 border-t border-surface-container">
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-3 uppercase tracking-tighter">In Office (12)</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md">Sarah J.</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md">Mike P.</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md">Elena T.</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md chip-absent">Tom W.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Tuesday -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<h3 class="font-title-lg text-title-lg text-on-surface-variant">Tuesday</h3>
+</div>
+<div class="day-card bg-white rounded-lg p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:shadow-lg border border-transparent">
+<div class="w-24 h-24 rounded-full overflow-hidden border-2 border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a creative professional with curly hair, smiling subtly. The background is a warm neutral tone. High key lighting, clean studio photography, soft shadows, 8k resolution, modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNPQL7LKBsuM5MWTEi_FiOKjIa70_Hg_ur9jr8GVtw57Mm7w7n9N2hEXEdSUa29N3XhEtoP3HPuIKguPqsJP4fyYas82HfEIqWhmzI8vL5aV6uXsWuAQnuxSV-FpLJtTr2o_Z7dqq8BYv6tQYTtnsYbxMns-JDVs2HPo11sgUE-BYqPz6hJMhqZ6q2_rWGEh8OOj1BUzPKn8gdZZhWAybkeUEjudxQM2J-6qAg5gR_keBuKVQYJ2T2svQ45tp0o7PqqZCOv7Xnjw0"/>
+</div>
+<div class="text-center">
+<p class="font-headline-md text-headline-md text-on-surface">Jordan Lee</p>
+<p class="font-data-table text-data-table text-on-surface-variant font-bold">FAIRNESS: 85%</p>
+</div>
+<span class="px-4 py-1 bg-surface-container rounded-full text-label-lg font-bold text-on-surface-variant uppercase tracking-widest">Planned</span>
+<div class="w-full pt-4 mt-2 border-t border-surface-container">
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-3 uppercase">In Office (10)</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md">Chris B.</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md">Maya L.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Wednesday (Locked) -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<h3 class="font-title-lg text-title-lg text-on-surface-variant">Wednesday</h3>
+<span class="bg-surface-container-highest text-on-surface text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full">Locked</span>
+</div>
+<div class="day-card bg-surface-container-low rounded-lg p-6 flex flex-col items-center gap-4 transition-all border-2 border-outline-variant/30">
+<div class="relative">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-sm opacity-80">
+<img class="w-full h-full object-cover" data-alt="Headshot of a senior developer with a beard, wearing a casual navy blue shirt. Warm natural light coming from the side, modern workspace blurred in background. High quality digital photography, corporate but approachable feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBagiacQ_8nVZWyqBlWEpz_yNiwnEmGNyrbmb13jDXTLvpDivDntYMaKrRRNPZienJAkvGZ2fTIPX6UYyF24UX_lZXuv_bjoK9d4A53-KFBt3nrr_OlY4HJ_Gaz7YkoA4sGXOA7Tj3CpkHwpIBXGa5J5QxpA9QLurOHCz89IV7GeVZ909EeHluI3cXu7ZK_jwgg9iii5uM4s5mK8RRICygCKhWh0qYnkrQo7dA-wjq0VyJn19V3RoDfWr4i_4_wHihVH7O0gE_aLjw"/>
+</div>
+<div class="absolute inset-0 bg-on-surface/5 flex items-center justify-center rounded-full">
+<span class="material-symbols-outlined text-white text-[32px]">lock</span>
+</div>
+</div>
+<div class="text-center">
+<p class="font-headline-md text-headline-md text-on-surface">Mark Steiner</p>
+<p class="font-data-table text-data-table text-on-surface-variant font-bold">FAIRNESS: 72%</p>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary shadow-lg -mt-4">
+<span class="material-symbols-outlined">lock</span>
+</button>
+<div class="w-full pt-4 mt-2 border-t border-outline-variant">
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-3 uppercase">In Office (15)</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-white/50 rounded-full text-body-md">Team Alpha</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Thursday (Warning) -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<h3 class="font-title-lg text-title-lg text-on-surface-variant">Thursday</h3>
+<span class="bg-warning/20 text-on-tertiary-fixed-variant text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full">Warning</span>
+</div>
+<div class="day-card bg-white rounded-lg p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:shadow-lg border-2 border-warning/30">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-warning/50">
+<img class="w-full h-full object-cover" data-alt="Profile of a young female designer with bright colored hair, smiling confidently. Minimalist white studio background, clean lighting, sharp focus, energetic and modern vibe. Colors should pop with high saturation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ0r0xM3_YBJraIsRzIIQ9zEtLNn3kOJCloRepKbjXsT9XIRYLurtEmwNv1kH3o8VaPkgEq6ELLMPXtI_cFBe4wC7a5OT2ZkC7Ct3sCEBSxkTcTVqGdeCVW79XciGinrMk-iCHqlUHJ8J5y5Goc__McTCKMaHlSISDDMqP0weZ9MzMJRRLCbUwa2aclyTZfxn1_PiaqRtdeogAvljjJ0r6-WcR9PKQbvQ6jI4N-r_fiVUofj7TelMd9szwlwwVIgiVoQdG38R5D_Y"/>
+</div>
+<div class="text-center">
+<p class="font-headline-md text-headline-md text-on-surface">Zoe Chen</p>
+<p class="font-data-table text-data-table text-error font-bold">FAIRNESS: 14%</p>
+</div>
+<div class="bg-warning/10 px-3 py-2 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-warning text-sm">warning</span>
+<p class="text-[10px] text-on-surface-variant leading-tight">Zoe has been buyer 3 times this month.</p>
+</div>
+<div class="w-full pt-4 mt-2 border-t border-surface-container">
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md">Lucas R.</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md">Sam T.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Friday -->
+<section class="flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<h3 class="font-title-lg text-title-lg text-on-surface-variant">Friday</h3>
+</div>
+<div class="day-card bg-white rounded-lg p-6 flex flex-col items-center gap-4 transition-all duration-300 hover:shadow-lg border border-transparent">
+<div class="w-24 h-24 rounded-full bg-surface-container flex items-center justify-center border-2 border-dashed border-outline">
+<span class="material-symbols-outlined text-on-surface-variant text-[40px]">person_add</span>
+</div>
+<div class="text-center">
+<p class="font-headline-md text-headline-md text-on-surface-variant italic">Not Assigned</p>
+<p class="font-data-table text-data-table text-on-surface-variant">Pending Generation</p>
+</div>
+<button class="px-6 py-2 bg-secondary-container text-on-secondary-container rounded-full font-title-md text-title-md hover:scale-105 transition-transform">
+                        Roll Slots
+                    </button>
+<div class="w-full pt-4 mt-2 border-t border-surface-container">
+<p class="font-label-lg text-label-lg text-on-surface-variant mb-3 uppercase">Expected (8)</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-body-md chip-absent">WFH Day</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Slot Machine Marquee (The Header Mentioned in Style Guide) -->
+<div class="mt-12 bg-white rounded-xl p-8 border border-surface-container-high relative overflow-hidden">
+<div class="flex items-center justify-between relative z-10">
+<div>
+<h4 class="font-title-lg text-title-lg text-primary">Rotation Engine</h4>
+<p class="text-body-md text-on-surface-variant">Calculating next optimal buyer based on fairness scores...</p>
+</div>
+<div class="flex items-center gap-4 overflow-hidden mask-fade-edges w-2/3 h-16">
+<!-- Animation Marquee Simulation -->
+<div class="flex gap-4 animate-marquee whitespace-nowrap">
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+<div class="w-12 h-12 rounded-full border-2 border-secondary-fixed bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">check</span>
+</div>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+<div class="w-12 h-12 rounded-full border-2 border-primary-fixed bg-surface-container"></div>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-title-md text-title-md hover:bg-primary-container transition-all flex items-center gap-2" id="roll-button">
+<span class="material-symbols-outlined">casino</span>
+                    Auto-Assign Remaining
+                </button>
+</div>
+<!-- Decorative Gradient Background -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-secondary-container/10 to-transparent pointer-events-none"></div>
+</div>
+</main>
+<script>
+        // Micro-interaction for the Roll Button
+        const rollButton = document.getElementById('roll-button');
+        rollButton.addEventListener('click', () => {
+            rollButton.classList.add('scale-95');
+            setTimeout(() => {
+                rollButton.classList.remove('scale-95');
+                // Potential confetti trigger here
+            }, 150);
+        });
+
+        // Hover effect for day cards
+        document.querySelectorAll('.day-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                if (!card.classList.contains('bg-surface-container-low')) {
+                    card.style.transform = 'translateY(-4px)';
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0px)';
+            });
+        });
+    </script>
+<style>
+        .mask-fade-edges {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            display: flex;
+            animation: marquee 10s linear infinite;
+        }
+
+        /* Prevent scroll bar visual clutter while maintaining dashboard feel */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #faf9fc;
+        }
+        body::-webkit-scrollbar-thumb {
+            background: #e3e2e6;
+            border-radius: 10px;
+        }
+        body::-webkit-scrollbar-thumb:hover {
+            background: #c5c5d4;
+        }
+    </style>
+</body></html>
+
+<!-- Participantes - SodaTurn Desktop -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SodaTurn | Participants</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-indicator {
+            position: relative;
+        }
+        .active-nav-indicator::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 25%;
+            height: 50%;
+            width: 4px;
+            background-color: #69ff87; /* Sparkling Mint */
+            border-radius: 0 4px 4px 0;
+        }
+        /* Custom Toggle Switch Style */
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #006e2a;
+        }
+        .toggle-checkbox:checked + .toggle-label .toggle-dot {
+            transform: translateX(100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#69ff87",
+                        "error": "#F44336",
+                        "on-secondary-fixed-variant": "#00531e",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#454652",
+                        "on-secondary-fixed": "#002108",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#8f4700",
+                        "surface-container-high": "#e9e7eb",
+                        "surface-bright": "#faf9fc",
+                        "primary-fixed": "#dee0ff",
+                        "surface-container-lowest": "#ffffff",
+                        "info": "#2196F3",
+                        "on-primary-fixed": "#00105c",
+                        "surface-container": "#efedf1",
+                        "primary-fixed-dim": "#bac3ff",
+                        "surface-container-highest": "#e3e2e6",
+                        "inverse-on-surface": "#f2f0f4",
+                        "surface-variant": "#e3e2e6",
+                        "warning": "#FFC107",
+                        "inactive": "#9E9E9E",
+                        "on-background": "#1b1b1e",
+                        "tertiary": "#6c3400",
+                        "primary-container": "#3f51b5",
+                        "primary": "#24389c",
+                        "background": "#faf9fc",
+                        "inverse-primary": "#bac3ff",
+                        "on-tertiary-fixed": "#301400",
+                        "surface-tint": "#4355b9",
+                        "surface": "#faf9fc",
+                        "secondary-container": "#5cfd80",
+                        "surface-container-low": "#f5f3f7",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#303033",
+                        "outline": "#757684",
+                        "secondary-fixed-dim": "#3ce36a",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-secondary-container": "#00732c",
+                        "success": "#4CAF50",
+                        "on-primary-fixed-variant": "#293ca0",
+                        "on-surface": "#1b1b1e",
+                        "secondary": "#006e2a",
+                        "on-primary-container": "#cacfff",
+                        "on-tertiary-container": "#ffc7a2",
+                        "outline-variant": "#c5c5d4",
+                        "surface-dim": "#dbd9dd",
+                        "tertiary-fixed-dim": "#ffb784",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-gap-lg": "32px",
+                        "nav-rail-width": "80px",
+                        "nav-width": "280px",
+                        "container-max-width": "1440px",
+                        "margin-desktop": "32px",
+                        "stack-gap-sm": "8px",
+                        "stack-gap-md": "16px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "data-table": ["JetBrains Mono"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "data-table": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen">
+<!-- Sidebar Navigation Shell -->
+<aside class="w-[280px] h-screen fixed left-0 top-0 flex flex-col h-full py-6 px-4 bg-surface-container-low dark:bg-surface-container-lowest z-50">
+<div class="mb-10 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-secondary-fixed">SodaTurn</h1>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-70">Office Rotation</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Home -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="font-body-md">Home</span>
+</a>
+<!-- Weekly -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[24px]">calendar_month</span>
+<span class="font-body-md">Weekly</span>
+</a>
+<!-- People (Active Tab) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container bg-secondary-container rounded-r-full font-bold active-nav-indicator transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-body-md">People</span>
+</a>
+<!-- Stats -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[24px]">bar_chart</span>
+<span class="font-body-md">Stats</span>
+</a>
+<!-- History -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-[24px]">history</span>
+<span class="font-body-md">History</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pb-4">
+<button class="w-full bg-secondary text-on-secondary hover:bg-opacity-90 py-3 rounded-full flex items-center justify-center gap-2 font-bold transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                Generate Week
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[280px] min-h-screen p-margin-desktop flex flex-col gap-gutter">
+<!-- Top App Bar / Search Area -->
+<header class="flex justify-between items-center w-full bg-surface dark:bg-inverse-surface h-16 rounded-xl px-6 mb-4">
+<div class="flex items-center bg-surface-container rounded-full px-4 py-2 w-96 focus-within:ring-2 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-3">search</span>
+<input class="bg-transparent border-none outline-none focus:ring-0 text-body-md w-full placeholder:text-on-surface-variant/50" placeholder="Search participants..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary-fixed overflow-hidden border-2 border-surface shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a corporate administrator, featuring a friendly middle-aged woman with glasses, smiling warmly at the camera. The lighting is soft and professional, set against a blurred modern office background with soft greens and neutral grays. The overall aesthetic is clean, trustworthy, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHRhmw22vOAaudmx_nJuIlF2J8VlZ0cyiVxFTxrLI35HWqKuUb-ghs3HI8trR4SL10YU-IJc4q-ZvKOFXNxOv3NJaWlD99lXeTjJT066JZMAoMjnrMZWjHKHNtLq1egKvyD08n0UvoQ-AP5gMOYNl9aif-UYUZf2j15qvn_t8gHjvncw9w5-caLnDx2wm2jFHY-RPrAX659NUsebNTo9AZtkJJRcuCXdoxNANL9o4STv3ysdKja6gISgrATBosdZIcVEHcJFIGJeE"/>
+</div>
+</div>
+</header>
+<!-- Stats Overview Row -->
+<section class="grid grid-cols-12 gap-gutter">
+<div class="col-span-12 flex items-center justify-between">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Team Governance</h2>
+<p class="text-body-lg text-on-surface-variant">Managing Fairness and Availability</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-full flex items-center gap-2 font-bold hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined">person_add</span>
+                    Add Participant
+                </button>
+</div>
+<!-- Bento Stats Cards -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-low p-6 rounded-lg border border-outline-variant/20 flex items-center gap-4">
+<div class="h-14 w-14 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<div>
+<p class="text-label-lg uppercase tracking-wider text-on-surface-variant">Active Members</p>
+<p class="text-headline-md font-bold text-on-surface">12 <span class="text-body-md font-normal text-on-surface-variant">Participants</span></p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container-low p-6 rounded-lg border border-outline-variant/20 flex items-center gap-4">
+<div class="h-14 w-14 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<p class="text-label-lg uppercase tracking-wider text-on-surface-variant">Average Fairness</p>
+<p class="text-headline-md font-bold text-on-surface">92% <span class="text-body-md font-normal text-success">Optimal</span></p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface-container-low p-6 rounded-lg border border-outline-variant/20 flex items-center gap-4">
+<div class="h-14 w-14 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">local_cafe</span>
+</div>
+<div>
+<p class="text-label-lg uppercase tracking-wider text-on-surface-variant">Weekly Rotation</p>
+<p class="text-headline-md font-bold text-on-surface">Round 42</p>
+</div>
+</div>
+</section>
+<!-- Participants Grid -->
+<section class="grid grid-cols-12 gap-gutter pb-12">
+<!-- Card Generator Loop Simulation -->
+<!-- Member 1 -->
+<div class="col-span-12 md:col-span-4 lg:col-span-3 bg-white p-5 rounded-lg shadow-sm border border-outline-variant/10 flex flex-col gap-4 hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start">
+<div class="h-16 w-16 rounded-full border-4 border-secondary-fixed/30 p-1 group-hover:border-secondary-fixed transition-all">
+<img class="w-full h-full object-cover rounded-full" data-alt="A clean, minimalist portrait of a young professional man with a friendly smile, short brown hair, and modern glasses. The lighting is bright and airy with a cool mint and blue color grade to match the corporate dashboard aesthetic. He is wearing a simple navy blue polo shirt against a plain, soft gray studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUl0JdcLFw7n_Ue1mzln7H89pOab1nfN3vmZEE3IxI88mu41TOlEzbz9InxBOsUhlyoYY38SUqgamPEwllIQF4FwPxF-5UN5iZqPame3VKRIEfuTfnlzYKciJfmgcimSMOWMPckZ2p5a4kxc3NOhescPtKXBmWsnmIUOVJOkgynvrE4VDr96JGxebtKx_e4G_y-Xc1ZEr2iibJkcH8qOz3Z_6MYGG_qBUtICD3qQQ5RNPgnzxtkW3EfvCKqUw5masdAuradbRoAO8"/>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label w-10 h-5 bg-inactive rounded-full transition-colors">
+<div class="toggle-dot absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Marcus Chen</h3>
+<p class="text-body-md text-on-surface-variant">Product Designer</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-surface-container">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-data-table text-body-md font-bold">98% Fair</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Member 2 -->
+<div class="col-span-12 md:col-span-4 lg:col-span-3 bg-white p-5 rounded-lg shadow-sm border border-outline-variant/10 flex flex-col gap-4 hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start">
+<div class="h-16 w-16 rounded-full border-4 border-secondary-fixed/30 p-1 group-hover:border-secondary-fixed transition-all">
+<img class="w-full h-full object-cover rounded-full" data-alt="A high-quality professional portrait of a woman of Indian descent with long dark hair, wearing a sleek emerald green blouse. She has a confident, warm expression and is looking directly at the camera. The background is a soft-focus, high-end office lobby with warm wooden accents and natural light streaming in, creating a professional yet approachable vitality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKH7-1W-xlUQKKe5g1S5DkNiyRWOlNOZ7yyT9shgQCuaEt4xu4iJ_nE-P9gIG0cN6KzXq_1MkLWgUfiE_bssG5IzgQeKGTTOL6ycCjrgrJTwpfrXB1uXmBXm4j2txgvhQ-adohQkOZHxPWwKfFtOnTiR0em78sVvOPTFswOzogpcilfC79nVWGjwUgAdcx2MaO8cyd9m0qsezsZeZzcEOL5hw7kbKCeAdkMzoIssrOkTqNXK4Wftc7hBtioRJuVVFCLQNlvmXmv28"/>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label w-10 h-5 bg-inactive rounded-full transition-colors">
+<div class="toggle-dot absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Sarah Kapur</h3>
+<p class="text-body-md text-on-surface-variant">Backend Lead</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-surface-container">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-data-table text-body-md font-bold">94% Fair</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Member 3 -->
+<div class="col-span-12 md:col-span-4 lg:col-span-3 bg-white p-5 rounded-lg shadow-sm border border-outline-variant/10 flex flex-col gap-4 hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start">
+<div class="h-16 w-16 rounded-full border-4 border-warning/30 p-1 group-hover:border-warning transition-all">
+<img class="w-full h-full object-cover rounded-full" data-alt="A portrait of a senior male engineer with graying hair and a neatly trimmed beard, wearing a gray charcoal sweater. He has a thoughtful, experienced expression. The photo is taken in a well-lit studio with a clean, light blue background. The overall tone is corporate, modern, and trustworthy, with balanced shadows and crisp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOGRi4Fjvh_hcYkOW4d3OZxMpenJ6VOGQM1sj_ensh41cM2KrcqzkIyp000fbuCWXKOAjVNS3YtLczZI7YR42suMKpazQo0vk_drQ2oqbb4XWoAET3RcEIt2yWWTCNDRkt9psf9lZMquTt0t-_cRTWrc_RpL5tir_lw5Tc52p6FxWsyoJ9p5eWC1NNTbfX0RvKb95KGSvCEr72eceSH252zosW0QOkkmhknsTEdtKaNUFfvEpbf9n80SyrJb5yjdsNYZNwJKQc04A"/>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label w-10 h-5 bg-inactive rounded-full transition-colors">
+<div class="toggle-dot absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface opacity-60">Robert Miller</h3>
+<p class="text-body-md text-on-surface-variant italic">Out of Office</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-surface-container">
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed rounded-full font-data-table text-body-md font-bold">82% Fair</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Member 4 -->
+<div class="col-span-12 md:col-span-4 lg:col-span-3 bg-white p-5 rounded-lg shadow-sm border border-outline-variant/10 flex flex-col gap-4 hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start">
+<div class="h-16 w-16 rounded-full border-4 border-secondary-fixed/30 p-1 group-hover:border-secondary-fixed transition-all">
+<img class="w-full h-full object-cover rounded-full" data-alt="A professional close-up of a young creative woman with dyed blonde hair, wearing a stylish minimalist black blazer. She is smiling vibrantly at the camera. The background is a blurred artistic studio with plants and soft morning light. The composition follows a high-key professional look, emphasizing clarity, brightness, and a welcoming, modern office vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3Y_lTK2gSGRu3n3hd5yYmuVyCAra3urGUea3IPO5mXNYbbJz-9u9xlROvZNn7mFSWlKbRkq1P--RU7b_BmrhHsQfN-_3QgFZqfsXcWbwQxAVypyzWrKZxmYeN_jmAW0zcCknqkIz62lbLCvSV6v38bPG3RM2o09Ka4h3VIWkoIxnH5V-IL4ZLzYnhEwq0vupJbEzMLqN1em45-WaS1gH47XUaMecmPWeSPKZtYIzh3cMTQoNBHQ0PZNybsBVW6tiYXIK6XIQ9SEk"/>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label w-10 h-5 bg-inactive rounded-full transition-colors">
+<div class="toggle-dot absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Elena Rodriguez</h3>
+<p class="text-body-md text-on-surface-variant">Marketing Specialist</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-surface-container">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-data-table text-body-md font-bold">99% Fair</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Repeat Members for Grid Density -->
+<div class="col-span-12 md:col-span-4 lg:col-span-3 bg-white p-5 rounded-lg shadow-sm border border-outline-variant/10 flex flex-col gap-4 hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start">
+<div class="h-16 w-16 rounded-full border-4 border-secondary-fixed/30 p-1 group-hover:border-secondary-fixed transition-all">
+<img class="w-full h-full object-cover rounded-full" data-alt="A headshot of a diverse young man with curly dark hair, wearing a white button-down shirt. He has an energetic and focused expression. The setting is a bright, modern co-working space with large windows and soft daylight. The aesthetic is clean and high-end, utilizing the mint and indigo tones of the sodaTurn brand for a cohesive visual feeling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJczWSAsqsDgYvBiJPj1XUMn0pOLSO3qiUYThEoAnZEvLvkrLaJwcoczjnFoYuA2r8kDIMm4ph_G98R_gniw_Zeonv-NtIhOsMiKTxER0sjyCEVhsDfX4sH83cJJ2ofz00DwclfdhIH9UvQYovamTD6zOwNM_rxDC7zaCJRtLEyXNLuRCs_rYFqw_C6x6Om7QmzBIFKUE2niyCxNLufNSmeVRJYAZH8dPhx9GXziKLWi9nIuuN8OpK4M3aQHTluhAjO5w7OaFnrio"/>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox"/>
+<div class="toggle-label w-10 h-5 bg-inactive rounded-full transition-colors">
+<div class="toggle-dot absolute left-0.5 top-0.5 bg-white w-4 h-4 rounded-full transition-transform"></div>
+</div>
+</label>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">James Wilson</h3>
+<p class="text-body-md text-on-surface-variant">Systems Ops</p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-4 border-t border-surface-container">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-data-table text-body-md font-bold">91% Fair</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Add Participant Placeholder Card -->
+<div class="col-span-12 md:col-span-4 lg:col-span-3 bg-surface-container border-2 border-dashed border-outline-variant p-5 rounded-lg flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-surface-container-high transition-all">
+<div class="h-16 w-16 rounded-full bg-surface flex items-center justify-center text-on-surface-variant group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</div>
+<p class="font-title-md text-title-md text-on-surface-variant group-hover:text-on-surface">Add New Member</p>
+</div>
+</section>
+</main>
+<script>
+        // Simple Interaction: Toggle switches
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const card = this.closest('.group');
+                const name = card.querySelector('h3');
+                const subtitle = card.querySelector('p');
+                
+                if(!this.checked) {
+                    name.classList.add('opacity-60');
+                    subtitle.classList.add('italic');
+                    subtitle.textContent = "Out of Office";
+                } else {
+                    name.classList.remove('opacity-60');
+                    subtitle.classList.remove('italic');
+                    // Reset text - in real app would use data attribute
+                    if(name.textContent.includes("Robert")) subtitle.textContent = "Senior Engineer";
+                    else if(name.textContent.includes("James")) subtitle.textContent = "Systems Ops";
+                    else subtitle.textContent = "Active Member";
+                }
+            });
+        });
+
+        // Search Bar Focus micro-interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('w-[420px]', 'shadow-sm');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('w-[420px]', 'shadow-sm');
+        });
+    </script>
+</body></html>
+
+<!-- Historial - SodaTurn Desktop -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-active .accordion-content {
+            max-height: 500px;
+        }
+        .accordion-active .rotate-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#69ff87",
+                        "error": "#F44336",
+                        "on-secondary-fixed-variant": "#00531e",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#454652",
+                        "on-secondary-fixed": "#002108",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#8f4700",
+                        "surface-container-high": "#e9e7eb",
+                        "surface-bright": "#faf9fc",
+                        "primary-fixed": "#dee0ff",
+                        "surface-container-lowest": "#ffffff",
+                        "info": "#2196F3",
+                        "on-primary-fixed": "#00105c",
+                        "surface-container": "#efedf1",
+                        "primary-fixed-dim": "#bac3ff",
+                        "surface-container-highest": "#e3e2e6",
+                        "inverse-on-surface": "#f2f0f4",
+                        "surface-variant": "#e3e2e6",
+                        "warning": "#FFC107",
+                        "inactive": "#9E9E9E",
+                        "on-background": "#1b1b1e",
+                        "tertiary": "#6c3400",
+                        "primary-container": "#3f51b5",
+                        "primary": "#24389c",
+                        "background": "#faf9fc",
+                        "inverse-primary": "#bac3ff",
+                        "on-tertiary-fixed": "#301400",
+                        "surface-tint": "#4355b9",
+                        "surface": "#faf9fc",
+                        "secondary-container": "#5cfd80",
+                        "surface-container-low": "#f5f3f7",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#303033",
+                        "outline": "#757684",
+                        "secondary-fixed-dim": "#3ce36a",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-secondary-container": "#00732c",
+                        "success": "#4CAF50",
+                        "on-primary-fixed-variant": "#293ca0",
+                        "on-surface": "#1b1b1e",
+                        "secondary": "#006e2a",
+                        "on-primary-container": "#cacfff",
+                        "on-tertiary-container": "#ffc7a2",
+                        "outline-variant": "#c5c5d4",
+                        "surface-dim": "#dbd9dd",
+                        "tertiary-fixed-dim": "#ffb784",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-gap-lg": "32px",
+                        "nav-rail-width": "80px",
+                        "nav-width": "280px",
+                        "container-max-width": "1440px",
+                        "margin-desktop": "32px",
+                        "stack-gap-sm": "8px",
+                        "stack-gap-md": "16px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "data-table": ["JetBrains Mono"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "data-table": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Side Navigation -->
+<aside class="w-[280px] h-screen fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest flex flex-col h-full py-gutter px-4 z-50">
+<div class="mb-10 px-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-secondary-fixed">SodaTurn</h1>
+<p class="text-on-surface-variant text-body-md">Office Rotation</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">home</span>
+<span class="font-body-md">Home</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">calendar_month</span>
+<span class="font-body-md">Weekly</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">group</span>
+<span class="font-body-md">People</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-r-full group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">bar_chart</span>
+<span class="font-body-md">Stats</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-secondary-container bg-secondary-container rounded-r-full font-bold" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-md">History</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pb-4">
+<button class="w-full bg-secondary-container text-on-secondary-container font-bold py-4 rounded-full flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">autorenew</span>
+                Generate Week
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="pl-[312px] pr-margin-desktop pt-8 pb-12">
+<!-- Top App Bar Content -->
+<header class="flex justify-between items-center w-full mb-8">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-full pl-12 pr-6 py-3 focus:ring-2 focus:ring-primary text-body-md" placeholder="Search history..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img class="w-10 h-10 rounded-full border-2 border-primary-fixed cursor-pointer" data-alt="A professional headshot of a friendly office administrator in a bright, modern corporate environment. The person is smiling, wearing business casual attire. The lighting is soft and flattering, emphasizing a clean and efficient workspace in the background with a soft indigo color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA66AZmJAXhrc7o4fN9HRV7Sd90FE3fwkBKCaJLSCe6DqG0m1mE7hTWdl_Z6NycT4Yob3MKbjCTH7zYWv7re2d3aD-_xIktrc72rKL51hZV70d6tN6SymseqAPp2uCSPqLvuU4mkR0W0eLJd24qMN7OEcBqoHW3YvHg-knGx7CJ6RLgx2af2_zaDoWFXc74s_lMHe43wbOU10GeLVMI4s-3jQvp5ud-3xm9Qbr5c6oHi8sIuNIgTaEDasIvIIjaRakrtbnNI30wA7M"/>
+</div>
+</header>
+<!-- Page Header -->
+<div class="mb-stack-gap-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-background">Rotation History</h2>
+<p class="text-on-surface-variant font-body-lg">Review past beverage distributions and fairness trends.</p>
+</div>
+<!-- History Content Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Pane: The List (8 cols) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-8">
+<!-- OCTOBER SECTION -->
+<section class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline-md text-headline-md">October 2023</h3>
+<span class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full font-label-lg text-label-lg">CURRENT MONTH</span>
+</div>
+<!-- Summary Bar October -->
+<div class="bg-surface-container-lowest p-6 rounded-lg flex justify-between items-center shadow-sm">
+<div class="flex gap-8">
+<div>
+<p class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Total Sodas</p>
+<p class="text-headline-md font-headline-md text-primary">142</p>
+</div>
+<div class="border-l border-outline-variant pl-8">
+<p class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Cups Used</p>
+<p class="text-headline-md font-headline-md text-primary">210</p>
+</div>
+<div class="border-l border-outline-variant pl-8">
+<p class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Savings</p>
+<p class="text-headline-md font-headline-md text-success">$42.50</p>
+</div>
+</div>
+<div class="flex -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-white bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed text-xs font-bold">JD</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-primary-fixed flex items-center justify-center text-on-primary-fixed text-xs font-bold">SM</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed text-xs font-bold">AK</div>
+<div class="w-10 h-10 rounded-full border-2 border-white bg-surface-variant flex items-center justify-center text-on-surface-variant text-xs font-bold">+5</div>
+</div>
+</div>
+<!-- Accordion Weeks October -->
+<div class="space-y-3">
+<!-- Week 42 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden accordion-item">
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container-low transition-colors" onclick="toggleAccordion(this)">
+<div class="flex items-center gap-4">
+<div class="bg-secondary-container p-2 rounded-full">
+<span class="material-symbols-outlined text-on-secondary-container">calendar_today</span>
+</div>
+<div class="text-left">
+<p class="font-title-md text-title-md">Week 42 (Oct 16 - Oct 20)</p>
+<p class="text-body-md text-on-surface-variant">Efficiency: 98% • No missed rotations</p>
+</div>
+</div>
+<span class="material-symbols-outlined rotate-icon transition-transform">expand_more</span>
+</button>
+<div class="accordion-content bg-surface-container-lowest px-5">
+<div class="py-6 grid grid-cols-5 gap-4">
+<!-- Monday -->
+<div class="space-y-2 text-center">
+<p class="font-label-lg text-label-lg text-on-surface-variant">MON</p>
+<img class="w-12 h-12 rounded-full mx-auto mb-1" data-alt="A portrait of a male employee with glasses, casual modern office attire, looking friendly and professional. Bright lighting, background showing a slight bokeh of a modern workspace with teal and navy blue tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCpBwaqRYcHmFUCTT8VVs6-MlYUXVuHa1FpgaRczuQtahZ4uv_YXnDxXOJOEpSAOwr8sWewpzSQqRA5Jzzl7yTu35T9lpnWiM2vMlUH-783vRo_jhOPmNyM__D9HyWmr9hzHYFT8hrUtz_h486ege5p-ozHGVAZC0zULQzuty9IvC2bpEbXJis2ERsjpgwm-iqrJcr6r09cvXQO6mlmT4vBmLIftZANTghZXZ9uL2thQbdXPj6r3DX26Ftclu2regxdfwMT15BAH4"/>
+<p class="font-body-md font-bold">Marcus L.</p>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">BUYER</span>
+</div>
+<!-- Tuesday -->
+<div class="space-y-2 text-center">
+<p class="font-label-lg text-label-lg text-on-surface-variant">TUE</p>
+<img class="w-12 h-12 rounded-full mx-auto mb-1" data-alt="A portrait of a female professional with a warm smile, creative office background. The lighting is sunny and vibrant, consistent with a clean and cheerful workspace aesthetic. Indigo and soft mint green accents in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYcIx2zwOL8XT6ni5-CSA26P5s6czp2j9ScX0sCOoRCF3Sv34lb2VPByiWn8tvQK8HnkozRm02lA-ejCo9WFrgYTPsRBUAllWq-w6JJrL3FS5gpeh8ZNw593MOlxxHOOiAdTSFBY6nAHGi2QcDhuvK90wSio_ccvlb2aUn7Lx9QixD9Z-87d9PFhYKvYRP9X5I0IBGram4pORjHTNKTCjIrTh-jjLQxntrj9Q_OccN4fRuB5Rmrnr_VGQXrutH0sPRdS13p9zBT-I"/>
+<p class="font-body-md font-bold">Sarah K.</p>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">BUYER</span>
+</div>
+<!-- Wednesday -->
+<div class="space-y-2 text-center">
+<p class="font-label-lg text-label-lg text-on-surface-variant">WED</p>
+<img class="w-12 h-12 rounded-full mx-auto mb-1" data-alt="A headshot of a young professional man in a modern office, wearing a navy blue shirt. The background is clean with minimal decor, utilizing the brand color palette of soft whites and deep indigos." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGDpNMLIcGBfB49h34Gnl9zCH4xs2O_Uw7LYcFGr7uY9gfyKMo4BetN2cEAgPFX31G7z5VBIE7jj-PajPGtDOShieyZYMvAvrjFzxv4cn1kscqetmDdqtiBhLCVC8O1fJWaGwOqv0YxLEImg1hrlt9X1EbomOr5gqOx1tGpkhlKFBkSCgrvPquSKJaoKgim0RHJp0dmnoAuTnyM2c-RzzS-K0sZbyajL1xx1hliMs5JspiE72GkDXjn4iZYNX29qpyiO4TpT71-t0"/>
+<p class="font-body-md font-bold">David W.</p>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">BUYER</span>
+</div>
+<!-- Thursday -->
+<div class="space-y-2 text-center">
+<p class="font-label-lg text-label-lg text-on-surface-variant">THU</p>
+<img class="w-12 h-12 rounded-full mx-auto mb-1" data-alt="A portrait of an expressive female employee with modern headphones around her neck, in a contemporary design studio setting. Vibrant lighting and soft gradients in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0dsebVpnX9P11K2e4JsSRJ4wIZaE0bNd9yvF02jBL0TTZX4J702h1r7omTpAZK_I9At25PnyCACmOlo7Dc1HxEzr5z_jG-re5FUP8gQK9Zeb7c2LjfJj05BhvxC1Tm7Q2jbzFSuqdQYZW9ejqvRkzwJ8ru-iRXOSyTLaDTLtDgznuzr81nAfQMXYIGSkYazOiQpOWjEynfuDQchSBm1WUYW_Xt1hLbP69mU88cjz-JyMyfS2wLHqZR_mLcIOOLTIy0gdVtKh9kFI"/>
+<p class="font-body-md font-bold">Juliette B.</p>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">BUYER</span>
+</div>
+<!-- Friday -->
+<div class="space-y-2 text-center">
+<p class="font-label-lg text-label-lg text-on-surface-variant">FRI</p>
+<img class="w-12 h-12 rounded-full mx-auto mb-1" data-alt="A professional headshot of an older male employee with a gray beard and a friendly expression, modern office setting, bright lighting. Style is high-end corporate photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4Yc1hwfJghpgzacnzYRoRwIEkByLWTpjQb4n3GUJscKoeFXkQyX5JPVJL89SlhRYDL_kmhC1quHPXHIKXHKo-Ed82IVIRYl58PGE3DlikQoI_lC9cMKs_LaQH4CE4wDrCcTlgRh4pRrAd1P9H-jV9Z04nrEb-lx_kFKXn-kYm9f2OlFpa-djSHNF9OD4-qqDhgpRFhoa6IrxS3-kq23FIcgNrRcX8L6555Jd2XH9W4byR4hC7Ux5ez-hYpOLj-3BcxUViArAVeB0"/>
+<p class="font-body-md font-bold">Robert F.</p>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-bold">BUYER</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Week 41 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden accordion-item">
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container-low transition-colors" onclick="toggleAccordion(this)">
+<div class="flex items-center gap-4">
+<div class="bg-surface-variant p-2 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_today</span>
+</div>
+<div class="text-left">
+<p class="font-title-md text-title-md">Week 41 (Oct 09 - Oct 13)</p>
+<p class="text-body-md text-on-surface-variant">Efficiency: 85% • 1 Swap occurred</p>
+</div>
+</div>
+<span class="material-symbols-outlined rotate-icon transition-transform">expand_more</span>
+</button>
+<div class="accordion-content bg-surface-container-lowest px-5">
+<div class="py-6">
+<p class="text-on-surface-variant italic mb-4 text-body-md text-center">Weekly rotation breakdown including participant details.</p>
+<div class="grid grid-cols-5 gap-4">
+<!-- Simplified view for collapsed demo -->
+<div class="h-20 bg-surface-container rounded-lg border border-dashed border-outline-variant flex items-center justify-center text-xs">MON</div>
+<div class="h-20 bg-surface-container rounded-lg border border-dashed border-outline-variant flex items-center justify-center text-xs">TUE</div>
+<div class="h-20 bg-surface-container rounded-lg border border-dashed border-outline-variant flex items-center justify-center text-xs">WED</div>
+<div class="h-20 bg-surface-container rounded-lg border border-dashed border-outline-variant flex items-center justify-center text-xs">THU</div>
+<div class="h-20 bg-surface-container rounded-lg border border-dashed border-outline-variant flex items-center justify-center text-xs">FRI</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SEPTEMBER SECTION -->
+<section class="space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline-md text-headline-md">September 2023</h3>
+</div>
+<!-- Summary Bar September -->
+<div class="bg-surface-container-lowest p-6 rounded-lg flex justify-between items-center shadow-sm">
+<div class="flex gap-8">
+<div>
+<p class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Total Sodas</p>
+<p class="text-headline-md font-headline-md text-on-surface-variant">118</p>
+</div>
+<div class="border-l border-outline-variant pl-8">
+<p class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Cups Used</p>
+<p class="text-headline-md font-headline-md text-on-surface-variant">190</p>
+</div>
+<div class="border-l border-outline-variant pl-8">
+<p class="text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">Savings</p>
+<p class="text-headline-md font-headline-md text-success">$38.20</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-body-md text-on-surface-variant font-bold">Month Leader</p>
+<div class="flex items-center gap-2 justify-end mt-1">
+<span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-full text-xs font-bold">TOP CONTRIBUTOR</span>
+<span class="font-bold">Marcus L.</span>
+</div>
+</div>
+</div>
+<!-- Week 40 -->
+<div class="bg-surface rounded-lg border border-outline-variant overflow-hidden accordion-item">
+<button class="w-full flex items-center justify-between p-5 hover:bg-surface-container-low transition-colors" onclick="toggleAccordion(this)">
+<div class="flex items-center gap-4">
+<div class="bg-surface-variant p-2 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_today</span>
+</div>
+<div class="text-left">
+<p class="font-title-md text-title-md">Week 40 (Sep 25 - Sep 29)</p>
+<p class="text-body-md text-on-surface-variant">Efficiency: 100% • Perfect Week</p>
+</div>
+</div>
+<span class="material-symbols-outlined rotate-icon transition-transform">expand_more</span>
+</button>
+<div class="accordion-content bg-surface-container-lowest px-5">
+<div class="py-6">Content detailed for September Week 40</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Pane: Live Stats (4 cols) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- History Visualization Card -->
+<div class="bg-primary text-on-primary p-8 rounded-lg relative overflow-hidden h-64">
+<div class="relative z-10 flex flex-col h-full">
+<h4 class="font-headline-md text-headline-md mb-2">Fairness over time</h4>
+<p class="text-body-md opacity-80 mb-auto">The "Robin Hood" algorithm ensures no single person carries the burden twice in 14 days.</p>
+<div class="flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg">94.2%</span>
+<span class="text-body-md">Efficiency Score</span>
+</div>
+</div>
+<!-- Abstract geometric decor -->
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-secondary-fixed opacity-10 rounded-full"></div>
+<div class="absolute right-12 top-4 w-24 h-24 border-4 border-white opacity-5 rounded-full"></div>
+</div>
+<!-- Buyer Trends List -->
+<div class="bg-surface-container-low p-6 rounded-lg space-y-6">
+<h4 class="font-title-lg text-title-lg text-on-background">Contribution Trends</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center font-bold">JD</div>
+<div>
+<p class="font-body-md font-bold">John Doe</p>
+<p class="text-label-lg font-label-lg text-on-surface-variant">8 Bought • 0 Swaps</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-data-table text-data-table font-bold text-success">+12.4%</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase">vs Average</p>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container">SM</div>
+<div>
+<p class="font-body-md font-bold">Sarah Miller</p>
+<p class="text-label-lg font-label-lg text-on-surface-variant">6 Bought • 1 Swap</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-data-table text-data-table font-bold text-warning">-2.1%</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase">vs Average</p>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center font-bold text-on-tertiary-fixed">AK</div>
+<div>
+<p class="font-body-md font-bold">Alex Kim</p>
+<p class="text-label-lg font-label-lg text-on-surface-variant">7 Bought • 0 Swaps</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-data-table text-data-table font-bold text-success">+4.8%</p>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase">vs Average</p>
+</div>
+</div>
+</div>
+<button class="w-full text-primary font-bold text-body-md py-2 border border-primary/20 rounded-full hover:bg-primary/5 transition-colors">
+                        View Detailed Audit Log
+                    </button>
+</div>
+<!-- Info Card -->
+<div class="bg-surface-container-highest p-6 rounded-lg">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<h5 class="font-title-md text-title-md">Data Preservation</h5>
+</div>
+<p class="text-body-md text-on-surface-variant">Records are kept for up to 12 months. Export data to CSV for long-term storage or tax reimbursement purposes.</p>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const isOpen = item.classList.contains('accordion-active');
+            
+            // Close all other accordions in the same list if desired
+            // document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('accordion-active'));
+            
+            if (!isOpen) {
+                item.classList.add('accordion-active');
+            } else {
+                item.classList.remove('accordion-active');
+            }
+        }
+
+        // Initialize first week as open for demo
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstWeek = document.querySelector('.accordion-item');
+            if(firstWeek) firstWeek.classList.add('accordion-active');
+        });
+    </script>
+</body></html>
+
+<!-- Home - SodaTurn Desktop -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SodaTurn | Office Rotation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#69ff87",
+                      "error": "#F44336",
+                      "on-secondary-fixed-variant": "#00531e",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#454652",
+                      "on-secondary-fixed": "#002108",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#8f4700",
+                      "surface-container-high": "#e9e7eb",
+                      "surface-bright": "#faf9fc",
+                      "primary-fixed": "#dee0ff",
+                      "surface-container-lowest": "#ffffff",
+                      "info": "#2196F3",
+                      "on-primary-fixed": "#00105c",
+                      "surface-container": "#efedf1",
+                      "primary-fixed-dim": "#bac3ff",
+                      "surface-container-highest": "#e3e2e6",
+                      "inverse-on-surface": "#f2f0f4",
+                      "surface-variant": "#e3e2e6",
+                      "warning": "#FFC107",
+                      "inactive": "#9E9E9E",
+                      "on-background": "#1b1b1e",
+                      "tertiary": "#6c3400",
+                      "primary-container": "#3f51b5",
+                      "primary": "#24389c",
+                      "background": "#faf9fc",
+                      "inverse-primary": "#bac3ff",
+                      "on-tertiary-fixed": "#301400",
+                      "surface-tint": "#4355b9",
+                      "surface": "#faf9fc",
+                      "secondary-container": "#5cfd80",
+                      "surface-container-low": "#f5f3f7",
+                      "on-tertiary-fixed-variant": "#713700",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#303033",
+                      "outline": "#757684",
+                      "secondary-fixed-dim": "#3ce36a",
+                      "tertiary-fixed": "#ffdcc6",
+                      "on-secondary-container": "#00732c",
+                      "success": "#4CAF50",
+                      "on-primary-fixed-variant": "#293ca0",
+                      "on-surface": "#1b1b1e",
+                      "secondary": "#006e2a",
+                      "on-primary-container": "#cacfff",
+                      "on-tertiary-container": "#ffc7a2",
+                      "outline-variant": "#c5c5d4",
+                      "surface-dim": "#dbd9dd",
+                      "tertiary-fixed-dim": "#ffb784",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "stack-gap-lg": "32px",
+                      "nav-rail-width": "80px",
+                      "nav-width": "280px",
+                      "container-max-width": "1440px",
+                      "margin-desktop": "32px",
+                      "stack-gap-sm": "8px",
+                      "stack-gap-md": "16px"
+              },
+              "fontFamily": {
+                      "title-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "title-md": ["Plus Jakarta Sans"],
+                      "data-table": ["JetBrains Mono"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "label-lg": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "data-table": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf9fc;
+            color: #1b1b1e;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #24389c 0%, #3f51b5 100%);
+        }
+        .mint-gradient {
+            background: linear-gradient(135deg, #69ff87 0%, #3ce36a 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e3e2e6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-hidden">
+<!-- Side Navigation Rail / Sidebar (Source: SideNavBar JSON) -->
+<aside class="w-[280px] h-screen fixed left-0 top-0 flex flex-col h-full py-6 px-4 bg-surface-container-low dark:bg-surface-container-lowest z-50">
+<div class="flex items-center gap-3 px-4 mb-10">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">bubble_chart</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-secondary-fixed leading-tight">SodaTurn</h1>
+<p class="text-label-lg font-label-lg text-outline uppercase tracking-wider">Office Rotation</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Active: Home (Logic: This is the Home screen) -->
+<a class="flex items-center gap-4 px-4 py-3 text-on-secondary-container bg-secondary-container rounded-r-full font-bold transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-body-md text-body-md">Home</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-body-md text-body-md">Weekly</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">People</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-body-md text-body-md">Stats</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-md text-body-md">History</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full py-4 px-6 bg-secondary text-on-secondary font-bold rounded-full flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined">casino</span>
+                Generate Week
+            </button>
+<div class="mt-8 flex items-center gap-3 pt-6 border-t border-outline-variant/30">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a young creative professional with a friendly smile, clean lighting, and a soft blurred background in a modern corporate office setting. The style is bright and high-key with vibrant colors matching the Indigo Refresh palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCbr6aK8k2A6buk5u0AcRYzozBK7JDM4eW3rJaVy3_n8MkYPmN2Ncwvw03GdCo5A7UZHSvNnUko1oWawKXLXJj0cE5fGRDSrVL3NxlUgjX1TSDyz1j2s3PrXDuXI6pn6fKpaAaSCs2Anykl-VEGtE9gUzXuXKl-xBU-UQ8XDzaV_wJSC5DxtdxEGHeRgJhxEQ1ckqFHQRweMFcgqFOaLNmFheKhrStSFQSu1u6SDkP_hltCqhAGcYW642eZS-ixxBHrxkObMOPNQ"/>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface leading-none">Admin</span>
+<span class="font-label-lg text-label-lg text-outline">Office Manager</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[280px] h-screen overflow-y-auto custom-scrollbar bg-background">
+<!-- Top Navigation (Source: TopNavBar JSON) -->
+<header class="flex justify-between items-center w-full h-16 pl-8 pr-8 sticky top-0 bg-surface/80 backdrop-blur-md z-40">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-high border-none rounded-full text-body-md focus:ring-2 focus:ring-primary" placeholder="Search participants..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="px-8 pb-12 max-w-[1440px] mx-auto">
+<!-- Welcome Header -->
+<div class="mb-8 mt-4">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Hello, Soda Master! 👋</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">It's a refreshing day for some hydration. Here's today's logistics.</p>
+</div>
+<!-- Bento Grid Section -->
+<div class="bento-grid">
+<!-- Today's Turn Hero Card (8 Cols) -->
+<div class="col-span-8 hero-gradient rounded-lg p-8 relative overflow-hidden group">
+<!-- Decorative background animation placeholder -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
+<div class="relative z-10 flex flex-col h-full justify-between">
+<div>
+<span class="px-4 py-1.5 bg-white/20 text-white rounded-full text-label-lg font-label-lg uppercase tracking-widest mb-6 inline-block">Today's Duty</span>
+<div class="flex items-center gap-8 mt-4">
+<div class="relative">
+<div class="w-32 h-32 rounded-full border-4 border-white/30 overflow-hidden ring-4 ring-secondary shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="A close-up portrait of Martín, a cheerful and dependable office worker with a warm smile, wearing a casual navy blue shirt. He is set against a clean, modern workspace background with soft morning sunlight streaming in. The image has high clarity and a vibrant, professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3xs7Y93K1Ow1LHggDd2q3e6tMgI7-Ga-eTDTftydnEn5QDwmXIPlCO-5JsjFAc1WmPD4VGOO08KAQBoaijZ0dVTCYslpFKYzBfnymTKWdaPhYklvSIftllgfB5ZBPI6UOM6kQC_0z6PhESTpbj7OuYC7n6lLWqHnlDCmfvPnY2Xdqmajqk9Mp6Xx_kKNrndA3n216R_Bu7DSh2X4AEJbUghyq2ZOPO7JNOXIaAoGEnJInBNOwE1FU0sIleXvZt6BKGoZhlkIUBZM"/>
+</div>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-secondary-container rounded-full flex items-center justify-center border-4 border-primary">
+<span class="material-symbols-outlined text-on-secondary-container text-sm" style="font-variation-settings: 'FILL' 1;">local_drink</span>
+</div>
+</div>
+<div>
+<h3 class="font-display-lg text-display-lg text-white mb-1">Martín</h3>
+<div class="flex items-center gap-3 text-white/80">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-title-lg text-title-lg">ETA: 11:30 AM</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 flex gap-4">
+<button class="bg-white text-primary px-8 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined">check_circle</span>
+                                Mark as Delivered
+                            </button>
+<button class="bg-white/10 border border-white/30 text-white px-8 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-white/20 transition-colors backdrop-blur-sm">
+<span class="material-symbols-outlined">shuffle</span>
+                                Request Swap
+                            </button>
+</div>
+</div>
+</div>
+<!-- Week's Cups / Fairness Card (4 Cols) -->
+<div class="col-span-4 bg-surface-container rounded-lg p-8 flex flex-col justify-between border border-outline-variant/30">
+<div>
+<div class="flex justify-between items-start mb-6">
+<span class="text-on-surface-variant font-label-lg uppercase tracking-wider">Weekly MVP</span>
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-data-table text-data-table font-bold">
+                                FAIRNESS: 98
+                            </div>
+</div>
+<div class="flex flex-col items-center text-center py-4">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 ring-2 ring-primary ring-offset-4 bg-surface">
+<img class="w-full h-full object-cover" data-alt="A portrait of Sofía, a friendly and energetic office professional with bright eyes, framed by soft studio lighting in a modern airy office. The style is sophisticated yet approachable, using a palette of soft teals and neutral whites to highlight her positive leadership aura." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgiRMfPyakJ9h1FOty8V0JfZdLealKdCYFKJmMbTse8ZlLhWYrO8ucyRr4nxHaqWIKhvH3Gi8seL3BjyP0MEp2fvArhTF5KsppOUQ12bSw-9dzbfH52VyPGPOa5GVTvjlKAmOCKzew9cNSMcMmgJY0WrhxgllUtJex9HzPwdIMKrUV6w30t32eM7t6bub9Xc6W7wPJEmu67_vWZfKj11NwN1QMNgFwTeFRwGPy2Ukgdk8W4aqWOGjbN8pe0tQ8zoJw5IiegQlV-9Q"/>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface">Sofía</h4>
+<p class="text-on-surface-variant font-body-md mt-1">Responsible for cups and cleanup</p>
+</div>
+</div>
+<div class="bg-primary/5 rounded-2xl p-4 mt-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-label-lg font-label-lg text-outline">Rotation History</span>
+<span class="text-label-lg font-label-lg text-primary">View All</span>
+</div>
+<div class="flex -space-x-3 mt-2 overflow-hidden">
+<img class="inline-block h-8 w-8 rounded-full ring-2 ring-surface" data-alt="Headshot of a smiling employee, clean corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH1_DFH5Tlm_ITIv2QmldXv9QN0hDv12cvpkPpMPrYVNm86JUKqGZq49EPRL2NKbQUZWB8c1avBn4MonMsng2fnKF76-cBoSr1FijEKazo_AAHTBf567snEocp2maWvKSHXUfqdj5k5O_zzORzSQnD_KS_YI5kpnM1ENBlNWiwJR7LWKCQ4z2DioYJXaMxnJPtRDIn3s-eGcgCos0rkOh1f6-34XDrnEHHsC8RvHaSQZLBuZdDqzaqbsnP0P1facJPrByo9Hcx0pw"/>
+<img class="inline-block h-8 w-8 rounded-full ring-2 ring-surface" data-alt="Headshot of a diverse team member, professional lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdbB6Jb_Z265wgMqGzbHF7rSAPdseB0XegqpBkPkuNdr_jIbZuvAEKh1oYt_NHCQzajIFVqFvkGlCmPMJCIxS0yVrCpZphbSX-I31WfA8AvXJrlPWrUfZw7zyMNaemdqeaLTle66-I-64dy-m-2W3Zbgm-9KxNt8DUonuWaB-QelgG3P33_-IZOLPbJ56fKqPYK0thze_FA_e7e4uhEk67WiUWhb7hi6_Qe8a4g-bEJ7Xtuaefr8AtCZYfKgsix4MxnKxc1NJDyhk"/>
+<img class="inline-block h-8 w-8 rounded-full ring-2 ring-surface" data-alt="Corporate headshot of a team member with a warm smile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoHEBBUALuJjYfj662PSpOgE5vVNPbBYLGUpXQhBuHlpChxqAjRiTzHWlk42JTzH_AzQza9WI0S2H9lMRcW8qWFPTadQ-IfW1YT-a99DmINLzu16dqKAT7jY5zKlpaz2BWFJR1cKMWvs9fwCZBBNOsoIi7dPEDa12EST4KFVP9n0GQJJio3UX3ur-h_6ZzlUqplxJbhdXRIxxSIA8SNYa4tIIu5EGH0PhitLA66CLs4kjpC955CrAVOM-7FRJGMyDOAcG4WV5giVY"/>
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-surface-container-highest text-[10px] font-bold text-on-surface-variant ring-2 ring-surface">+12</div>
+</div>
+</div>
+</div>
+<!-- Coming Up Timeline (8 Cols) -->
+<div class="col-span-8 bg-white rounded-lg p-8 shadow-sm border border-outline-variant/20">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-title-lg text-title-lg text-on-surface">Coming Up Next</h3>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-outline-variant text-outline hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full border border-outline-variant text-outline hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-5 gap-4">
+<!-- Day 1 -->
+<div class="flex flex-col items-center p-4 bg-surface-container-low rounded-2xl border border-transparent hover:border-primary/20 hover:bg-white transition-all cursor-pointer">
+<span class="text-label-lg font-label-lg text-outline uppercase mb-4">Tue</span>
+<div class="w-12 h-12 rounded-full overflow-hidden mb-3">
+<img class="w-full h-full object-cover" data-alt="Office worker headshot, vibrant background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4-qfc1JnFzFkiwING4A6CTciuz3D2TgBin8pzN0IrqcuifSMS-aGGdDgUzRdioLvQpcy_eIZWk0497mZFzZC8nVYp0ByxRF-JN6vNwe6jvHKbcSqLsRVPBnkrDTNQ8on7_PmqaY3Suyb9KoSs43RwHhG8NNJHAp4gPht3CTzhaKgz5so5xWtcUBT2Y7W9AjH9bBlNKhksVtahZR10mkHrl061o_o27rNVMJEXwFzUPsKibWXngvcxZvQ1PKOrW5dNqxAY3OV3V-s"/>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Alex</span>
+</div>
+<!-- Day 2 -->
+<div class="flex flex-col items-center p-4 bg-surface-container-low rounded-2xl border border-transparent hover:border-primary/20 hover:bg-white transition-all cursor-pointer">
+<span class="text-label-lg font-label-lg text-outline uppercase mb-4">Wed</span>
+<div class="w-12 h-12 rounded-full overflow-hidden mb-3">
+<img class="w-full h-full object-cover" data-alt="Creative professional headshot, soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAknZMA97TKaw8tYysQ2u96kPRrWY6YtILTIooAgkELGweckD-tzJuGwCvTo4xsxJpIgRzdtPWczgTIVpApegtkhEkXtpva-bdp7Yd8YwDElk73S8Vo-3Goo_k4KPYC8RXbPg8RxD73sCAzmAmvRFomJxjrwErZAjWYvHdgf288wlDDc6i6hLxqbP_77rXH4DmBNFKqx9dEofdRLcwH3rnZghU7fIyUMtJy4u6IH-2zEaiHQ04Rg4uuh-EUGGTEAAaSrnCaK5VPGj4"/>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Jordan</span>
+</div>
+<!-- Day 3 -->
+<div class="flex flex-col items-center p-4 bg-surface-container-low rounded-2xl border border-transparent hover:border-primary/20 hover:bg-white transition-all cursor-pointer">
+<span class="text-label-lg font-label-lg text-outline uppercase mb-4">Thu</span>
+<div class="w-12 h-12 rounded-full overflow-hidden mb-3">
+<img class="w-full h-full object-cover" data-alt="Tech worker avatar, friendly look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHQqmEUTLWQIBdxxhLaGhuF5UT-IkXheYMOgMnUSF9FJPNaJYvRyoeqnQAYmtnYIEGzdNBreGSudV5V6a5J3W1Z1Yi6B1OC9nPbT9vGphIT2FkLh_fez2e-9EemEzeDVznR_H42TCWGqlpeFehTn3iKfXE0Yizjd-_BaacYCuLQsPMpYhbTLBYL6tCVeDYnRlaN5NNDkx_-b7c0huzOXj5nbYW0y-L3ljXvOjp3Z-Ce8nVSHGxj1h9afIN-iaz-_HYSNBRs12dnbo"/>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Elena</span>
+</div>
+<!-- Day 4 -->
+<div class="flex flex-col items-center p-4 bg-surface-container-low rounded-2xl border border-transparent hover:border-primary/20 hover:bg-white transition-all cursor-pointer">
+<span class="text-label-lg font-label-lg text-outline uppercase mb-4">Fri</span>
+<div class="w-12 h-12 rounded-full overflow-hidden mb-3">
+<img class="w-full h-full object-cover" data-alt="Smiling manager avatar, office setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhktNNoUsBlw9LahUng9m35LwUGH2-ATlXPVsva9eIqAmz6pSNJAI37JFovl-8F2AQggni-mjcHlSopCevsHkRMlJf5i-RS-PEuajAW67bXDUcR2miFKlJ-fkKrtlGh7py6TiTiEA591cvZvswmtz83jCILPXRr6H-YbIVPXrCpgYd9ngZW52cJawKRO3yN_xBjF7BI_AjoUcM9UpnD9LqYltrY3oEPhzTBMbBCPz_iz-VqOg58IgXS9lDJRKl8stuhS5GN7uBh14"/>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Chris</span>
+</div>
+<!-- Day 5 (Next Week) -->
+<div class="flex flex-col items-center p-4 bg-surface-container-low rounded-2xl border border-transparent hover:border-primary/20 hover:bg-white transition-all cursor-pointer opacity-60">
+<span class="text-label-lg font-label-lg text-outline uppercase mb-4">Mon</span>
+<div class="w-12 h-12 rounded-full overflow-hidden mb-3 grayscale">
+<span class="material-symbols-outlined text-4xl text-outline">help</span>
+</div>
+<span class="font-title-md text-title-md text-outline">TBD</span>
+</div>
+</div>
+</div>
+<!-- Weekly Progress (4 Cols) -->
+<div class="col-span-4 bg-surface-bright rounded-lg p-8 border border-outline-variant/30 flex flex-col justify-between">
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface mb-2">Weekly Progress</h3>
+<p class="text-body-md text-on-surface-variant mb-8">We're halfway through our soda goals! Stay hydrated.</p>
+<div class="relative pt-1">
+<div class="flex mb-2 items-center justify-between">
+<div>
+<span class="text-xs font-bold inline-block py-1 px-2 uppercase rounded-full text-on-secondary-container bg-secondary-container">
+                                        Refreshing
+                                    </span>
+</div>
+<div class="text-right">
+<span class="text-xs font-bold inline-block text-primary">
+                                        60%
+                                    </span>
+</div>
+</div>
+<div class="overflow-hidden h-4 mb-4 text-xs flex rounded-full bg-surface-container-highest">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center mint-gradient transition-all duration-1000 ease-out" style="width:60%"></div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-xl bg-white border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">local_cafe</span>
+</div>
+<span class="font-body-md text-on-surface">Cans Delivered</span>
+</div>
+<span class="font-data-table text-data-table font-bold">12/20</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-white border border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-sm">recycling</span>
+</div>
+<span class="font-body-md text-on-surface">Eco Points</span>
+</div>
+<span class="font-data-table text-data-table font-bold">450</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Stats / Small Cards -->
+<div class="mt-8 grid grid-cols-4 gap-6">
+<div class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-outline-variant/20 shadow-sm">
+<div class="w-12 h-12 rounded-full bg-warning/10 flex items-center justify-center text-warning">
+<span class="material-symbols-outlined">star</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-outline">Top Drinker</div>
+<div class="font-title-md text-on-surface">Martín (8 cans)</div>
+</div>
+</div>
+<div class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-outline-variant/20 shadow-sm">
+<div class="w-12 h-12 rounded-full bg-info/10 flex items-center justify-center text-info">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-outline">Office Happiness</div>
+<div class="font-title-md text-on-surface">High (+12%)</div>
+</div>
+</div>
+<div class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-outline-variant/20 shadow-sm">
+<div class="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center text-success">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-outline">Total Budget</div>
+<div class="font-title-md text-on-surface">$124.00</div>
+</div>
+</div>
+<div class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-outline-variant/20 shadow-sm">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div>
+<div class="text-label-lg font-label-lg text-outline">Active Staff</div>
+<div class="font-title-md text-on-surface">14 Members</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Slot Machine Header Overlay (Gamified Element) - Triggered on Generate -->
+<div class="hidden fixed inset-0 bg-inverse-surface/80 backdrop-blur-md z-[100] flex items-center justify-center" id="slot-machine-overlay">
+<div class="bg-surface rounded-xl p-12 max-w-2xl w-full text-center shadow-2xl scale-0 transition-transform duration-500" id="slot-card">
+<h2 class="font-display-lg text-display-lg text-primary mb-8">Generating Fairness...</h2>
+<div class="h-32 bg-surface-container-highest rounded-2xl overflow-hidden relative border-4 border-secondary-container">
+<div class="flex items-center gap-8 px-8 absolute top-0 left-0 h-full animate-marquee" id="avatar-marquee">
+<!-- Avatars will cycle here -->
+<div class="w-20 h-20 rounded-full bg-primary overflow-hidden border-4 border-white shrink-0"><img class="w-full h-full object-cover" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqQaIPWEWyzAtNFvkE8BIJhoVaUxe9uaO8eiOG_GjT0_LDYqvi_SkjHw5xFdeL7mwBx8NaaaZIuhiyBTR_YCxcHf8Zq9LlDYgeyOMapCxp_OdXrF2IX7jNCzEnzXOzC0bH3S5308arvxmPlFKHCpb_VhO5_-aSNMEf1NFQ-AzmbQJB_gvykL5hl6KF7iMCv3mAbDZgpRFbLvg2fxz_WhmiiWQfGevyM9NPM7Cve8O3kXdvz9UmVmz5Nxi-3B7Vyd-tVAl3SLHCyG4"/></div>
+<div class="w-20 h-20 rounded-full bg-secondary overflow-hidden border-4 border-white shrink-0"><img class="w-full h-full object-cover" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBliYF6YtmoYjrcxofWbP0GqkzgjiB1Yw7JKsjki_Q_-qA9wCODJavDx25P7DY8GmuV4k7vi8KaAaA1dxj6SXRNXCC9sY0xkUrl0aO9LJd0j2oPjBlJSlP8HyFX7n7PInczzO0E_v2FJELGsgr9MzwX8bqfPpJj91UMJo1-46JAJ4kB_c5a9PEbq20lLKpwmk8dTpaCb_eMVhWbsQ7b_ClpJ2Hdo-8gn8K-uPMpvFDTn14eFoBZYLNtiVSx5cfoZuvC_G4c36XOY0M"/></div>
+<div class="w-20 h-20 rounded-full bg-tertiary overflow-hidden border-4 border-white shrink-0"><img class="w-full h-full object-cover" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb8c9l3EUTvDv5EffN9vPXqlYMG-PxWp7kQ4K7o84tvjf9Msre_kJmRCa-Tgw_faARapFx0sQbxnGY79k5nK5sXvaL-nhPGYiNGTye13v5Oj8gWERUKvVkgYIYuHwCE7QGpFfK4EjL3f8PqBrt9cCrAsQeRgCY36286BiTZjt4-zFGB9kTY9ozJgMcRh9fpxy70SGVh2__QAvNyBV7vcGqODFRW8N_SnzmvBXPQJsZB-NLtJL6m3fO0w2f3o-TB9jRdUVBMhMDPeI"/></div>
+<div class="w-20 h-20 rounded-full bg-primary overflow-hidden border-4 border-white shrink-0"><img class="w-full h-full object-cover" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTaBTnjILo4eDwpQFe3ow9LExsPyx37kSsXnYAbN0S6huxZDxPw5v8YD6nVlkOHl5lM67MiDEtjjX3nS20lSPpmTzxUKOUVN1Aqev2WvmkK6HG6ezO66mKLDyTtyWpL-SWpcqfMMBrGEInH4VhMsjGSA_RCaX2DJ6LeWfko5zFRMIyGn27J2g-BQi3AlA6qZ3f45Cwqdy7xVzCUhFIbBbisNI8WPYEvOKOpcFpBjdD_S6Pr1xzchBfhwx2W7i0Fvlx5IY_v8WVsKc"/></div>
+<div class="w-20 h-20 rounded-full bg-secondary overflow-hidden border-4 border-white shrink-0"><img class="w-full h-full object-cover" data-alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb3DbT4E1gRwCzQ8JiWV55CpuQCFBnQcCi_RNENS5AjWaGfp8EXwo4TOBSyLcwsCInwG4RfMlAT6xJqejMGI3iBsA7fmChQH5bb8ILHQfdbZZm5GIPjrdmyDiDFJIBG28hP-64dKGgspCYFsNx3DWEvj7ykJcOUuEQWtJOdr-0jcrz4-71Y00h-S3BJOTogtrq3GSUFJvOZGtSKvdB8cJjFGfXuCjbBM14cXKN_e9rF6OSFMFXw4xDqa7h4E2ZAZzTyAQJoVIM5_8"/></div>
+</div>
+</div>
+<p class="mt-8 text-on-surface-variant font-body-lg">Calculating the most equitable rotation based on previous purchases and beverage consumption statistics.</p>
+</div>
+</div>
+<script>
+        // Simple interaction for the "Generate Week" button
+        const generateBtn = document.querySelector('button.bg-secondary');
+        const overlay = document.getElementById('slot-machine-overlay');
+        const slotCard = document.getElementById('slot-card');
+
+        generateBtn.addEventListener('click', () => {
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                slotCard.classList.remove('scale-0');
+                slotCard.classList.add('scale-100');
+            }, 10);
+
+            // Simulation of finishing
+            setTimeout(() => {
+                slotCard.classList.remove('scale-100');
+                slotCard.classList.add('scale-0');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 500);
+            }, 3000);
+        });
+
+        // Marquee animation loop simulation
+        const marquee = document.getElementById('avatar-marquee');
+        let pos = 0;
+        function step() {
+            pos -= 2;
+            if (pos <= -400) pos = 0;
+            marquee.style.transform = `translateX(${pos}px)`;
+            requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    </script>
+</body></html>
