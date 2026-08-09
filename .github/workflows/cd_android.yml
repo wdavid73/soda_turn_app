@@ -41,8 +41,24 @@ jobs:
 
       - run: flutter pub get
 
+      - name: Compute version
+        id: version
+        run: |
+          BASE_VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //' | cut -d'+' -f1)
+          MAJOR_MINOR=$(echo "$BASE_VERSION" | cut -d'.' -f1,2)
+          PATCH="${{ github.run_number }}"
+          echo "version_name=${MAJOR_MINOR}.${PATCH}" >> "$GITHUB_OUTPUT"
+          echo "build_number=${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - name: Get commit message
+        id: commit
+        run: echo "message=$(git log -1 --pretty=%s)" >> "$GITHUB_OUTPUT"
+
       - name: Build release APK
-        run: flutter build apk --release
+        run: |
+          flutter build apk --release \
+            --build-name=${{ steps.version.outputs.version_name }} \
+            --build-number=${{ steps.version.outputs.build_number }}
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -73,6 +89,7 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT_FILE: firebase-service-account.json
           FIREBASE_TESTERS: guichodevs@gmail.com
           GITHUB_SHA: ${{ github.sha }}
+          RELEASE_NOTES: "${{ steps.commit.outputs.message }} (${{ steps.version.outputs.version_name }}+${{ steps.version.outputs.build_number }})"
 
       - name: Clean up service account
         if: always()
