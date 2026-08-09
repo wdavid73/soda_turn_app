@@ -7,6 +7,7 @@ import '../../../../shared/widgets/assignment_confirmation_check.dart';
 import '../../../../shared/widgets/show_adaptive_modal.dart';
 import '../../domain/entities/assignment_entity.dart';
 import '../providers/shifts_providers.dart';
+import 'spin_wheel.dart';
 
 /// Edición de un día: gaseosa, presentes y bloqueo. Bottom sheet en mobile,
 /// diálogo centrado en web.
@@ -29,13 +30,65 @@ class DayEditSheet extends ConsumerStatefulWidget {
 
 class _DayEditSheetState extends ConsumerState<DayEditSheet> {
   final _confirmationKey = GlobalKey<AssignmentConfirmationCheckState>();
+  final _wheelKey = GlobalKey<SpinWheelState>();
+  bool _isSpinning = false;
 
   /// Guarda la selección manual y, si no hubo error, dispara el checkmark.
   Future<void> _selectParticipant(String? participanteId) async {
     final vm = ref.read(turnosViewModelProvider.notifier);
     final hadError = ref.read(turnosViewModelProvider).error != null;
     await vm.setProducto('gaseosa', widget.dateIso, participanteId);
+    if (!mounted) return;
     final nowHasError = ref.read(turnosViewModelProvider).error != null;
+    if (!hadError && !nowHasError) {
+      _confirmationKey.currentState?.play();
+    }
+  }
+
+  /// Gira la rueda sin destino mientras se resuelve la asignación automática
+  /// real (que puede tardar por la persistencia remota), y recién al tener
+  /// el ganador corre la fase de desaceleración que aterriza justo sobre él.
+  /// Evita que el giro se congele en un candidato al azar mientras espera y
+  /// luego "salte" al resultado real.
+  Future<void> _autoAssign(List<String> present, String dateIso) async {
+    if (_isSpinning || present.isEmpty) return;
+    final vm = ref.read(turnosViewModelProvider.notifier);
+    final hadError = ref.read(turnosViewModelProvider).error != null;
+
+    if (present.length == 1) {
+      await vm.autoAssignProducto('gaseosa', dateIso);
+      if (!mounted) return;
+      final nowHasError = ref.read(turnosViewModelProvider).error != null;
+      if (!hadError && !nowHasError) _confirmationKey.currentState?.play();
+      return;
+    }
+
+    setState(() => _isSpinning = true);
+    // El SpinWheel recién existe en el árbol tras el próximo frame.
+    await WidgetsBinding.instance.endOfFrame;
+    if (!mounted) return;
+
+    var keepSpinning = true;
+    final fastLoop = _wheelKey.currentState?.spinIndefinitely(
+      () => keepSpinning,
+    );
+    await vm.autoAssignProducto('gaseosa', dateIso);
+    keepSpinning = false;
+    await fastLoop;
+    if (!mounted) return;
+
+    final nowHasError = ref.read(turnosViewModelProvider).error != null;
+    final winnerId = ref
+        .read(turnosViewModelProvider)
+        .data
+        .asignacionDe('gaseosa', dateIso)
+        ?.participanteId;
+    final winnerIndex = winnerId != null ? present.indexOf(winnerId) : -1;
+    if (winnerIndex >= 0) {
+      await _wheelKey.currentState?.landOn(winnerIndex, present.length);
+    }
+    if (!mounted) return;
+    setState(() => _isSpinning = false);
     if (!hadError && !nowHasError) {
       _confirmationKey.currentState?.play();
     }
@@ -134,6 +187,13 @@ class _DayEditSheetState extends ConsumerState<DayEditSheet> {
                 ],
               ),
               const SizedBox(height: 8),
+              if (_isSpinning)
+                Center(
+                  child: SpinWheel(
+                    key: _wheelKey,
+                    labels: [for (final id in present) data.nameOf(id)],
+                  ),
+                ),
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -141,14 +201,14 @@ class _DayEditSheetState extends ConsumerState<DayEditSheet> {
                   for (final id in present)
                     ChoiceChip(
                       label: Text(
-                        id == vasosId
-                            ? '🥤 ${data.nameOf(id)}'
-                            : data.nameOf(id),
+                        id == vasosId ? '🥤 ${data.nameOf(id)}' : data.nameOf(id),
                       ),
                       selected: day.participanteId == id,
                       selectedColor: AppTheme.mint,
-                      onSelected: (selected) =>
-                          _selectParticipant(selected ? id : null),
+                      onSelected: _isSpinning
+                          ? null
+                          : (selected) =>
+                                _selectParticipant(selected ? id : null),
                     ),
                 ],
               ),
@@ -156,9 +216,9 @@ class _DayEditSheetState extends ConsumerState<DayEditSheet> {
               Row(
                 children: [
                   FilledButton.tonalIcon(
-                    onPressed: day.locked
+                    onPressed: day.locked || _isSpinning
                         ? null
-                        : () => vm.autoAssignProducto('gaseosa', dateIso),
+                        : () => _autoAssign(present, dateIso),
                     icon: const Icon(Icons.auto_awesome, size: 18),
                     label: const Text('Auto-asignar'),
                   ),

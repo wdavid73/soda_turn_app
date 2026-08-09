@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "flutter-web",
-      "runtimeExecutable": "fvm",
-      "runtimeArgs": ["flutter", "run", "-d", "chrome", "--web-port", "5959"],
+      "name": "turn_soda-web",
+      "runtimeExecutable": "D:\\Devs\\turn_soda\\.fvm\\flutter_sdk\\bin\\flutter.bat",
+      "runtimeArgs": ["run", "-d", "chrome", "--web-port", "5959"],
       "port": 5959
     }
   ]
