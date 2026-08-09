@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/app_date_utils.dart';
+import '../../../../shared/widgets/assignment_confirmation_check.dart';
 import '../../../../shared/widgets/show_adaptive_modal.dart';
 import '../../domain/entities/assignment_entity.dart';
 import '../providers/shifts_providers.dart';
@@ -17,13 +18,32 @@ Future<void> showDayEditSheet(BuildContext context, String dateIso) {
   );
 }
 
-class DayEditSheet extends ConsumerWidget {
+class DayEditSheet extends ConsumerStatefulWidget {
   final String dateIso;
 
   const DayEditSheet({super.key, required this.dateIso});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DayEditSheet> createState() => _DayEditSheetState();
+}
+
+class _DayEditSheetState extends ConsumerState<DayEditSheet> {
+  final _confirmationKey = GlobalKey<AssignmentConfirmationCheckState>();
+
+  /// Guarda la selección manual y, si no hubo error, dispara el checkmark.
+  Future<void> _selectParticipant(String? participanteId) async {
+    final vm = ref.read(turnosViewModelProvider.notifier);
+    final hadError = ref.read(turnosViewModelProvider).error != null;
+    await vm.setProducto('gaseosa', widget.dateIso, participanteId);
+    final nowHasError = ref.read(turnosViewModelProvider).error != null;
+    if (!hadError && !nowHasError) {
+      _confirmationKey.currentState?.play();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final dateIso = widget.dateIso;
     final textTheme = Theme.of(context).textTheme;
     final vm = ref.read(turnosViewModelProvider.notifier);
     final data = ref.watch(turnosViewModelProvider.select((s) => s.data));
@@ -98,11 +118,20 @@ class DayEditSheet extends ConsumerWidget {
                   ),
                 ),
               const SizedBox(height: 16),
-              Text(
-                'Gaseosa del día',
-                style: textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
+              Row(
+                children: [
+                  Text(
+                    'Gaseosa del día',
+                    style: textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  AssignmentConfirmationCheck(
+                    key: _confirmationKey,
+                    size: 20,
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
               Wrap(
@@ -119,7 +148,7 @@ class DayEditSheet extends ConsumerWidget {
                       selected: day.participanteId == id,
                       selectedColor: AppTheme.mint,
                       onSelected: (selected) =>
-                          vm.setProducto('gaseosa', dateIso, selected ? id : null),
+                          _selectParticipant(selected ? id : null),
                     ),
                 ],
               ),
