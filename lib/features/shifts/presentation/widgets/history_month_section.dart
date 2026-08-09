@@ -183,11 +183,9 @@ class _WeekAccordionCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    return Container(
-      decoration: BoxDecoration(
-        color: AppTheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return Material(
+      color: AppTheme.surfaceContainerLow,
+      borderRadius: BorderRadius.circular(16),
       clipBehavior: Clip.antiAlias,
       child: Theme(
         // Sin divisores arriba/abajo del ExpansionTile.

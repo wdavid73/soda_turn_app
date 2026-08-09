@@ -100,6 +100,14 @@ class ShiftsViewModel extends StateNotifier<TurnosUiState> {
   StreamSubscription<void>? _changesSub;
   Timer? _debounceTimer;
 
+  /// Cantidad de `_commit` en curso. Mientras sea > 0, `_reload` no debe
+  /// aplicar su resultado: el propio `save()` dispara eventos Realtime en
+  /// las mismas tablas que escribe, y un `load()` que llega antes de que
+  /// el commit termine devuelve datos desactualizados que pisarían la
+  /// edición optimista recién aplicada (bug: había que tocar 2-3 veces
+  /// para que una selección manual quedara guardada).
+  int _pendingCommits = 0;
+
   ShiftsViewModel(this.usecases)
     : super(
         TurnosUiState(
@@ -118,7 +126,9 @@ class ShiftsViewModel extends StateNotifier<TurnosUiState> {
   }
 
   Future<void> _reload() async {
+    if (_pendingCommits > 0) return;
     final result = await usecases.load();
+    if (_pendingCommits > 0) return;
     result.fold(
       (failure) =>
           state = state.copyWith(loading: false, error: failure.message),
@@ -146,11 +156,16 @@ class ShiftsViewModel extends StateNotifier<TurnosUiState> {
   /// Aplica una mutación pura del estado de dominio y la persiste.
   Future<void> _commit(ShiftsStateEntity next) async {
     state = state.copyWith(data: next);
-    final result = await usecases.save(next);
-    result.fold(
-      (failure) => state = state.copyWith(error: failure.message),
-      (_) {},
-    );
+    _pendingCommits++;
+    try {
+      final result = await usecases.save(next);
+      result.fold(
+        (failure) => state = state.copyWith(error: failure.message),
+        (_) {},
+      );
+    } finally {
+      _pendingCommits--;
+    }
   }
 
   void clearError() => state = state.copyWith(error: null);
